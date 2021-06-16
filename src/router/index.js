@@ -23,6 +23,11 @@ const routes = [
     path: '/UpdataAdm',
     name: 'UpdataAdm',
     component: () => import(/* webpackChunkName: "" */ '../components/UpdateDataAdmin.vue')
+  },
+  {
+    path: '/RegisteredCard',
+    name: 'RegisteredCard',
+    component: () => import(/* webpackChunkName: "" */ '../components/GetRegisteredCard.vue')
   }
 ]
 

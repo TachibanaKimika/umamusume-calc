@@ -1,13 +1,13 @@
 <template>
   <div class="UpdateDataAdmin">
-      <el-form :model="spcSubmit" label-width="100px" :label-position="left">
+      <el-form :model="spcSubmit" label-width="100px" >
         <el-row>
         <el-col :span="8">
         <el-form-item label="支援卡">
             <el-select v-model="spcSubmit.id" filterable placeholder="请选择">
             <el-option
             v-for="item in spcard"
-            :label="item.spc_name+'-'+item.spc_secname"
+            :label="'【'+item.spc_secname+'】'+item.spc_name"
             :value="item.id">
             </el-option>
             </el-select>
@@ -19,44 +19,43 @@
             </el-form-item>
         </el-col>
         <el-col :span="8">
-            <el-form-item label="友情锻炼加成">
-                <el-input-number v-model="spcSubmit.youujo" controls-position="right" :step="5"></el-input-number>
-            </el-form-item>
-        </el-col>
-</el-row>
-<el-row>
-        <el-col :span="8">
-            <el-form-item label="调子加成">
-                <el-input-number v-model="spcSubmit.yaruki" controls-position="right" :step="5"></el-input-number>
-            </el-form-item>
-        </el-col>
-        
-        
-        <el-col :span="8">
-            <el-form-item label="练习加成">
-                <el-input-number v-model="spcSubmit.tore" controls-position="right" :step="5"></el-input-number>
-            </el-form-item>
-        </el-col>
-        <el-col :span="8">
             <el-form-item label="得意率">
                 <el-input-number v-model="spcSubmit.tokuitu" controls-position="right" :step="5"></el-input-number>
             </el-form-item>
         </el-col>
 </el-row>
 <el-row>
+    <el-col :span="8">
+            <el-form-item label="友情ボーナス">
+                <el-input-number v-model="spcSubmit.youujo" controls-position="right" :step="5"></el-input-number>
+            </el-form-item>
+        </el-col>
+    
         <el-col :span="8">
-            <el-form-item label="初始羁绊">
-                <el-input-number v-model="spcSubmit.kizuna" controls-position="right" :step="5"></el-input-number>
+            <el-form-item label="やる気効果">
+                <el-input-number v-model="spcSubmit.yaruki" controls-position="right" :step="5"></el-input-number>
             </el-form-item>
         </el-col>
         <el-col :span="8">
-            <el-form-item label="比赛加成">
+            <el-form-item label="トレーニング効果">
+                <el-input-number v-model="spcSubmit.tore" controls-position="right" :step="5"></el-input-number>
+            </el-form-item>
+        </el-col>
+</el-row>
+<el-row>
+        <el-col :span="8">
+            <el-form-item label="レースボーナス">
                 <el-input-number v-model="spcSubmit.race" controls-position="right" :step="5"></el-input-number>
             </el-form-item>
         </el-col>
         <el-col :span="8">
-            <el-form-item label="粉丝数加成">
+            <el-form-item label="ファン数ボーナス">
                 <el-input-number v-model="spcSubmit.fan" controls-position="right" :step="5"></el-input-number>
+            </el-form-item>
+        </el-col>
+        <el-col :span="8">
+            <el-form-item label="初期絆ゲージ">
+                <el-input-number v-model="spcSubmit.kizuna" controls-position="right" :step="5"></el-input-number>
             </el-form-item>
         </el-col>
 </el-row>
@@ -71,25 +70,39 @@
                 <el-input-number v-model="spcSubmit.hit_ritu" controls-position="right" :step="5"></el-input-number>
             </el-form-item>
         </el-col>
+        <el-col :span="8">
+            <el-form-item label="消耗体力减少">
+                <el-input-number v-model="spcSubmit.hit_ritu" controls-position="right" :step="5"></el-input-number>
+            </el-form-item>
+        </el-col>
 </el-row>
-<el-row type="flex">
-        <el-col :span="6">
+<el-row>
+        <el-col :span="8">
+            <el-form-item label="消耗体力减少">
+                <el-input-number v-model="spcSubmit.reduce_suta" controls-position="right" :step="5"></el-input-number>
+            </el-form-item>
+        </el-col>
+        <el-col :span="8">
+            <el-form-item label="失败率降低">
+                <el-input-number v-model="spcSubmit.reduce_shipai" controls-position="right" :step="5"></el-input-number>
+            </el-form-item>
+        </el-col>
+        <el-col :span="8">
             <el-form-item label="属性点加成">
-                <el-select v-model="attrBonazu.bonasu_pt_p" placeholder="请选择">
+                <el-select v-model="attrBonazu.bonasu_pt_p" placeholder="请选择" style="width:100px; padding:0 10px">
                     <el-option
                     v-for="item in attribute_opt"
                     :label="item.label"
                     :value="item.value">
                     </el-option>
                 </el-select>
+                <el-button type="primary" @click="add1PtBonasu_PT()" >+1</el-button>
+                <el-button type="primary" @click="add1PtBonasu_PT('reset')" >reset</el-button>
             </el-form-item>
         </el-col>
-        <el-col :span="6">
-            <el-form-item label="数值">
-                <el-input-number v-model="attrBonazu.bonasu_pt" controls-position="right" ></el-input-number>
-            </el-form-item>
-        </el-col>
-        <el-col :span="6">
+</el-row>
+<el-row>
+        <el-col :span="8">
             <el-form-item label="初始属性点">
                 <el-select v-model="attrBonazu.init_stu_p" placeholder="请选择">
                     <el-option
@@ -100,15 +113,34 @@
                 </el-select>
             </el-form-item>
         </el-col>
-        <el-col :span="6">
-            <el-form-item label="数值">
-                <el-input-number v-model="attrBonazu.init_stu" controls-position="right" ></el-input-number>
+        <el-col :span="8">
+            <el-form-item label="具体值">
+            <el-input-number v-model="attrBonazu.init_stu" controls-position="right" ></el-input-number>
+            </el-form-item>
+        </el-col>
+        <el-col :span="8">
+            <el-form-item label="提交更改">
+            <el-button type="primary" @click="addInit_stu()">插入</el-button>
             </el-form-item>
         </el-col>
 </el-row>
-<el-form-item label="Submit">
-<el-button type="success" @click="updateSPCstaus()">默认按钮</el-button>
-</el-form-item>
+<el-row>
+    <el-col :span="8">
+        <el-form-item label="练习属性点">
+        {{spcSubmit.bonasu_pt}}
+        </el-form-item>
+    </el-col>
+    <el-col :span="8">
+        <el-form-item label="初始能力值">
+        {{spcSubmit.init_stu}}
+        </el-form-item>
+    </el-col>
+    <el-col :span="8">
+        <el-form-item label="提交更改">
+        <el-button type="success" @click="updateSPCstaus()">提交</el-button>
+        </el-form-item>
+    </el-col>
+</el-row>
     </el-form>
   </div>
 </template>
@@ -144,8 +176,14 @@ export default {
                 race: '0',
                 //粉丝数加成
                 fan: '0',
+                //hit等级提升
                 hitlv: '0',
+                //hit率加成
                 hit_ritu: '0',
+                //体力减少
+                reduce_suta: '0',
+                //失败率降低
+                reduce_shipai: '0',
             },
             sqlcon:{
                 username: 'akarichan',
@@ -182,10 +220,6 @@ export default {
         };
     },
     mounted(){
-        // qurSql(this.sqlcon,this.query,res=>{
-        //     this.result = res;
-        //     console.log(res)
-        // })
 
         qurSql(this.sqlcon,'select * from supportcard',res=>{
             this.spcard = res;
@@ -195,12 +229,13 @@ export default {
 
     methods:{
         updateSPCstaus(){
-            this.spcSubmit.bonasu_pt[this.attrBonazu.bonasu_pt_p] = this.attrBonazu.bonasu_pt;
-            this.spcSubmit.init_stu[this.attrBonazu.init_stu_p] = this.attrBonazu.init_stu;
+            //this.spcSubmit.bonasu_pt[this.attrBonazu.bonasu_pt_p] = this.attrBonazu.bonasu_pt;
+            //this.spcSubmit.init_stu[this.attrBonazu.init_stu_p] = this.attrBonazu.init_stu;
 
             //sql语句
             let querystr_a = 'INSERT INTO supportcard_stu (spc_id, spc_lv, spc_youujo, spc_yaruki, '+
-                            'spc_tore, spc_bonasu_pt, spc_tokuitu, spc_kizuna, spc_init_stu, spc_race, spc_fan, spc_hit_lv, spc_hit_ritu) VALUES';
+                            'spc_tore, spc_bonasu_pt, spc_tokuitu, spc_kizuna, spc_init_stu, spc_race, '+
+                            'spc_fan, spc_hit_lv, spc_hit_ritu, spc_reduce_suta, spc_reduce_shipai) VALUES';
             let querystr_b = '('+this.spcSubmit.id+', '+this.spcSubmit.level+','+
                             this.spcSubmit.youujo+', '+
                             this.spcSubmit.yaruki+', '+
@@ -208,13 +243,27 @@ export default {
                             this.spcSubmit.tokuitu+', '+this.spcSubmit.kizuna+', \''+
                             this.spcSubmit.init_stu.toString()+'\', '+this.spcSubmit.race+', '+
                             this.spcSubmit.fan+', '+this.spcSubmit.hitlv+', '+
-                            this.spcSubmit.hit_ritu +')';
+                            this.spcSubmit.hit_ritu +', '+this.spcSubmit.reduce_suta+', '+
+                            this.spcSubmit.reduce_shipai+')';
             console.log(querystr_a+querystr_b);
             qurSql(this.sqlcon,querystr_a+querystr_b,res=>{
                 this.result = res;
                 console.log(res);
             })
 
+        },
+
+        add1PtBonasu_PT(str){
+            if(str == 'reset'){
+                this.$set(this.spcSubmit,"bonasu_pt",[0,0,0,0,0,0])
+                return;
+            }
+            this.$set(this.spcSubmit.bonasu_pt, this.attrBonazu.bonasu_pt_p, this.spcSubmit.bonasu_pt[this.attrBonazu.bonasu_pt_p]+1)
+            //this.spcSubmit.bonasu_pt[this.attrBonazu.bonasu_pt_p] ++;
+        },
+        addInit_stu(){
+            //this.spcSubmit.init_stu[this.attrBonazu.init_stu_p] = this.attrBonazu.init_stu;
+            this.$set(this.spcSubmit.init_stu, this.attrBonazu.init_stu_p,this.attrBonazu.init_stu)
         }
     }
 }
