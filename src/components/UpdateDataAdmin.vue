@@ -1,17 +1,15 @@
 <template>
   <div class="UpdateDataAdmin">
-      <el-form :model="spcSubmit" label-width="100px" >
-        <el-row>
+      <el-form :model="spcSubmit" label-width="140px">
+        <el-row :gutter="20">
         <el-col :span="8">
-        <el-form-item label="支援卡">
-            <el-select v-model="spcSubmit.id" filterable placeholder="请选择">
+            <el-select v-model="spcSubmit.id" filterable placeholder="更新数据的卡" clearable style="width:350px">
             <el-option
             v-for="item in spcard"
-            :label="'【'+item.spc_secname+'】'+item.spc_name"
+            :label="'【'+item.spc_secname+'】 - '+item.spc_name"
             :value="item.id">
             </el-option>
             </el-select>
-        </el-form-item>
         </el-col>
         <el-col :span="8">
             <el-form-item label="等级">
@@ -24,7 +22,7 @@
             </el-form-item>
         </el-col>
 </el-row>
-<el-row>
+<el-row :gutter="20">
     <el-col :span="8">
             <el-form-item label="友情ボーナス">
                 <el-input-number v-model="spcSubmit.youujo" controls-position="right" :step="5"></el-input-number>
@@ -42,7 +40,7 @@
             </el-form-item>
         </el-col>
 </el-row>
-<el-row>
+<el-row :gutter="20">
         <el-col :span="8">
             <el-form-item label="レースボーナス">
                 <el-input-number v-model="spcSubmit.race" controls-position="right" :step="5"></el-input-number>
@@ -59,7 +57,7 @@
             </el-form-item>
         </el-col>
 </el-row>
-<el-row>
+<el-row :gutter="20">
         <el-col :span="8">
             <el-form-item label="hit等级加成">
                 <el-input-number v-model="spcSubmit.hitlv" controls-position="right" :step="5"></el-input-number>
@@ -76,7 +74,7 @@
             </el-form-item>
         </el-col>
 </el-row>
-<el-row>
+<el-row :gutter="20">
         <el-col :span="8">
             <el-form-item label="消耗体力减少">
                 <el-input-number v-model="spcSubmit.reduce_suta" controls-position="right" :step="5"></el-input-number>
@@ -101,7 +99,7 @@
             </el-form-item>
         </el-col>
 </el-row>
-<el-row>
+<el-row :gutter="20">
         <el-col :span="8">
             <el-form-item label="初始属性点">
                 <el-select v-model="attrBonazu.init_stu_p" placeholder="请选择">
@@ -135,7 +133,7 @@
         <el-input v-model="sqlcon.username" placeholder="数据库用户名"></el-input>
     </el-col>
     <el-col :span="4">
-        <el-input v-model="sqlcon.userpasswd" placeholder="数据库密码"></el-input>
+        <el-input show-password v-model="sqlcon.userpasswd" placeholder="数据库密码"></el-input>
     </el-col>
     <el-col :span="8">
         <el-form-item label="提交更改">

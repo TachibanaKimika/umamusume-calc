@@ -89,8 +89,8 @@
         inactive-color="#ff4949"
         active-value=100
         inactive-value=0>
-    </el-switch>
-    <el-button @click="up2sumulationTimes(50)">UPDATE</el-button><br>
+    </el-switch><br>
+    <el-button @click="up2sumulation()">模拟</el-button><el-button @click="up2sumulationTimes(50)">模拟多次取平均值</el-button><br>
     <el-table
       stripe
       :data="result"
