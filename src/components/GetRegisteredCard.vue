@@ -90,7 +90,7 @@
         active-value=100
         inactive-value=0>
     </el-switch>
-    <el-button @click="up2sumulation">UPDATE</el-button><br>
+    <el-button @click="up2sumulationTimes(50)">UPDATE</el-button><br>
     <el-table
       stripe
       :data="result"
@@ -194,24 +194,24 @@ export default {
         }
     },
     mounted(){
-    let querystr = 'SELECT \
-                    supportcard_stu.`id`, supportcard_stu.`spc_id`,supportcard.`spc_attribute`,\
-                    supportcard_stu.`spc_lv`,supportcard_stu.`spc_youujo`,supportcard_stu.`spc_yaruki`,supportcard_stu.`spc_tore`,\
-                    supportcard_stu.`spc_bonasu_pt`,supportcard_stu.`spc_tokuitu`,supportcard_stu.`spc_kizuna`,\
-                    supportcard_stu.`spc_init_stu`,supportcard_stu.`spc_race`,supportcard_stu.`spc_fan`,supportcard_stu.`spc_hit_lv`,\
-                    supportcard_stu.`spc_hit_ritu`,supportcard_stu.`spc_reduce_suta`,supportcard_stu.`spc_reduce_shipai`,\
-                    CONCAT(\'【\',supportcard_stu.`spc_lv`,\'】 ‐ 【\',supportcard.`spc_name`,\'　-　\',supportcard.`spc_secname`,\'】\') spc_name\
-                    FROM supportcard_stu\
-                    LEFT JOIN supportcard ON supportcard.`id` = supportcard_stu.`spc_id`'
-    qurSql(this.sqlcon,querystr,res=>{
-        this.card_item = res;
-        for(var i in this.card_item){
-            this.card_item[i].spc_bonasu_pt = this.card_item[i].spc_bonasu_pt.split(',').map(Number);
-            this.card_item[i].spc_init_stu = this.card_item[i].spc_init_stu.split(',').map(Number);
-            
-        }
-        console.log(this.card_item);
-    })
+        let querystr = 'SELECT \
+                        supportcard_stu.`id`, supportcard_stu.`spc_id`,supportcard.`spc_attribute`,\
+                        supportcard_stu.`spc_lv`,supportcard_stu.`spc_youujo`,supportcard_stu.`spc_yaruki`,supportcard_stu.`spc_tore`,\
+                        supportcard_stu.`spc_bonasu_pt`,supportcard_stu.`spc_tokuitu`,supportcard_stu.`spc_kizuna`,\
+                        supportcard_stu.`spc_init_stu`,supportcard_stu.`spc_race`,supportcard_stu.`spc_fan`,supportcard_stu.`spc_hit_lv`,\
+                        supportcard_stu.`spc_hit_ritu`,supportcard_stu.`spc_reduce_suta`,supportcard_stu.`spc_reduce_shipai`,\
+                        CONCAT(\'【\',supportcard_stu.`spc_lv`,\'】 ‐ 【\',supportcard.`spc_secname`,\'】　-　\',supportcard.`spc_name`) spc_name\
+                        FROM supportcard_stu\
+                        LEFT JOIN supportcard ON supportcard.`id` = supportcard_stu.`spc_id`'
+        qurSql(this.sqlcon,querystr,res=>{
+            this.card_item = res;
+            for(var i in this.card_item){
+                this.card_item[i].spc_bonasu_pt = this.card_item[i].spc_bonasu_pt.split(',').map(Number);
+                this.card_item[i].spc_init_stu = this.card_item[i].spc_init_stu.split(',').map(Number);
+                
+            }
+            console.log(this.card_item);
+        })
     },
     methods:{
         up2sumulation(){
@@ -238,6 +238,23 @@ export default {
                 }
             }
             return true;
+        },
+        up2sumulationTimes(times){
+            if(this.checkUpdata(this.seted_card_item)){
+                for(var i in this.card_kizuna){
+                    this.seted_card_item[i].spc_kizuna = this.card_kizuna[i]
+                }
+                for(var i in this.recivedresult){
+                        this.result[i].result = [0,0,0,0,0,0];
+                }
+                for(var j = 0; j<times; j++){
+                    this.recivedresult = simulation(this.seted_card_item,this.options)
+                    for(var i in this.recivedresult){
+                        //两个数组相加
+                        this.result[i].result = this.result[i].result.map((v,ii)=>v + this.recivedresult[i].result[ii]/times)
+                    }
+                }
+            }
         }
     }
 }

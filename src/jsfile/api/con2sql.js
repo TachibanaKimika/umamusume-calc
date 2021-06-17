@@ -7,7 +7,6 @@ var qurSql = async function(sqlcon,myquery,callback){
         user:    sqlcon.username,
         password:sqlcon.userpasswd,
         database:sqlcon.database,
-        
     });
 
     await pool.getConnection(function(err,connection){

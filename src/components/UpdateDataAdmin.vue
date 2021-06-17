@@ -119,21 +119,23 @@
             </el-form-item>
         </el-col>
         <el-col :span="8">
-            <el-form-item label="提交更改">
+            <el-form-item label="更改数据">
             <el-button type="primary" @click="addInit_stu()">插入</el-button>
             </el-form-item>
         </el-col>
 </el-row>
-<el-row>
-    <el-col :span="8">
-        <el-form-item label="练习属性点">
-        {{spcSubmit.bonasu_pt}}
-        </el-form-item>
+<el-row :gutter="20">
+    <el-col :span="4">
+        <p>练习属性点:{{spcSubmit.bonasu_pt}}</p>
     </el-col>
-    <el-col :span="8">
-        <el-form-item label="初始能力值">
-        {{spcSubmit.init_stu}}
-        </el-form-item>
+    <el-col :span="4">
+        <p>初始能力值:{{spcSubmit.init_stu}}</p>
+    </el-col>
+    <el-col :span="4">
+        <el-input v-model="sqlcon.username" placeholder="数据库用户名"></el-input>
+    </el-col>
+    <el-col :span="4">
+        <el-input v-model="sqlcon.userpasswd" placeholder="数据库密码"></el-input>
     </el-col>
     <el-col :span="8">
         <el-form-item label="提交更改">
@@ -220,22 +222,32 @@ export default {
         };
     },
     mounted(){
-
         qurSql(this.sqlcon,'select * from supportcard',res=>{
             this.spcard = res;
-            console.log(res)
+            //console.log(res)
         })
     },
 
     methods:{
-        updateSPCstaus(){
+        async updateSPCstaus(){
             //this.spcSubmit.bonasu_pt[this.attrBonazu.bonasu_pt_p] = this.attrBonazu.bonasu_pt;
             //this.spcSubmit.init_stu[this.attrBonazu.init_stu_p] = this.attrBonazu.init_stu;
 
+            let isexist;
+            await this.isItemExist().then(res => {
+                isexist = res;
+            }).catch(err => {
+                console.log(err)
+            })
+            if(!isexist){
+                this.$message.error('此条记录已存在');
+                return;
+            }
+
             //sql语句
-            let querystr_a = 'INSERT INTO supportcard_stu (spc_id, spc_lv, spc_youujo, spc_yaruki, '+
-                            'spc_tore, spc_bonasu_pt, spc_tokuitu, spc_kizuna, spc_init_stu, spc_race, '+
-                            'spc_fan, spc_hit_lv, spc_hit_ritu, spc_reduce_suta, spc_reduce_shipai) VALUES';
+            let querystr_a = 'INSERT INTO supportcard_stu (spc_id, spc_lv, spc_youujo, spc_yaruki, \
+                            spc_tore, spc_bonasu_pt, spc_tokuitu, spc_kizuna, spc_init_stu, spc_race, \
+                            spc_fan, spc_hit_lv, spc_hit_ritu, spc_reduce_suta, spc_reduce_shipai) VALUES';
             let querystr_b = '('+this.spcSubmit.id+', '+this.spcSubmit.level+','+
                             this.spcSubmit.youujo+', '+
                             this.spcSubmit.yaruki+', '+
@@ -248,9 +260,12 @@ export default {
             console.log(querystr_a+querystr_b);
             qurSql(this.sqlcon,querystr_a+querystr_b,res=>{
                 this.result = res;
+                console.log(res)
+                let msg = "插入成功, 影响行数: "+res.affectedRows+"; insertId:"+res.insertId;
+                this.callOutMsg('success',msg);
                 console.log(res);
             })
-
+            console.log("success");
         },
 
         add1PtBonasu_PT(str){
@@ -264,6 +279,34 @@ export default {
         addInit_stu(){
             //this.spcSubmit.init_stu[this.attrBonazu.init_stu_p] = this.attrBonazu.init_stu;
             this.$set(this.spcSubmit.init_stu, this.attrBonazu.init_stu_p,this.attrBonazu.init_stu)
+        },
+        isItemExist(){
+            return new Promise((resolve, reject) =>{
+                let id = this.spcSubmit.id;
+                let level = this.spcSubmit.level;
+                let querystr_a = 'SELECT COUNT(*) AS Count \
+                                FROM supportcard_stu \
+                                WHERE ';
+                let querystr_b = 'spc_id='+id+' AND spc_lv='+level;
+                let returnData;
+                qurSql(this.sqlcon,querystr_a+querystr_b,res=>{
+                    if(res[0].Count>0){
+                        returnData = false;
+                    }else{
+                        returnData = true;
+                    }
+                    resolve(returnData);
+                })
+                //reject("ERR")
+            })
+        },
+        callOutMsg(type, data){
+            this.$message({
+                showClose: true,
+                center: true,
+                message: data,
+                type: type
+            });
         }
     }
 }
@@ -271,5 +314,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 </style>
