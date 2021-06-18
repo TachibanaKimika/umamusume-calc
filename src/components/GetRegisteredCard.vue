@@ -1,5 +1,6 @@
 <template>
   <div class="GetRegisteredCard">
+    <div class="block">
     <el-select v-model="seted_card_item[0]" value-key="id" filterable placeholder="请选择">
         <el-option
         v-for="item in card_item"
@@ -89,8 +90,35 @@
         inactive-color="#ff4949"
         active-value=100
         inactive-value=0>
-    </el-switch><br>
-    <el-button @click="up2sumulation()">模拟</el-button><el-button @click="up2sumulationTimes(50)">模拟多次取平均值</el-button><br>
+    </el-switch>
+    </div>
+    <div class="block">
+    <el-row :gutter="20">
+    <el-col :span="2"><el-button @click="up2sumulation()" >模拟</el-button></el-col>
+    <el-col :span="3"><el-button @click="up2sumulationTimes()" >模拟多次取平均值</el-button></el-col>
+    <el-col :span="5"><el-slider v-model="simulationtime" style=" padding: 0 10px;"></el-slider></el-col>
+    <el-col :span="6"></el-col>
+    <el-col :span="8"></el-col>
+    </el-row>
+    </div>
+    <div class="Option">
+    <el-row :gutter="20">
+    <el-col :span="1"><p>属性</p></el-col>
+    <div v-for="(item, index) in options.uma" :key="index">
+        <el-col :span="2">
+        <el-input  v-model="options.uma[index]" style="width:80%; padding: 10px 10px;" />
+        </el-col>
+    </div>
+    <el-col :span="2"><p>练习等级</p></el-col>
+    <div v-for="(item, index) in options.torelv" :key="index">
+        <el-col :span="1">
+        <el-input  v-model="options.torelv[index]" style="width:80%; padding: 10px 10px;" />
+        </el-col>
+    </div>
+    <el-col :span="2"><p>调子</p></el-col>
+    <el-col :span="4"><el-input  v-model="options.yaruki" style="width:80%; padding: 10px 10px;" /></el-col>
+    </el-row>
+    </div>
     <el-table
       stripe
       :data="result"
@@ -151,7 +179,6 @@
 <script>
 import {qurSql} from "../jsfile/api/con2sql.js"
 import {simulation} from "../jsfile/util/sumulation_tore.js"
-
 export default {
     name: 'GetRegisteredCard',
     data(){
@@ -191,6 +218,7 @@ export default {
                     name:'kashikosa',
                     result:[0,0,0,0,0,0]
                 }],
+            simulationtime:20
         }
     },
     mounted(){
@@ -202,7 +230,8 @@ export default {
                         supportcard_stu.`spc_hit_ritu`,supportcard_stu.`spc_reduce_suta`,supportcard_stu.`spc_reduce_shipai`,\
                         CONCAT(\'【\',supportcard_stu.`spc_lv`,\'】 ‐ 【\',supportcard.`spc_secname`,\'】　-　\',supportcard.`spc_name`) spc_name\
                         FROM supportcard_stu\
-                        LEFT JOIN supportcard ON supportcard.`id` = supportcard_stu.`spc_id`'
+                        LEFT JOIN supportcard ON supportcard.`id` = supportcard_stu.`spc_id`\
+                        ORDER BY spc_name DESC'
         qurSql(this.sqlcon,querystr,res=>{
             this.card_item = res;
             for(var i in this.card_item){
@@ -215,6 +244,9 @@ export default {
     },
     methods:{
         up2sumulation(){
+            console.log(this.options.uma)
+            // this.options.uma = this.options.uma.split(',');
+            // this.options.torelv = this.options.torelv.split(',');
             if(this.checkUpdata(this.seted_card_item)){
                 for(var i in this.card_kizuna){
                     this.seted_card_item[i].spc_kizuna = this.card_kizuna[i]
@@ -239,7 +271,8 @@ export default {
             }
             return true;
         },
-        up2sumulationTimes(times){
+        up2sumulationTimes(){
+            var times = this.simulationtime*100;
             if(this.checkUpdata(this.seted_card_item)){
                 for(var i in this.card_kizuna){
                     this.seted_card_item[i].spc_kizuna = this.card_kizuna[i]
@@ -247,13 +280,22 @@ export default {
                 for(var i in this.recivedresult){
                         this.result[i].result = [0,0,0,0,0,0];
                 }
+
+                //相加多次
                 for(var j = 0; j<times; j++){
                     this.recivedresult = simulation(this.seted_card_item,this.options)
                     for(var i in this.recivedresult){
                         //两个数组相加
                         this.result[i].result = this.result[i].result.map((v,ii)=>v + this.recivedresult[i].result[ii]/times)
                     }
+                    
                 }
+                for(var i in this.result){
+                    for(var j in this.result[i].result){
+                        this.result[i].result[j] = Math.round(this.result[i].result[j]);
+                    }
+                }
+                
             }
         }
     }
@@ -264,5 +306,8 @@ export default {
 <style scoped>
 .el-select{
     padding: 10px;
+}
+.GetRegisteredCard{
+    margin:50px;
 }
 </style>

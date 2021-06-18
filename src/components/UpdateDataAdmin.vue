@@ -17,72 +17,20 @@
             </el-form-item>
         </el-col>
         <el-col :span="8">
-            <el-form-item label="得意率">
-                <el-input-number v-model="spcSubmit.tokuitu" controls-position="right" :step="5"></el-input-number>
+            <el-form-item>
             </el-form-item>
         </el-col>
 </el-row>
 <el-row :gutter="20">
     <el-col :span="8">
             <el-form-item label="友情ボーナス">
-                <el-input-number v-model="spcSubmit.youujo" controls-position="right" :step="5"></el-input-number>
+                <el-input-number v-model="spcSubmit.youujo" controls-position="right" :step="10"></el-input-number>
             </el-form-item>
         </el-col>
     
         <el-col :span="8">
             <el-form-item label="やる気効果">
-                <el-input-number v-model="spcSubmit.yaruki" controls-position="right" :step="5"></el-input-number>
-            </el-form-item>
-        </el-col>
-        <el-col :span="8">
-            <el-form-item label="トレーニング効果">
-                <el-input-number v-model="spcSubmit.tore" controls-position="right" :step="5"></el-input-number>
-            </el-form-item>
-        </el-col>
-</el-row>
-<el-row :gutter="20">
-        <el-col :span="8">
-            <el-form-item label="レースボーナス">
-                <el-input-number v-model="spcSubmit.race" controls-position="right" :step="5"></el-input-number>
-            </el-form-item>
-        </el-col>
-        <el-col :span="8">
-            <el-form-item label="ファン数ボーナス">
-                <el-input-number v-model="spcSubmit.fan" controls-position="right" :step="5"></el-input-number>
-            </el-form-item>
-        </el-col>
-        <el-col :span="8">
-            <el-form-item label="初期絆ゲージ">
-                <el-input-number v-model="spcSubmit.kizuna" controls-position="right" :step="5"></el-input-number>
-            </el-form-item>
-        </el-col>
-</el-row>
-<el-row :gutter="20">
-        <el-col :span="8">
-            <el-form-item label="hit等级加成">
-                <el-input-number v-model="spcSubmit.hitlv" controls-position="right" :step="5"></el-input-number>
-            </el-form-item>
-        </el-col>
-        <el-col :span="8">
-            <el-form-item label="hit率加成">
-                <el-input-number v-model="spcSubmit.hit_ritu" controls-position="right" :step="5"></el-input-number>
-            </el-form-item>
-        </el-col>
-        <el-col :span="8">
-            <el-form-item label="消耗体力减少">
-                <el-input-number v-model="spcSubmit.hit_ritu" controls-position="right" :step="5"></el-input-number>
-            </el-form-item>
-        </el-col>
-</el-row>
-<el-row :gutter="20">
-        <el-col :span="8">
-            <el-form-item label="消耗体力减少">
-                <el-input-number v-model="spcSubmit.reduce_suta" controls-position="right" :step="5"></el-input-number>
-            </el-form-item>
-        </el-col>
-        <el-col :span="8">
-            <el-form-item label="失败率降低">
-                <el-input-number v-model="spcSubmit.reduce_shipai" controls-position="right" :step="5"></el-input-number>
+                <el-input-number v-model="spcSubmit.yaruki" controls-position="right" :step="15"></el-input-number>
             </el-form-item>
         </el-col>
         <el-col :span="8">
@@ -101,6 +49,65 @@
 </el-row>
 <el-row :gutter="20">
         <el-col :span="8">
+            <el-form-item label="トレーニング効果">
+                <el-input-number v-model="spcSubmit.tore" controls-position="right" :step="5"></el-input-number>
+            </el-form-item>
+        </el-col>
+        <el-col :span="8">
+            <el-form-item label="初期絆ゲージ">
+                <el-input-number v-model="spcSubmit.kizuna" controls-position="right" :step="15"></el-input-number>
+            </el-form-item>
+            
+        </el-col>
+        <el-col :span="8">
+            <el-form-item label="レースボーナス">
+                <el-input-number v-model="spcSubmit.race" controls-position="right" :step="5"></el-input-number>
+            </el-form-item>
+            
+        </el-col>
+</el-row>
+<el-row :gutter="20">
+        <el-col :span="8">
+            <el-form-item label="ファン数ボーナス">
+                <el-input-number v-model="spcSubmit.fan" controls-position="right" :step="5"></el-input-number>
+            </el-form-item>
+            
+        </el-col>
+        <el-col :span="8">
+            <el-form-item label="ヒントレベルアップ">
+                <el-input-number v-model="spcSubmit.hitlv" controls-position="right" :step="1"></el-input-number>
+            </el-form-item>
+            
+        </el-col>
+        <el-col :span="8">
+            <el-form-item label="ヒント発生率アップ">
+                <el-input-number v-model="spcSubmit.hit_ritu" controls-position="right" :step="20"></el-input-number>
+            </el-form-item>
+            
+        </el-col>
+</el-row>
+<el-row :gutter="20">
+        <el-col :span="8">
+            <el-form-item label="得意率">
+                <el-input-number v-model="spcSubmit.tokuitu" controls-position="right" :step="20"></el-input-number>
+            </el-form-item>
+            
+        </el-col>
+        <el-col :span="8">
+            <el-form-item label="消耗体力减少">
+                <el-input-number v-model="spcSubmit.reduce_suta" controls-position="right" :step="5"></el-input-number>
+            </el-form-item>
+            
+        </el-col>
+        <el-col :span="8">
+            <el-form-item label="失败率降低">
+                <el-input-number v-model="spcSubmit.reduce_shipai" controls-position="right" :step="10"></el-input-number>
+            </el-form-item>
+            
+        </el-col>
+</el-row>
+<el-row :gutter="20">
+        <el-col :span="8">
             <el-form-item label="初始属性点">
                 <el-select v-model="attrBonazu.init_stu_p" placeholder="请选择">
                     <el-option
@@ -113,7 +120,7 @@
         </el-col>
         <el-col :span="8">
             <el-form-item label="具体值">
-            <el-input-number v-model="attrBonazu.init_stu" controls-position="right" ></el-input-number>
+            <el-input-number v-model="attrBonazu.init_stu" controls-position="right" :step="20"></el-input-number>
             </el-form-item>
         </el-col>
         <el-col :span="8">

@@ -90,16 +90,16 @@ var simulation = function (cards_item,options) {
         for(var j in mytore[i].card){
             //友情ボーナス補正
             if((mytore[i].card[j].spc_attribute-1)==i&&mytore[i].card[j].spc_kizuna>80){
-                console.log("youujo")
+                //console.log("youujo")
                 youujoUP = youujoUP*(100+mytore[i].card[j].spc_youujo)/100;
             }
             //やる気効果補正
             yarukiUP = yarukiUP+mytore[i].card[j].spc_youujo/100;
-            //トレーニング効果補正
-            console.log("トレーニング効果補正");
-            console.log(mytore[i].card[j].spc_tore)
-            console.log(mytore[i].card[j].spc_tore/100);
 
+            //トレーニング効果補正
+            // console.log("トレーニング効果補正");
+            // console.log(mytore[i].card[j].spc_tore)
+            // console.log(mytore[i].card[j].spc_tore/100);
             toreUP = toreUP+mytore[i].card[j].spc_tore/100;
         }
         yarukiUP = 1+((options.yaruki-1)*(1+yarukiUP));
@@ -122,12 +122,12 @@ var simulation = function (cards_item,options) {
             result[j] = result[j] * youujoUP * yarukiUP * toreUP * cardUP;
             result[j] = parseInt(result[j]);
         }
-        console.log(result);
+        //console.log(result);
         
         mytore[i].result = result;
 
     }
-    console.log(mytore);
+    //console.log(mytore);
     return mytore;
 }
 
@@ -144,16 +144,16 @@ var calc_card_position = function(spc_attribute,card_tokuritu){
     for(let i in rituArr){
         rituArr[i] = othertoreritu;
         if(i == attribute){
-            console.log(i)
+            //console.log(i)
             rituArr[i] = awareritu;
         }
         if(i == 5){
             rituArr[i] = noawareritu;
         }
     }
-    console.log(rituArr);
-    console.log(calcArrSum(rituArr,4));
-    console.log(calcArrSum(rituArr,6));
+    // console.log(rituArr);
+    // console.log(calcArrSum(rituArr,4));
+    // console.log(calcArrSum(rituArr,6));
     let ranNUM = Math.random();
     //console.log(ranNUM);
     switch(true){
