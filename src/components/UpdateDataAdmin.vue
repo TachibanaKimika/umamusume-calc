@@ -3,7 +3,7 @@
       <el-form :model="spcSubmit" label-width="140px">
         <el-row :gutter="20">
         <el-col :span="8">
-            <el-select v-model="spcSubmit.id" filterable placeholder="更新数据的卡" clearable style="width:350px">
+            <el-select v-model="spcSubmit.id" filterable placeholder="更新数据的卡" clearable style="width:350px" @change="getRegiedCard">
             <el-option
             v-for="item in spcard"
             :label="'【'+item.spc_secname+'】 - '+item.spc_name"
@@ -17,7 +17,15 @@
             </el-form-item>
         </el-col>
         <el-col :span="8">
-            <el-form-item>
+            <el-form-item label="等级">
+                <el-select v-model="result" filterable placeholder="已存在的等级" clearable >
+                <el-option
+                v-for="item in regedcard"
+                disabled
+                :label="'【'+item.spc_lv+'】'"
+                :value="item.spc_id">
+                </el-option>
+                </el-select>
             </el-form-item>
         </el-col>
 </el-row>
@@ -222,7 +230,8 @@ export default {
                 bonasu_pt_p:0,bonasu_pt:0
             },
             query:'select * from supportcard',
-
+            regedcard:[],
+            regedcardtmp:'',
             result: '',
         };
     },
@@ -312,6 +321,17 @@ export default {
                 message: data,
                 type: type
             });
+        },
+        getRegiedCard(){
+            let querystr = `SELECT * FROM
+            supportcard_stu
+            WHERE supportcard_stu.spc_id = ${this.spcSubmit.id}`;
+            qurSql(this.sqlcon,querystr,res=>{
+                this.regedcard = res;
+                console.log('getRegiedCard')
+                console.log(res)
+            })
+
         }
     }
 }

@@ -4,7 +4,9 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/UpdataAdm">UpdataAdm</router-link> | 
-      <router-link to="/RegisteredCard">RegisteredCard</router-link>
+      <router-link to="/RegisteredCard">RegisteredCard</router-link> |
+      <router-link to="/DataAnalysis">DataAnalysis</router-link> | 
+      <router-link to="/UpdateSingleUma">UpdateSingleUma</router-link>
     </div>
     <router-view/>
   </div>

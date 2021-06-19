@@ -28,6 +28,16 @@ const routes = [
     path: '/RegisteredCard',
     name: 'RegisteredCard',
     component: () => import(/* webpackChunkName: "" */ '../components/GetRegisteredCard.vue')
+  },
+  {
+    path: '/DataAnalysis',
+    name: 'DataAnalysis',
+    component: () => import('../components/DataAnalysis.vue')
+  },
+  {
+    path: '/UpdateSingleUma',
+    name: 'UpdateSingleUma',
+    component: () => import('../components/UpdateSingleUma.vue')
   }
 ]
 

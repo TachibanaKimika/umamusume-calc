@@ -16,6 +16,30 @@ var qurSql = async function(sqlcon,myquery,callback){
     })
 }
 
+var qurSqlPromise = function(sqlcon,myquery){
+    const pool = mysql.createPool({
+        host:    'rm-bp1id4y905ysrz6pvjo.mysql.rds.aliyuncs.com',
+        user:    sqlcon.username,
+        password:sqlcon.userpasswd,
+        database:sqlcon.database,
+    });
+
+    // pool.getConnection(function(err,connection){
+    //     connection.query(myquery,(err,response,fieleds) => {
+    //         resolve(response);
+    //     })
+    // })
+    return new Promise((resolve)=>{
+        pool.getConnection(function(err,connection){
+            connection.query(myquery,(err,response,fieleds) => {
+                resolve(response);
+            })
+        })
+    })
+}
+
+
 export{
-    qurSql
+    qurSql,
+    qurSqlPromise
 }
