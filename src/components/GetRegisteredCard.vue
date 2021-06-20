@@ -1,10 +1,10 @@
 <template>
   <div class="GetRegisteredCard">
     <div class="block">
-    <el-select v-model="seted_card_item[0]" value-key="id" filterable placeholder="请选择">
+    <el-select v-model="seted_card_item[0]" value-key="spc_name" filterable placeholder="请选择">
         <el-option
         v-for="item in card_item"
-        :key="item.id"
+        :key="item.spc_name"
         :label="item.spc_name"
         :value="item">
         </el-option>
@@ -16,10 +16,10 @@
         active-value=100
         inactive-value=0>
     </el-switch>
-    <el-select v-model="seted_card_item[1]" value-key="id" filterable placeholder="请选择">
+    <el-select v-model="seted_card_item[1]" value-key="spc_name" filterable placeholder="请选择">
         <el-option
         v-for="item in card_item"
-        :key="item.id"
+        :key="item.spc_name"
         :label="item.spc_name"
         :value="item">
         </el-option>
@@ -31,10 +31,10 @@
         active-value=100
         inactive-value=0>
     </el-switch>
-    <el-select v-model="seted_card_item[2]" value-key="id" filterable placeholder="请选择">
+    <el-select v-model="seted_card_item[2]" value-key="spc_name" filterable placeholder="请选择">
         <el-option
         v-for="item in card_item"
-        :key="item.id"
+        :key="item.spc_name"
         :label="item.spc_name"
         :value="item">
         </el-option>
@@ -46,10 +46,10 @@
         active-value=100
         inactive-value=0>
     </el-switch>
-    <el-select v-model="seted_card_item[3]" value-key="id" filterable placeholder="请选择">
+    <el-select v-model="seted_card_item[3]" value-key="spc_name" filterable placeholder="请选择">
         <el-option
         v-for="item in card_item"
-        :key="item.id"
+        :key="item.spc_name"
         :label="item.spc_name"
         :value="item">
         </el-option>
@@ -61,10 +61,10 @@
         active-value=100
         inactive-value=0>
     </el-switch>
-    <el-select v-model="seted_card_item[4]" value-key="id" filterable placeholder="请选择">
+    <el-select v-model="seted_card_item[4]" value-key="spc_name" filterable placeholder="请选择">
         <el-option
         v-for="item in card_item"
-        :key="item.id"
+        :key="item.spc_name"
         :label="item.spc_name"
         :value="item">
         </el-option>
@@ -76,10 +76,10 @@
         active-value=100
         inactive-value=0>
     </el-switch>
-    <el-select v-model="seted_card_item[5]" value-key="id" filterable placeholder="请选择">
+    <el-select v-model="seted_card_item[5]" value-key="spc_name" filterable placeholder="请选择">
         <el-option
         v-for="item in card_item"
-        :key="item.id"
+        :key="item.spc_name"
         :label="item.spc_name"
         :value="item">
         </el-option>
@@ -110,9 +110,15 @@
         </el-col>
     </div>
     <el-col :span="2"><p>练习等级</p></el-col>
-    <div v-for="(item, index) in options.torelv" :key="index">
+    <div v-for="(item, index) in options.torelv">
         <el-col :span="1">
-        <el-input  v-model="options.torelv[index]" style="width:80%; padding: 10px 10px;" />
+        <!-- <el-input  v-model="options.torelv[index]" style="width:80%; padding: 10px 10px;" /> -->
+        <el-slider
+        v-model="options.torelv[index]"
+        :step="1"
+        :min="1" :max="5"
+        show-stops
+        style="width:80%; padding: 10px 10px;" />
         </el-col>
     </div>
     <el-col :span="2"><p>调子</p></el-col>
@@ -172,13 +178,20 @@
         </el-popover>
       </template>
       </el-table-column>
+      <el-table-column
+        prop="up"
+        label="上升值"
+        width="180">
+      </el-table-column>
     </el-table>
+    <div id="BoxChart" class="echarts" style="width: 1800px; height: 1200px"></div>
   </div>
 </template>
 
 <script>
 import {qurSql} from "../jsfile/api/con2sql.js"
 import {simulation} from "../jsfile/util/sumulation_tore.js"
+import {initChartsOption_boxplot} from "../jsfile/util/initChartsOption.js"
 export default {
     name: 'GetRegisteredCard',
     data(){
@@ -191,7 +204,50 @@ export default {
             },
             card_item: [],
             seted_card_item: [],//将卡用id表示
+            trash:[],
             card_kizuna:[0,0,0,0,0,0],
+            stdtore:[
+                {
+                    cost:21,
+                    lv:[[10,0,5,0,0,2],
+                    [11,0,5,0,0,2],
+                    [12,0,5,0,0,2],
+                    [13,0,6,0,0,2],
+                    [14,0,7,0,0,2]]
+                },
+                {
+                    cost:19,
+                    lv:[[0,9,0,4,0,2],
+                    [0,10,0,4,0,2],
+                    [0,11,0,4,0,2],
+                    [0,12,0,5,0,2],
+                    [0,13,0,6,0,2]]
+                },
+                {
+                    cost:20,
+                    lv:[[0,5,8,0,0,2],
+                    [0,5,9,0,0,2],
+                    [0,5,10,0,0,2],
+                    [0,6,11,0,0,2],
+                    [0,7,12,0,0,2]]
+                },
+                {
+                    cost:22,
+                    lv:[[4,0,4,8,0,2],
+                    [4,0,4,9,0,2],
+                    [4,0,4,10,0,2],
+                    [5,0,4,11,0,2],
+                    [5,0,5,12,0,2]]
+                },
+                {
+                    cost:-5,
+                    lv:[[2,0,0,0,9,4],
+                    [2,0,0,0,10,4],
+                    [2,0,0,0,11,4],
+                    [3,0,0,0,12,4],
+                    [4,0,0,0,13,4]]
+                },
+            ],
             options:{
                 //马的属性值加成
                 uma:[20,10,0,0,0],
@@ -204,20 +260,32 @@ export default {
             result:[
                 {
                     name:'speed',
-                    result:[0,0,0,0,0,0]
+                    result:[0,0,0,0,0,0],
+                    up:0
                 },{
                     name:'stamina',
-                    result:[0,0,0,0,0,0]
+                    result:[0,0,0,0,0,0],
+                    up:0
                 },{
                     name:'power',
-                    result:[0,0,0,0,0,0]
+                    result:[0,0,0,0,0,0],
+                    up:0
                 },{
                     name:'konnjyo',
-                    result:[0,0,0,0,0,0]
+                    result:[0,0,0,0,0,0],
+                    up:0
                 },{
                     name:'kashikosa',
-                    result:[0,0,0,0,0,0]
+                    result:[0,0,0,0,0,0],
+                    up:0
                 }],
+            totalResult:[
+                {name:'speed',num:[]},
+                {name:'sutamina',num:[]},
+                {name:'power',num:[]},
+                {name:'konnjyo',num:[]},
+                {name:'kashikosa',num:[]},
+            ],
             simulationtime:20
         }
     },
@@ -272,6 +340,14 @@ export default {
             return true;
         },
         up2sumulationTimes(){
+            //初始化
+            this.totalResult=[
+                {name:'speed',num:[]},
+                {name:'sutamina',num:[]},
+                {name:'power',num:[]},
+                {name:'konnjyo',num:[]},
+                {name:'kashikosa',num:[]},
+            ];
             var times = this.simulationtime*100;
             if(this.checkUpdata(this.seted_card_item)){
                 for(var i in this.card_kizuna){
@@ -286,17 +362,25 @@ export default {
                     this.recivedresult = simulation(this.seted_card_item,this.options)
                     for(var i in this.recivedresult){
                         //两个数组相加
+                        this.totalResult[i].num.push(this.recivedresult[i].result[i]);
                         this.result[i].result = this.result[i].result.map((v,ii)=>v + this.recivedresult[i].result[ii]/times)
                     }
-                    
                 }
                 for(var i in this.result){
                     for(var j in this.result[i].result){
                         this.result[i].result[j] = Math.round(this.result[i].result[j]);
                     }
                 }
-                
             }
+            for(var i in this.result){
+                this.result[i].up = this.result[i].result[i]/this.stdtore[i].lv[this.options.torelv[i]-1][i]/this.options.yaruki/((this.options.uma[i]+100)/100)
+            }
+            // console.log(this.totalResult)
+
+            let boxChart = this.$echarts.init(document.getElementById('BoxChart'))
+            var options = initChartsOption_boxplot(this.totalResult)
+            //console.log(options)
+            boxChart.setOption(options)
         }
     }
 }

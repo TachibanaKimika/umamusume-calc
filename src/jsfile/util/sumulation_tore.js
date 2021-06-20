@@ -80,10 +80,8 @@ var simulation = function (cards_item,options) {
     //开始模拟
     for(let i in mytore){
         //let result = [0,0,0,0,0,0];
-
         //获得基础值
         var result = stdtore[i].lv[mytore[i].level-1];
-        //console.log(result);
         let youujoUP = 1;
         let yarukiUP = 0;
         let toreUP = 1;
@@ -121,11 +119,11 @@ var simulation = function (cards_item,options) {
         for(var j in result){
             result[j] = result[j] * youujoUP * yarukiUP * toreUP * cardUP;
             result[j] = parseInt(result[j]);
+            if(result[j]>100){
+                result[j] = 100
+            }
         }
-        //console.log(result);
-        
         mytore[i].result = result;
-
     }
     //console.log(mytore);
     return mytore;
