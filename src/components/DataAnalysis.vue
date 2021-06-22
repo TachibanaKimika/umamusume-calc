@@ -1,7 +1,7 @@
 <template>
   <div class="DataAns">
-    <div id="AtbCountChart" class="echarts" style="width: 600px; height: 400px"></div>
-    <div id="CardCountChart" class="echarts" style="width: 600px; height: 400px"></div>
+    <div id="AtbCountChart" class="echarts" style="width: 45%; height: 400px;"></div>
+    <div id="CardCountChart" class="echarts" style="width: 45%; height: 400px;"></div>
   </div>
 </template>
 
@@ -131,3 +131,15 @@ export default {
   }
 }
 </script>
+
+
+<style scoped>
+.echarts{
+    display: inline-block;
+    padding: 20px;
+    margin:10px;
+    background-color: rgba(209, 209, 233,0.5);
+    box-shadow: 3px 3px 6px -3px black;
+    border-radius: 25px;
+}
+</style>

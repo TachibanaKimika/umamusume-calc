@@ -1,12 +1,13 @@
 <template>
   <div class="GetRegisteredCard">
     <div class="block">
-
+    <el-row>
+    <el-col :span="24">
     <el-button 
     v-model="seted_card_item[0]" 
     placeholder="支援卡1" 
     @click="dialogVisible = true;potionSelector=0"
-    style="width:15%"
+    style="width:27%"
     class="line-limit-length">
     <span v-if="seted_card_item[0]" >{{seted_card_item[0].spc_name}}</span><span v-else>请选择支援卡1</span>
     </el-button>
@@ -21,9 +22,9 @@
     v-model="seted_card_item[1]" 
     placeholder="支援卡2" 
     @click="dialogVisible = true;potionSelector=1"
-    style="width:15%"
+    style="width:27%"
     class="line-limit-length">
-    <span v-if="seted_card_item[1]" >{{seted_card_item[1].spc_name}}</span><span v-else>请选择支援卡1</span>
+    <span v-if="seted_card_item[1]" >{{seted_card_item[1].spc_name}}</span><span v-else>请选择支援卡2</span>
     </el-button>
     <el-switch
         v-model="card_kizuna[1]"
@@ -32,14 +33,14 @@
         active-value=100
         inactive-value=0>
     </el-switch>
-    <el-select v-model="seted_card_item[2]" value-key="spc_name" filterable placeholder="请选择">
-        <el-option
-        v-for="item in card_item"
-        :key="item.spc_name"
-        :label="item.spc_name"
-        :value="item">
-        </el-option>
-    </el-select>
+    <el-button 
+    v-model="seted_card_item[2]" 
+    placeholder="支援卡3" 
+    @click="dialogVisible = true;potionSelector=2"
+    style="width:27%"
+    class="line-limit-length">
+    <span v-if="seted_card_item[2]" >{{seted_card_item[2].spc_name}}</span><span v-else>请选择支援卡3</span>
+    </el-button>
     <el-switch
         v-model="card_kizuna[2]"
         active-color="#13ce66"
@@ -47,14 +48,15 @@
         active-value=100
         inactive-value=0>
     </el-switch>
-    <el-select v-model="seted_card_item[3]" value-key="spc_name" filterable placeholder="请选择">
-        <el-option
-        v-for="item in card_item"
-        :key="item.spc_name"
-        :label="item.spc_name"
-        :value="item">
-        </el-option>
-    </el-select>
+    </el-col>
+    <el-button 
+    v-model="seted_card_item[3]" 
+    placeholder="支援卡4" 
+    @click="dialogVisible = true;potionSelector=3"
+    style="width:27%"
+    class="line-limit-length">
+    <span v-if="seted_card_item[3]" >{{seted_card_item[3].spc_name}}</span><span v-else>请选择支援卡4</span>
+    </el-button>
     <el-switch
         v-model="card_kizuna[3]"
         active-color="#13ce66"
@@ -62,14 +64,14 @@
         active-value=100
         inactive-value=0>
     </el-switch>
-    <el-select v-model="seted_card_item[4]" value-key="spc_name" filterable placeholder="请选择">
-        <el-option
-        v-for="item in card_item"
-        :key="item.spc_name"
-        :label="item.spc_name"
-        :value="item">
-        </el-option>
-    </el-select>
+    <el-button 
+    v-model="seted_card_item[4]" 
+    placeholder="支援卡5" 
+    @click="dialogVisible = true;potionSelector=4"
+    style="width:27%"
+    class="line-limit-length">
+    <span v-if="seted_card_item[4]" >{{seted_card_item[4].spc_name}}</span><span v-else>请选择支援卡5</span>
+    </el-button>
     <el-switch
         v-model="card_kizuna[4]"
         active-color="#13ce66"
@@ -77,14 +79,14 @@
         active-value=100
         inactive-value=0>
     </el-switch>
-    <el-select v-model="seted_card_item[5]" value-key="spc_name" filterable placeholder="请选择">
-        <el-option
-        v-for="item in card_item"
-        :key="item.spc_name"
-        :label="item.spc_name"
-        :value="item">
-        </el-option>
-    </el-select>
+    <el-button 
+    v-model="seted_card_item[5]" 
+    placeholder="支援卡6" 
+    @click="dialogVisible = true;potionSelector=5"
+    style="width:27%"
+    class="line-limit-length">
+    <span v-if="seted_card_item[5]" >{{seted_card_item[5].spc_name}}</span><span v-else>请选择支援卡6</span>
+    </el-button>
     <el-switch
         v-model="card_kizuna[5]"
         active-color="#13ce66"
@@ -92,6 +94,7 @@
         active-value=100
         inactive-value=0>
     </el-switch>
+    </el-row>
     </div>
     <div class="block">
     <el-row :gutter="20">
@@ -422,9 +425,7 @@ export default {
 .el-select{
     padding: 10px;
 }
-.GetRegisteredCard{
-    margin:50px;
-}
+
 
 .line-limit-length {
     margin:10px;
