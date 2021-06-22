@@ -17,7 +17,8 @@
 
 
   <div id="app">
-    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" router>
+    <div id="nav">
+    <el-menu class="el-menu-demo" mode="horizontal" router>
       <el-menu-item index="/">主页</el-menu-item>
       <el-menu-item index="/about">about</el-menu-item>
       <el-menu-item index="/RegisteredCard">练习模拟</el-menu-item>
@@ -26,7 +27,11 @@
       <el-menu-item index="/Test">测试用</el-menu-item>
       <el-menu-item index="/UpdataAdm">更新支援卡数据</el-menu-item>
     </el-menu>
-    <router-view/>
+    </div>
+    <div class="router-view">
+      <router-view/>
+    </div>
+    
   </div>
 </template>
 
@@ -50,5 +55,9 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.router-view{
+  padding: 0px 40px;
 }
 </style>

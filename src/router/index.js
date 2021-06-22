@@ -47,8 +47,8 @@ const routes = [
 
   {
     path: '/Test',
-    name: 'Test',
-    component: () => import('../components/Test.vue')
+    name: 'SelectWindowOfRegistedCard',
+    component: () => import('../components/child/SelectWindowOfRegistedCard.vue')
   }
 ]
 

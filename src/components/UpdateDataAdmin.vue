@@ -3,13 +3,14 @@
       <el-form :model="spcSubmit" label-width="140px">
         <el-row :gutter="20">
         <el-col :span="8">
-            <el-select v-model="spcSubmit.id" filterable placeholder="更新数据的卡" clearable style="width:350px" @change="getRegiedCard">
+            <!-- <el-select v-model="spcSubmit.id" filterable placeholder="更新数据的卡" clearable style="width:350px" @change="getRegiedCard">
             <el-option
             v-for="item in spcard"
             :label="'【'+item.spc_secname+'】 - '+item.spc_name"
             :value="item.id">
             </el-option>
-            </el-select>
+            </el-select> -->
+            <el-button v-model="spcSubmit.id" placeholder="支援卡1" @click="dialogVisible = true" ><span v-if="selectedCardName">{{selectedCardName}}</span><span v-else>请选择支援卡4</span></el-button>
         </el-col>
         <el-col :span="8">
             <el-form-item label="等级">
@@ -35,7 +36,6 @@
                 <el-input-number v-model="spcSubmit.youujo" controls-position="right" :step="10"></el-input-number>
             </el-form-item>
         </el-col>
-    
         <el-col :span="8">
             <el-form-item label="やる気効果">
                 <el-input-number v-model="spcSubmit.yaruki" controls-position="right" :step="15"></el-input-number>
@@ -157,17 +157,27 @@
     </el-col>
 </el-row>
     </el-form>
+
+<el-dialog
+title="选择支援卡"
+:visible.sync="dialogVisible">
+    <SelectWindow :cards="spcard" v-on:getCardFromChild='reciveCardItem' />
+</el-dialog>
   </div>
 </template>
 
 <script>
 import {qurSql} from "../jsfile/api/con2sql.js"
 
-
+import SelectWindow from "@/components/child/SelectWindow.vue"
 export default {
     name: 'UpdateDataAdmin',
+    components: {
+        SelectWindow
+    },
     data() {
         return {
+            dialogVisible:false,
             spcard:[],
             spcSubmit:{
                 id: '',
@@ -233,10 +243,13 @@ export default {
             regedcard:[],
             regedcardtmp:'',
             result: '',
+            selectedCardName:'',
         };
     },
     mounted(){
-        qurSql(this.sqlcon,'select * from supportcard',res=>{
+        let query_spc = 'SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT(\'【\',spc_secname,\'】　－　\',spc_name) AS `name` FROM supportcard'
+
+        qurSql(this.sqlcon,query_spc,res=>{
             this.spcard = res;
             //console.log(res)
         })
@@ -332,11 +345,17 @@ export default {
                 console.log(res)
             })
 
-        }
+        },
+        reciveCardItem(data){
+            console.log(data)
+            this.selectedCardName=data.name
+            this.spcSubmit.id=data.id
+            this.dialogVisible=false
+            this.getRegiedCard()
+        },
     }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

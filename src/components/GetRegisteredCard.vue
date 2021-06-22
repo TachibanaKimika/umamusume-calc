@@ -1,14 +1,15 @@
 <template>
   <div class="GetRegisteredCard">
     <div class="block">
-    <el-select v-model="seted_card_item[0]" value-key="spc_name" filterable placeholder="请选择">
-        <el-option
-        v-for="item in card_item"
-        :key="item.spc_name"
-        :label="item.spc_name"
-        :value="item">
-        </el-option>
-    </el-select>
+
+    <el-button 
+    v-model="seted_card_item[0]" 
+    placeholder="支援卡1" 
+    @click="dialogVisible = true;potionSelector=0"
+    style="width:15%"
+    class="line-limit-length">
+    <span v-if="seted_card_item[0]" >{{seted_card_item[0].spc_name}}</span><span v-else>请选择支援卡1</span>
+    </el-button>
     <el-switch
         v-model="card_kizuna[0]"
         active-color="#13ce66"
@@ -16,14 +17,14 @@
         active-value=100
         inactive-value=0>
     </el-switch>
-    <el-select v-model="seted_card_item[1]" value-key="spc_name" filterable placeholder="请选择">
-        <el-option
-        v-for="item in card_item"
-        :key="item.spc_name"
-        :label="item.spc_name"
-        :value="item">
-        </el-option>
-    </el-select>
+    <el-button 
+    v-model="seted_card_item[1]" 
+    placeholder="支援卡2" 
+    @click="dialogVisible = true;potionSelector=1"
+    style="width:15%"
+    class="line-limit-length">
+    <span v-if="seted_card_item[1]" >{{seted_card_item[1].spc_name}}</span><span v-else>请选择支援卡1</span>
+    </el-button>
     <el-switch
         v-model="card_kizuna[1]"
         active-color="#13ce66"
@@ -185,6 +186,13 @@
       </el-table-column>
     </el-table>
     <div id="BoxChart" class="echarts" style="width: 1800px; height: 1200px"></div>
+
+
+    <el-dialog
+        title="选择支援卡"
+        :visible.sync="dialogVisible">
+            <SelectWindowOfRegistedCard :cards="card_item" v-on:getCardFromChild='reciveCardItem'/>
+        </el-dialog>
   </div>
 </template>
 
@@ -192,8 +200,13 @@
 import {qurSql} from "../jsfile/api/con2sql.js"
 import {simulation} from "../jsfile/util/sumulation_tore.js"
 import {initChartsOption_boxplot} from "../jsfile/util/initChartsOption.js"
+import SelectWindowOfRegistedCard from "@/components/child/SelectWindowOfRegistedCard.vue"
+
 export default {
     name: 'GetRegisteredCard',
+    components: {
+        SelectWindowOfRegistedCard
+    },
     data(){
         return {
             sqlcon:{
@@ -286,7 +299,9 @@ export default {
                 {name:'konnjyo',num:[]},
                 {name:'kashikosa',num:[]},
             ],
-            simulationtime:20
+            simulationtime:20,
+            dialogVisible:false,
+            potionSelector:'',
         }
     },
     mounted(){
@@ -307,7 +322,7 @@ export default {
                 this.card_item[i].spc_init_stu = this.card_item[i].spc_init_stu.split(',').map(Number);
                 
             }
-            console.log(this.card_item);
+            //console.log(this.card_item);
         })
     },
     methods:{
@@ -392,7 +407,12 @@ export default {
                 message:msg,
                 type:type
             })
-        }
+        },
+        reciveCardItem(data){
+            console.log(this.potionSelector)
+            this.seted_card_item[this.potionSelector]=data;
+            this.dialogVisible=false
+        },
     }
 }
 </script>
@@ -404,5 +424,12 @@ export default {
 }
 .GetRegisteredCard{
     margin:50px;
+}
+
+.line-limit-length {
+    margin:10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
 }
 </style>
