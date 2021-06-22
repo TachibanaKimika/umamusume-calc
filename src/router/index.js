@@ -38,6 +38,17 @@ const routes = [
     path: '/UpdateSingleUma',
     name: 'UpdateSingleUma',
     component: () => import('../components/UpdateSingleUma.vue')
+  },
+
+
+
+
+
+
+  {
+    path: '/Test',
+    name: 'Test',
+    component: () => import('../components/Test.vue')
   }
 ]
 
