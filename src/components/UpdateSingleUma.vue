@@ -1,170 +1,119 @@
 <template>
-    <div>
-  <!-- <el-row :gutter="20">
-    <el-col :span="7">
-      <el-cascader filterable
-      v-model="sc[0]"
-      :options='items'
-      :props="optionProps"
-      clearable 
-      placeholder="支援卡1">
-      <template slot-scope="{ node, data }">
-        <span>{{ data.Name }}</span>
-        <span v-if="!data.children"> - {{ data.SecName }} </span>
-      </template>
-    </el-cascader>
-  </el-col>
-    <el-col :span="5">
-      <el-input-number 
-      v-model="scl[0]" 
-      :min="1" 
-      :max="50" 
-      label="レベル">
-    </el-input-number>
-    </el-col>
-    <el-col :span="7">
-      <el-cascader filterable
-      v-model="sc[1]"
-      :options='items'
-      :props="optionProps"
-      clearable 
-      placeholder="支援卡2">
-      <template slot-scope="{ node, data }">
-        <span>{{ data.Name }}</span>
-        <span v-if="!data.children"> - {{ data.SecName }} </span>
-      </template>
-    </el-cascader>
-    </el-col>
-    <el-col :span="5">
-      <el-input-number 
-      v-model="scl[1]" 
-      :min="1" 
-      :max="50" 
-      label="レベル">
-    </el-input-number>
-    </el-col>
-    <el-col :span="7">
-      <el-cascader filterable
-      v-model="sc[2]"
-      :options='items'
-      :props="optionProps"
-      clearable 
-      placeholder="支援卡1">
-      <template slot-scope="{ node, data }">
-        <span>{{ data.Name }}</span>
-        <span v-if="!data.children"> - {{ data.SecName }} </span>
-      </template>
-    </el-cascader>
-  </el-col>
-    <el-col :span="5">
-      <el-input-number 
-      v-model="scl[2]" 
-      :min="1" 
-      :max="50" 
-      label="レベル">
-    </el-input-number>
-    </el-col>
-    <el-col :span="7">
-      <el-cascader filterable
-      v-model="sc[3]"
-      :options='items'
-      :props="optionProps"
-      clearable 
-      placeholder="支援卡2">
-      <template slot-scope="{ node, data }">
-        <span>{{ data.Name }}</span>
-        <span v-if="!data.children"> - {{ data.SecName }} </span>
-      </template>
-    </el-cascader>
-    </el-col>
-    <el-col :span="5">
-      <el-input-number 
-      v-model="scl[3]" 
-      :min="1" 
-      :max="50" 
-      label="レベル">
-    </el-input-number>
-    </el-col>
-    <el-col :span="7">
-      <el-cascader filterable
-      v-model="sc[4]"
-      :options='items'
-      :props="optionProps"
-      clearable 
-      placeholder="支援卡5">
-      <template slot-scope="{ node, data }">
-        <span>{{ data.Name }}</span>
-        <span v-if="!data.children"> - {{ data.SecName }} </span>
-      </template>
-    </el-cascader>
-  </el-col>
-    <el-col :span="5">
-      <el-input-number 
-      v-model="scl[4]" 
-      :min="1" 
-      :max="50" 
-      label="レベル">
-    </el-input-number>
-    </el-col>
-    <el-col :span="7">
-      <el-cascader filterable
-      v-model="sc[5]"
-      :options='items'
-      :props="optionProps"
-      clearable 
-      placeholder="支援卡6">
-      <template slot-scope="{ node, data }">
-        <span>{{ data.Name }}</span>
-        <span v-if="!data.children"> - {{ data.SecName }} </span>
-      </template>
-    </el-cascader>
-    </el-col>
-    <el-col :span="5">
-      <el-input-number 
-      v-model="scl[5]" 
-       
-      :min="1" 
-      :max="50" 
-      label="レベル">
-    </el-input-number>
-    </el-col>
-    <el-col :span="12">
-      <el-select v-model="umaname" filterable placeholder="SecletUma" >
-        <el-option
-          v-for="item in umaitems"
-          :key="item.id"
-          :label="`${item.Name} - ${item.SecName}`"
-          :value="item.id"
-          >
-        </el-option>
-      </el-select>
-    </el-col>
-    <el-col :span="12">
-      <el-button type="primary" style="width:100%" @click="updatenewumaVue(umaname,sc,scl)">提交数据</el-button>
-    </el-col>
-  </el-row> -->
-  </div>
+    <div id="Test">
+        <div class="inputspcCard">
+        <el-row>
+            <el-col :span='8'><el-button v-model="myCardItem[0]" placeholder="支援卡1" @click="dialogVisible = true;potionSelector=0"><p v-if="myCardItem[0]">{{myCardItem[0].name}}</p><p v-else>请选择支援卡1</p></el-button><el-input-number v-model="myCardItemLV[0]" :min="1" :max="50" :step="5" controls-position="right"></el-input-number></el-col>
+            <el-col :span='8'><el-button v-model="myCardItem[1]" placeholder="支援卡2" @click="dialogVisible = true;potionSelector=1"><p v-if="myCardItem[1]">{{myCardItem[1].name}}</p><p v-else>请选择支援卡2</p></el-button><el-input-number v-model="myCardItemLV[1]" :min="1" :max="50" :step="5" controls-position="right"></el-input-number></el-col>
+            <el-col :span='8'><el-button v-model="myCardItem[2]" placeholder="支援卡3" @click="dialogVisible = true;potionSelector=2"><p v-if="myCardItem[2]">{{myCardItem[2].name}}</p><p v-else>请选择支援卡3</p></el-button><el-input-number v-model="myCardItemLV[2]" :min="1" :max="50" :step="5" controls-position="right"></el-input-number></el-col>
+        </el-row>
+        <el-row>
+            <el-col :span='8'><el-button v-model="myCardItem[3]" placeholder="支援卡1" @click="dialogVisible = true;potionSelector=3"><p v-if="myCardItem[3]">{{myCardItem[3].name}}</p><p v-else>请选择支援卡4</p></el-button><el-input-number v-model="myCardItemLV[3]" :min="1" :max="50" :step="5" controls-position="right"></el-input-number></el-col>
+            <el-col :span='8'><el-button v-model="myCardItem[4]" placeholder="支援卡2" @click="dialogVisible = true;potionSelector=4"><p v-if="myCardItem[4]">{{myCardItem[4].name}}</p><p v-else>请选择支援卡5</p></el-button><el-input-number v-model="myCardItemLV[4]" :min="1" :max="50" :step="5" controls-position="right"></el-input-number></el-col>
+            <el-col :span='8'><el-button v-model="myCardItem[5]" placeholder="支援卡3" @click="dialogVisible = true;potionSelector=5"><p v-if="myCardItem[5]">{{myCardItem[5].name}}</p><p v-else>请选择支援卡6</p></el-button><el-input-number v-model="myCardItemLV[5]" :min="1" :max="50" :step="5" controls-position="right"></el-input-number></el-col>
+        </el-row>
+        </div>
+        <div class="inputUma">
+        <el-row>
+            <el-col :span='8'>
+                <el-input-number v-model="myUmaStaus[0]" controls-position="right" :min="1" :max="1200" :step="100"></el-input-number>
+                <el-input-number v-model="myUmaStaus[1]" controls-position="right" :min="1" :max="1200" :step="100"></el-input-number>
+            </el-col>
+            <el-col :span='8'>
+                <el-input-number v-model="myUmaStaus[2]" controls-position="right" :min="1" :max="1200" :step="100"></el-input-number>
+                <el-input-number v-model="myUmaStaus[3]" controls-position="right" :min="1" :max="1200" :step="100"></el-input-number>
+            </el-col>
+            <el-col :span='8'>
+                <el-input-number v-model="myUmaStaus[4]" controls-position="right" :min="1" :max="1200" :step="100"></el-input-number>
+                <el-input-number v-model="myUmaStaus[5]" controls-position="right" ></el-input-number>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="8"><el-select v-model="myUmaItem" placeholder="🐎名" filterable style="width: 60%"><el-option v-for="item in umaItem" :key="item.id" :value="item.id" :label="item.name"></el-option></el-select></el-col>
+            <!-- rank -->
+            <el-col :span="8"><el-input-number style="width:50%" v-model="myUmaStaus[5]"></el-input-number></el-col>
+            <el-col :span="8"><el-button @click="insertUma2Sql" style="width:40%" type="success"><p>提交</p></el-button></el-col>
+        </el-row>
+        </div>
+        
+
+        <el-dialog
+        title="提示"
+        :visible.sync="dialogVisible">
+            <span>选择支援卡</span>
+            <TestSelectWindow :cards="cardItem" v-on:getCardFromChild='reciveCardItem' />
+        </el-dialog>
+    </div>
 </template>
 
 <script>
+import {qurSql} from "../jsfile/api/con2sql.js"
+import {updatenewuma} from "../jsfile/api/insertUma.js"
+
+import TestSelectWindow from "@/components/child/TestSelectWindow.vue"
 export default {
-    name: 'UpdateSingleUma',
-    data() {
-        return{
-            valuea: [],
-            umaname:'',
-            sc:'',//支援卡id
-            scl:'',//支援卡等级
-            items: [],
-            umaitems:[],
-            optionProps: {
-                value: 'id',
-                label: 'Name',
-                children: 'children',
-                //multiple: true,
-                expandTrigger: 'hover'
+    name:'Test',
+    components: {
+        TestSelectWindow
+    },
+    data(){
+        return {
+            sqlcon:{
+                username: 'Guest',
+                userpasswd: 'password#123',
+                hostname: 'rm-bp1id4y905ysrz6pvjo.mysql.rds.aliyuncs.com',
+                database: 'umamusume-pbl',
+            },
+            cardItem: [],
+            myCardItem:[],//卡-提交
+            myCardItemLV:[30,30,30,30,30,30],//等级-提交
+            dialogVisible: false,
+            potionSelector:'0',
+            umaItem: [],
+            myUmaItem:'',//🐎-提交
+            myUmaStaus:[0,0,0,0,0,0]//数值-提交
+        }
+    },
+    mounted(){
+        let query_spc = 'SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT(\'【\',spc_secname,\'】　－　\',spc_name) AS `name` FROM supportcard'
+        let query_uma = 'SELECT id, CONCAT(\'【\',uma_secname,\'】 － \',uma_name) AS `name` FROM uma'
+        qurSql(this.sqlcon, query_spc, res=>{
+            this.cardItem = res;
+            console.log(res)
+        })
+        qurSql(this.sqlcon, query_uma, res=>{
+            this.umaItem = res;
+            console.log(res)
+        })
+
+    },
+    methods:{
+        reciveCardItem(data){
+            console.log(this.potionSelector)
+            this.myCardItem[this.potionSelector]=data;
+            this.dialogVisible=false
+        },
+        insertUma2Sql(){
+            var umaIsert={
+                id_name:this.myUmaItem,
+                status:this.myUmaStaus,
+                cardItem:this.myCardItem,
+                cardItemLV:this.myCardItemLV
             }
+            updatenewuma(umaIsert,this.sqlcon)
         }
     }
+
 }
 </script>
+
+<style scoped>
+.el-button, .el-row{
+    margin:auto;
+    padding: 5px 10px;
+}
+.el-input-number{
+    width: 20%;
+    margin:5px 20px !important;
+    
+}
+</style>

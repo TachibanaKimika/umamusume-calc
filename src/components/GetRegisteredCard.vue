@@ -328,12 +328,14 @@ export default {
         },
         checkUpdata(data){
             if(data.length != 6){
-                console.log("数组长度为"+data.length)
+                //console.log("数组长度为"+data.length)
+                this.showMsg("数组长度为"+data.length,'error')
                 return false;
             };
             for(var i=0 ; i<6; i++){
                 if(!data[i]){
-                    console.log("没选全")
+                    //console.log("没选全")
+                    this.showMsg("没选全",'error')
                     return false;
                 }
             }
@@ -371,16 +373,25 @@ export default {
                         this.result[i].result[j] = Math.round(this.result[i].result[j]);
                     }
                 }
-            }
-            for(var i in this.result){
-                this.result[i].up = this.result[i].result[i]/this.stdtore[i].lv[this.options.torelv[i]-1][i]/this.options.yaruki/((this.options.uma[i]+100)/100)
-            }
-            // console.log(this.totalResult)
 
-            let boxChart = this.$echarts.init(document.getElementById('BoxChart'))
-            var options = initChartsOption_boxplot(this.totalResult)
-            //console.log(options)
-            boxChart.setOption(options)
+
+                for(var i in this.result){
+                    this.result[i].up = this.result[i].result[i]/this.stdtore[i].lv[this.options.torelv[i]-1][i]/this.options.yaruki/((this.options.uma[i]+100)/100)
+                }
+                // console.log(this.totalResult)
+
+                let boxChart = this.$echarts.init(document.getElementById('BoxChart'))
+                var options = initChartsOption_boxplot(this.totalResult)
+                //console.log(options)
+                boxChart.setOption(options)
+            }
+            
+        },
+        showMsg(msg,type){
+            this.$message({
+                message:msg,
+                type:type
+            })
         }
     }
 }

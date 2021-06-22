@@ -35,9 +35,9 @@ const routes = [
     component: () => import('../components/DataAnalysis.vue')
   },
   {
-    path: '/UpdateSingleUma',
-    name: 'UpdateSingleUma',
-    component: () => import('../components/UpdateSingleUma.vue')
+    path: '/RegisterNewUma',
+    name: 'RegisterNewUma',
+    component: () => import('../components/RegisterNewUma.vue')
   },
 
 

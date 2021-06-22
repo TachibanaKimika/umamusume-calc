@@ -29,7 +29,7 @@
 
 <script>
 export default {
-    name: 'TestSelectWindow',
+    name: 'SelectWindow',
     props: {
         cards:Array
     },

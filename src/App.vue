@@ -1,14 +1,31 @@
 <template>
-  <div id="app">
+  <!-- <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/UpdataAdm">UpdataAdm</router-link> | 
       <router-link to="/RegisteredCard">RegisteredCard</router-link> |
       <router-link to="/DataAnalysis">DataAnalysis</router-link> | 
-      <router-link to="/UpdateSingleUma">UpdateSingleUma</router-link> | 
+      <router-link to="/RegisterNewUma">RegisterNewUma</router-link> | 
       <router-link to="/Test">Test</router-link>
     </div>
+    <router-view/>
+  </div> -->
+
+
+
+
+
+  <div id="app">
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" router>
+      <el-menu-item index="/">主页</el-menu-item>
+      <el-menu-item index="/about">about</el-menu-item>
+      <el-menu-item index="/RegisteredCard">练习模拟</el-menu-item>
+      <el-menu-item index="/DataAnalysis">数据分析</el-menu-item>
+      <el-menu-item index="/RegisterNewUma">更新🐎</el-menu-item>
+      <el-menu-item index="/Test">测试用</el-menu-item>
+      <el-menu-item index="/UpdataAdm">更新支援卡数据</el-menu-item>
+    </el-menu>
     <router-view/>
   </div>
 </template>

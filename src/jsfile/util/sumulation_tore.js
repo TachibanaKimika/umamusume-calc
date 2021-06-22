@@ -71,7 +71,7 @@ var simulation = function (cards_item,options) {
     for(let i in cards_item){
         //tmpnum = calc_card_position(cards_item[i].spc_attribute,cards_item[i].spc_tokuitu);
         let tmpnum = calc_card_position(cards_item[i].spc_attribute,cards_item[i].spc_tokuitu);
-        if(tmpnum!=-1){
+        if(tmpnum!=-1&&mytore[tmpnum].card.length<5){
             mytore[tmpnum].card.push(cards_item[i])
         }
         //mytore[calc_card_position(cards_item[i].spc_attribute,cards_item[i].spc_tokuitu)].card.push(cards_item[i])

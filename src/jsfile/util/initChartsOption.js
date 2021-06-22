@@ -57,11 +57,11 @@ var initChartsOption_boxplot=function(Rawdata){
                     formatter: function(params){
                         return [
                             '类别名称: ' + params.name,
-                            '上边界: ' + params.data[1],
-                            '下四分位数: ' + params.data[2],
+                            '最小值: ' + params.data[1],
+                            '后25%: ' + params.data[2],
                             '中位数: ' + params.data[3],
-                            '上四分位数: ' + params.data[4],
-                            '下边界: ' + params.data[5]
+                            '前25%: ' + params.data[4],
+                            '最大边界: ' + params.data[5]
                         ].join('<br/>')
                     }
                 },
