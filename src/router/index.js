@@ -39,16 +39,10 @@ const routes = [
     name: 'RegisterNewUma',
     component: () => import('../components/RegisterNewUma.vue')
   },
-
-
-
-
-
-
   {
     path: '/Test',
-    name: 'SelectWindowOfRegistedCard',
-    component: () => import('../components/child/SelectWindowOfRegistedCard.vue')
+    name: 'Test',
+    component: () => import('../components/Test.vue')
   }
 ]
 
