@@ -1,3 +1,8 @@
+<!-- 
+    更新🐎页面
+ -->
+
+
 <template>
     <div id="Test">
         <div class="inputspcCard">
@@ -107,11 +112,11 @@ export default {
 <style scoped>
 .el-row{
     margin:auto;
-    padding: 5px 10px;
+    padding: 5px 5px;
 }
 .el-input-number{
-    width: 20%;
-    margin:5px 20px !important;
+    width: 25%;
+    margin:5px 5px !important;
     
 }
 </style>

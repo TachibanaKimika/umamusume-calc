@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-15 17:31:37
+ * @LastEditTime: 2021-06-26 00:42:00
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\App.vue
+-->
 <template>
   <!-- <div id="app">
     <div id="nav">
@@ -24,8 +32,9 @@
       <el-menu-item index="/RegisteredCard">练习模拟</el-menu-item>
       <el-menu-item index="/DataAnalysis">数据分析</el-menu-item>
       <el-menu-item index="/RegisterNewUma">更新🐎</el-menu-item>
-      <el-menu-item index="/Test">测试用</el-menu-item>
       <el-menu-item index="/UpdataAdm">更新支援卡数据</el-menu-item>
+      <el-menu-item index="/InsertSkill">插入技能</el-menu-item>
+      <el-menu-item index="/Test">测试用</el-menu-item>
     </el-menu>
     </div>
     <div class="router-view">

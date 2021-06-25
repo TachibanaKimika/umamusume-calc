@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-06-15 17:31:37
+ * @LastEditTime: 2021-06-26 00:40:34
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\router\index.js
+ */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
@@ -38,6 +46,11 @@ const routes = [
     path: '/RegisterNewUma',
     name: 'RegisterNewUma',
     component: () => import('../components/RegisterNewUma.vue')
+  },
+  {
+    path: '/InsertSkill',
+    name: 'InsertSkill',
+    component: () => import('../components/InsertSkill.vue')
   },
   {
     path: '/Test',
