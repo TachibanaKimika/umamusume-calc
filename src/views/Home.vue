@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-06-26 02:54:59
+ * @LastEditTime: 2021-06-26 03:23:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\views\Home.vue
@@ -16,34 +16,32 @@
 
 
 
-    <div class="wow animate__animated animate__slideInUp animate__delay-1s" style="margin:30px">
+    <div class="wow animate__animated animate__slideInUp" style="margin:30px">
       <img src="../assets/ttl_pv.png">
     </div>
 
 
-    <div class="wow animate__animated animate__slideInUp animate__delay-1s" style="margin:30px">
+    <div class="wow animate__animated animate__slideInUp" style="margin:30px">
       <div class="pv-block">
         <div class="block" @click="playVideo" ></div>
       </div>
     </div>
-    <div class="wow animate__animated animate__slideInUp animate__delay-1s twitter-block">
 
+    <div class="wow animate__animated animate__slideInUp" style="margin:30px">
+      <img src="../assets/ttl_tw.png">
+    </div>
+
+    <div class="wow animate__animated animate__slideInUp" style="margin:30px">
       <div class="twitter-block">
       <twitter>
         <div class="twitter-block-loading" slot="loading">
-          <div class="loader" >
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-          </div>
+          <div class="loader">Loading...</div>
         </div>
         <a class="twitter-timeline" data-lang="zh-cn" data-width="500" data-height="600" data-theme="light" href="https://twitter.com/uma_musu?ref_src=twsrc%5Etfw">Tweets by uma_musu</a>
       </twitter>
       </div>
     </div>
-    <div class="wow animate__animated animate__slideInUp animate__delay-1s">
+    <div class="wow animate__animated animate__slideInUp ">
       <div class="block"></div>
     </div>
   </div>
@@ -79,6 +77,12 @@ export default {
 </script>
 
 <style scoped>
+
+
+body {
+  margin: 0;
+}
+
 .twitter-block{
   width:fit-content;
   margin: 0 auto;
@@ -88,90 +92,72 @@ export default {
   border: 2px solid;
 }
 .twitter-block-loading{
+  display: flex;
   width:500px;
   height:600px;
+  justify-content: center;
+  align-items: center;
 }
 .loader {
+  width: 250px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
   position: absolute;
-  top: 50%;
-  left: 40%;
-  margin-left: 10%;
-  transform: translate3d(-50%, -50%, 0);
+  font-family: helvetica, arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #ce4233;
+  letter-spacing: 0.2em;
 }
-.dot {
-  width: 24px;
-  height: 24px;
-  background: #3ac;
-  border-radius: 100%;
-  display: inline-block;
-  animation: slide 1s infinite;
+.loader::before, .loader::after {
+  content: "";
+  display: block;
+  width: 15px;
+  height: 15px;
+  background: #ce4233;
+  position: absolute;
+  -webkit-animation: load 0.7s infinite alternate ease-in-out;
+          animation: load 0.7s infinite alternate ease-in-out;
 }
-.dot:nth-child(1) {
-  animation-delay: 0.1s;
-  background: #32aacc;
+.loader::before {
+  top: 0;
 }
-.dot:nth-child(2) {
-  animation-delay: 0.2s;
-  background: #64aacc;
+.loader::after {
+  bottom: 0;
 }
-.dot:nth-child(3) {
-  animation-delay: 0.3s;
-  background: #96aacc;
-}
-.dot:nth-child(4) {
-  animation-delay: 0.4s;
-  background: #c8aacc;
-}
-.dot:nth-child(5) {
-  animation-delay: 0.5s;
-  background: #faaacc;
-}
-@-moz-keyframes slide {
+
+@-webkit-keyframes load {
   0% {
-    transform: scale(1);
+    left: 0;
+    height: 30px;
+    width: 15px;
   }
   50% {
-    opacity: 0.3;
-    transform: scale(2);
+    height: 8px;
+    width: 40px;
   }
   100% {
-    transform: scale(1);
+    left: 235px;
+    height: 30px;
+    width: 15px;
   }
 }
-@-webkit-keyframes slide {
+
+@keyframes load {
   0% {
-    transform: scale(1);
+    left: 0;
+    height: 30px;
+    width: 15px;
   }
   50% {
-    opacity: 0.3;
-    transform: scale(2);
+    height: 8px;
+    width: 40px;
   }
   100% {
-    transform: scale(1);
-  }
-}
-@-o-keyframes slide {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.3;
-    transform: scale(2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes slide {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.3;
-    transform: scale(2);
-  }
-  100% {
-    transform: scale(1);
+    left: 235px;
+    height: 30px;
+    width: 15px;
   }
 }
 
