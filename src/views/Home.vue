@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-06-26 03:23:58
+ * @LastEditTime: 2021-06-27 00:02:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\views\Home.vue
@@ -9,39 +9,50 @@
 <template>
   <div class="home">
 
-    <!-- 这里的为弹窗 -->
-    <el-dialog title="播放视频" :visible.sync="dialogPlay" @close="closeDialog">
-      <youtube :video-id="videoId" ref="youtube" @playing="playing" ></youtube>
+    <!-- 弹窗 -->
+    <el-dialog :visible.sync="dialogPlay">
+      <youtube :video-id="videoId" ref="youtube"></youtube>
     </el-dialog>
 
 
+    <div class="headblock" style="margin:30px">
+      <div class="carousel">
+      <span class="demonstration">默认 Hover 指示器触发</span>
+      <el-carousel height="150px">
+        <el-carousel-item v-for="item in 4" :key="item">
+          <h3 class="small">{{ item }}</h3>
+        </el-carousel-item>
+      </el-carousel>
+      </div>
+    </div>
 
-    <div class="wow animate__animated animate__slideInUp" style="margin:30px">
+
+    <div class="wow animate__animated animate__fadeInUp animate__faster" style="margin:100px">
       <img src="../assets/ttl_pv.png">
     </div>
 
 
-    <div class="wow animate__animated animate__slideInUp" style="margin:30px">
-      <div class="pv-block">
-        <div class="block" @click="playVideo" ></div>
+    <div class="wow animate__animated animate__fadeInUp" style="margin:100px">
+      <div class="pv-block" @click="playVideo">
+        
       </div>
     </div>
 
-    <div class="wow animate__animated animate__slideInUp" style="margin:30px">
+    <div class="wow animate__animated animate__fadeInUp" style="margin:100px">
       <img src="../assets/ttl_tw.png">
     </div>
 
-    <div class="wow animate__animated animate__slideInUp" style="margin:30px">
+    <div class="wow animate__animated animate__fadeInUp" style="margin:30px">
       <div class="twitter-block">
       <twitter>
         <div class="twitter-block-loading" slot="loading">
           <div class="loader">Loading...</div>
         </div>
-        <a class="twitter-timeline" data-lang="zh-cn" data-width="500" data-height="600" data-theme="light" href="https://twitter.com/uma_musu?ref_src=twsrc%5Etfw">Tweets by uma_musu</a>
+        <a class="twitter-timeline" data-lang="zh-cn" data-width="800" data-height="1000" data-theme="light" href="https://twitter.com/uma_musu?ref_src=twsrc%5Etfw">Tweets by uma_musu</a>
       </twitter>
       </div>
     </div>
-    <div class="wow animate__animated animate__slideInUp ">
+    <div class="wow animate__animated animate__fadeInUp ">
       <div class="block"></div>
     </div>
   </div>
@@ -83,6 +94,14 @@ body {
   margin: 0;
 }
 
+.headblock{
+  height: 800px;
+  margin: 0 auto;
+  background:url(../assets/bg.jpg) no-repeat  top;
+  background-size:cover
+}
+
+
 .twitter-block{
   width:fit-content;
   margin: 0 auto;
@@ -93,7 +112,7 @@ body {
 }
 .twitter-block-loading{
   display: flex;
-  width:500px;
+  width:800px;
   height:600px;
   justify-content: center;
   align-items: center;
@@ -165,7 +184,7 @@ body {
 .block{
   margin: 0 auto;
   background-color:rgba(1,1,1,0.5);
-  width: 400px;
+  width: 800px;
   height: 400px;
 }
 
@@ -179,10 +198,18 @@ body {
   }
 }
 .pv-block {
-  width:fit-content;
+  width:800px;
+  height:450px;
+  background:url(../assets/pv.png) no-repeat center center;
+  background-size:101% 101%;
   margin: 0 auto;
   animation: animated-border-pv 1.5s infinite;
   color: rgba(238, 85, 255, 0.74);
   border: 2px solid;
+  transition:background-size 0.3s ease;
+}
+
+.pv-block:hover{
+  background-size:120% 120%;
 }
 </style>
