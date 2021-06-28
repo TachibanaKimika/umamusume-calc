@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-06-27 20:14:05
+ * @LastEditTime: 2021-06-28 17:30:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\views\Home.vue
@@ -17,12 +17,12 @@
 
     <div class="headblock" style="margin:30px">
       <div class="carousel">
-      <span class="demonstration">默认 Hover 指示器触发</span>
+      <!-- <span class="demonstration">默认 Hover 指示器触发</span>
       <el-carousel height="150px">
         <el-carousel-item v-for="item in 4" :key="item">
           <h3 class="small">{{ item }}</h3>
         </el-carousel-item>
-      </el-carousel>
+      </el-carousel> -->
       </div>
     </div>
 

@@ -10,7 +10,7 @@
             :value="item.id">
             </el-option>
             </el-select> -->
-            <el-button v-model="spcSubmit.id" placeholder="支援卡1" @click="dialogVisible = true" ><span v-if="selectedCardName">{{selectedCardName}}</span><span v-else>请选择支援卡4</span></el-button>
+            <el-button v-model="spcSubmit.id" placeholder="支援卡1" @click="dialogVisible = true;getcard()" ><span v-if="selectedCardName">{{selectedCardName}}</span><span v-else>请选择支援卡4</span></el-button>
         </el-col>
         <el-col :span="8">
             <el-form-item label="等级">
@@ -353,6 +353,14 @@ export default {
             this.dialogVisible=false
             this.getRegiedCard()
         },
+        getcard(){
+            let query_spc = 'SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT(\'【\',spc_secname,\'】　－　\',spc_name) AS `name` FROM supportcard'
+
+            qurSql(this.sqlcon,query_spc,res=>{
+                this.spcard = res;
+                //console.log(res)
+            })
+        }
     }
 }
 </script>
