@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-26 00:39:37
- * @LastEditTime: 2021-06-26 00:39:38
+ * @LastEditTime: 2021-06-28 17:38:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\InsertSkill.vue
@@ -40,6 +40,8 @@
             <el-col :span='8'><el-input v-model="skillOptions.dsc" style="display: inline-block;margin:10px;" autosize type="textarea" placeholder="効果"></el-input></el-col>
         </el-row>
         <el-button @click="updateSkill">Submit</el-button>
+        <el-input v:model="sqlcon.username" placeholder="用户名"></el-input>
+        <el-input v:model="sqlcon.userpasswd" placeholder="密码"></el-input>
     </div>
 </template>
 
@@ -52,7 +54,6 @@ export default {
             sqlcon:{
                 username: 'akarichan',
                 userpasswd: 'akariChan@0721',
-                hostname: 'rm-bp1id4y905ysrz6pvjo.mysql.rds.aliyuncs.com',
                 database: 'umamusume-pbl',
             },
             skillOptions:{

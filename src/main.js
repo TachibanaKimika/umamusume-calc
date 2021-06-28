@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-06-26 03:21:02
+ * @LastEditTime: 2021-06-28 17:53:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\main.js
@@ -24,6 +24,8 @@ import VueYoutube from 'vue-youtube'
 import twitter from 'vue-twitter'
 
 Vue.config.productionTip = false
+
+import 'github-markdown-css/github-markdown.css'
 
 Vue.use(ElementUI)
 Vue.use(VueYoutube)
