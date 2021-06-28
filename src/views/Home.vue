@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-06-27 00:02:00
+ * @LastEditTime: 2021-06-27 20:14:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\views\Home.vue
@@ -33,7 +33,7 @@
 
 
     <div class="wow animate__animated animate__fadeInUp" style="margin:100px">
-      <div class="pv-block" @click="playVideo">
+      <div class="pv-block" @click="dialogPlay=true">
         
       </div>
     </div>
@@ -52,8 +52,8 @@
       </twitter>
       </div>
     </div>
-    <div class="wow animate__animated animate__fadeInUp ">
-      <div class="block"></div>
+    <div>
+      <CharShow />
     </div>
   </div>
 </template>
@@ -61,10 +61,13 @@
 <script>
 // @ is an alias to /src
 import WOW from 'wowjs'
-
+import CharShow from '@/components/child/CharShow.vue'
 
 export default {
   name: 'Home',
+  components: {
+    CharShow
+  },
   computed: {
     player() {
       return this.$refs.youtube.player

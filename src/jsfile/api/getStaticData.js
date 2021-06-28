@@ -86,8 +86,8 @@ LEFT JOIN util_table ON spc_table.spc_attribute = util_table.name_id AND util_ta
     };
 
     let sqluser = {
-        username:'akarichan',
-        userpasswd:'akariChan@0721',
+        username:'Guest',
+        userpasswd:'password#123',
         database:'umamusume-pbl'
     }
 

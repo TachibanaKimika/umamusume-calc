@@ -130,7 +130,7 @@ var simulation = function (cards_item,options) {
 }
 
 //只需要得意练习属性以及得意率,返回做哪一个练习
-var calc_card_position = function(spc_attribute,card_tokuritu){
+var calc_card_position = function(spc_attribute,card_tokuritu,mode){
     let attribute = spc_attribute - 1;//属性要-1=>速度为0
     //出现率计算
     let awareritu = (card_tokuritu+100)/(card_tokuritu+100+450);
@@ -138,6 +138,11 @@ var calc_card_position = function(spc_attribute,card_tokuritu){
     let noawareritu = (50)/(card_tokuritu+100+450);
     //其他练习出现率
     let othertoreritu = ( 1 - awareritu - noawareritu )/4;
+
+    if(mode == 1){
+        return [awareritu,othertoreritu,noawareritu]; 
+    }
+
     let rituArr = [0,0,0,0,0,0];
     for(let i in rituArr){
         rituArr[i] = othertoreritu;
@@ -180,7 +185,21 @@ var calcArrSum = function( arr, index){
     return sum;
 }
 
+// 计算练习性能
+var calcSingleCard = function(cards_item,basenum,yaruki){
+    //not youjyo
+    let commonTore = basenum;
+    let youjyoTore = [];
+    for(var i in commonTore){
+        basenum[i] *= yaruki;// =1.x
+        commonTore[i]+=cards_item.spc_bonasu_pt[i];
+        commonTore[i]*=(1+cards_item.spc_tokuitu/100);
+        commonTore[i]*=(1+(yaruki-1)*(1+cards_item.spc_yaruki/100));
+    }
+}
+
+
 
 export {
-    simulation
+    simulation,calcSingleCard
 }

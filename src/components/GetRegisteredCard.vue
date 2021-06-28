@@ -189,8 +189,7 @@
       </el-table-column>
     </el-table>
     <div id="BoxChart" class="echarts" style="width: 1800px; height: 1200px"></div>
-
-
+    
     <el-dialog
         title="选择支援卡"
         :visible.sync="dialogVisible">
@@ -302,6 +301,11 @@ export default {
                 {name:'konnjyo',num:[]},
                 {name:'kashikosa',num:[]},
             ],
+            singleCard:{
+                card:{},
+                result:[0,0,0,0,0],   
+            },
+            
             simulationtime:20,
             dialogVisible:false,
             potionSelector:'',

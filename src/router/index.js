@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-06-26 00:40:34
- * @LastEditors: your name
+ * @LastEditTime: 2021-06-27 21:00:18
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\router\index.js
  */
@@ -30,12 +30,12 @@ const routes = [
   {
     path: '/UpdataAdm',
     name: 'UpdataAdm',
-    component: () => import(/* webpackChunkName: "" */ '../components/UpdateDataAdmin.vue')
+    component: () => import('../components/UpdateDataAdmin.vue')
   },
   {
     path: '/RegisteredCard',
     name: 'RegisteredCard',
-    component: () => import(/* webpackChunkName: "" */ '../components/GetRegisteredCard.vue')
+    component: () => import('../components/GetRegisteredCard.vue')
   },
   {
     path: '/DataAnalysis',
