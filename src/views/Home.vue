@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-06-28 17:30:11
+ * @LastEditTime: 2021-06-29 18:47:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\views\Home.vue
@@ -215,4 +215,8 @@ body {
 .pv-block:hover{
   background-size:120% 120%;
 }
+
+
+
+
 </style>

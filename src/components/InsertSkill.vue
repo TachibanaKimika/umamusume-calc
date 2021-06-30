@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-26 00:39:37
- * @LastEditTime: 2021-06-28 17:38:25
+ * @LastEditTime: 2021-06-29 22:27:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\InsertSkill.vue
@@ -35,13 +35,32 @@
             <el-radio-button label="4">赤スキル</el-radio-button>
         </el-radio-group>
         <el-row>
-            <el-col :span='8'><span>スキル名</span><el-input v-model="skillOptions.name" style="width:auto"></el-input></el-col>
-            <el-col :span='8'><span>必要Pt</span><el-input-number v-model="skillOptions.pt" :step="10"></el-input-number></el-col>
-            <el-col :span='8'><el-input v-model="skillOptions.dsc" style="display: inline-block;margin:10px;" autosize type="textarea" placeholder="効果"></el-input></el-col>
+            <el-col :span='4'><span>スキル名</span><el-input v-model="skillOptions.name" style="width:auto"></el-input></el-col>
+            <el-col :span='3'><el-input-number v-model="skillOptions.pt" :step="10"></el-input-number></el-col>
+            <el-col :span='6'><el-input v-model="skillOptions.dsc"  autosize type="textarea" placeholder="効果"></el-input></el-col>
+            <el-col :span='4'><el-input v:model="sqlcon.username" placeholder="用户名" ></el-input></el-col>
+            <el-col :span='4'><el-input v:model="sqlcon.userpasswd" placeholder="密码" ></el-input></el-col>
+            <el-col :span='3'><el-button @click="updateSkill">Submit</el-button></el-col>
         </el-row>
-        <el-button @click="updateSkill">Submit</el-button>
-        <el-input v:model="sqlcon.username" placeholder="用户名"></el-input>
-        <el-input v:model="sqlcon.userpasswd" placeholder="密码"></el-input>
+        
+        <!-- <div class="sqlinfo">
+            <el-input v:model="sqlcon.username" placeholder="用户名" style="width:30%"></el-input>
+            <el-input v:model="sqlcon.userpasswd" placeholder="密码" style="width:30%"></el-input>
+            <el-button @click="updateSkill">Submit</el-button>
+        </div> -->
+
+
+
+
+        <div class="skill">
+            <el-tag
+            :key="tag"
+            v-for="tag in mySkill"
+            :disable-transitions="false"
+            style="margin:10px">
+            {{tag.skill_name}}
+            </el-tag>
+        </div>
     </div>
 </template>
 
@@ -73,11 +92,16 @@ export default {
                 sakusen:0,
                 pt:160,
                 dsc:'',
-            }
+            },
+            mySkill:[],
         }
     },
     methods: {
         updateSkill(){
+            if(!this.insertCheck){
+                this.$message.error("aaa")
+                return;
+            }
             let query = `insert into skill (skill_name, skill_type, skill_rare, skill_long, skill_sakusen, skill_pt, skill_dsc)
              value ('${this.skillOptions.name}', ${this.skillOptions.type}, ${this.skillOptions.rare}, ${this.skillOptions.long}, ${this.skillOptions.sakusen}, ${this.skillOptions.pt}, '${this.skillOptions.dsc}')`;
             console.log(query)
@@ -86,15 +110,37 @@ export default {
                 //this.$message(res.affectedRows)
             })
             this.skillOptions.name='';this.skillOptions.rare=0;this.skillOptions.long=0;this.skillOptions.sakusen=0;this.skillOptions.dsc='';
-            
+        },
+
+        insertCheck(){
+            if(this.skillOptions.name==''||this.skillOptions.dsc==''){
+                return false;
+            }
+            return true;
+        },
+
+        getMySkill(){
+            let query = `select * from skill`
+            qurSql(this.sqlcon, query, res=>{
+                this.mySkill = res;
+            })
         }
+    },
+    mounted(){
+        this.getMySkill();
     }
 }
 </script>
 
 <style scoped>
 .el-radio-group, .el-input-number, .el-input{
-    display: inline-block;
+    margin:10px;
+    
+}
+
+
+ .sqlinfo{
+    display: inline;
     margin:10px;
 }
 </style>

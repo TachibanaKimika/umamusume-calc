@@ -103,6 +103,7 @@ export default {
                 cardItemLV:this.myCardItemLV
             }
             updatenewuma(umaIsert,this.sqlcon)
+            this.$message("SUCCESS")
         }
     }
 

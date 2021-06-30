@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-27 20:08:28
- * @LastEditTime: 2021-06-27 20:10:19
+ * @LastEditTime: 2021-06-29 20:07:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\child\CharShow.vue
@@ -17,9 +17,9 @@
             <ul class="topnav-show " v-show="charcur==0">
                 <div class="char-frame" id="supe">
                     <div class="char-st">
-                        <img v-show="charstcur==0" class="char-st-animate animate__animated animate__fadeInUp animate__faster" src="../../assets/char/supe_st.png" alt="">
-                        <img v-show="charstcur==1" class="char-st-animate animate__animated animate__fadeInUp animate__faster" src="../../assets/char/supe_st_1.png" alt="">
-                        <img v-show="charstcur==2" class="char-st-animate animate__animated animate__fadeInUp animate__faster" src="../../assets/char/supe_st.png" alt="">
+                        <img v-show="charstcur==0" class="char-st-animate animate__animated animate__fadeInUp_SMALL animate__faster" src="../../assets/char/supe_st.png" alt="">
+                        <img v-show="charstcur==1" class="char-st-animate animate__animated animate__fadeInUp_SMALL animate__faster" src="../../assets/char/supe_st_1.png" alt="">
+                        <img v-show="charstcur==2" class="char-st-animate animate__animated animate__fadeInUp_SMALL animate__faster" src="../../assets/char/supe_st.png" alt="">
                     </div>
                     
                     <div class="char-info">
@@ -43,9 +43,9 @@
             <ul class="topnav-show " v-show="charcur==1">
                 <div class="char-frame" id="unsu">
                     <div class="char-st">
-                        <img v-show="charstcur==0" class="char-st-animate animate__animated animate__fadeInUp animate__faster" src="../../assets/char/unsu_st.png" alt="">
-                        <img v-show="charstcur==1" class="char-st-animate animate__animated animate__fadeInUp animate__faster" src="../../assets/char/unsu_st_1.png" alt="">
-                        <img v-show="charstcur==2" class="char-st-animate animate__animated animate__fadeInUp animate__faster" src="../../assets/char/unsu_st.png" alt="">
+                        <img v-show="charstcur==0" class="char-st-animate animate__animated animate__fadeInUp_SMALL animate__faster" src="../../assets/char/unsu_st.png" alt="">
+                        <img v-show="charstcur==1" class="char-st-animate animate__animated animate__fadeInUp_SMALL animate__faster" src="../../assets/char/unsu_st_1.png" alt="">
+                        <img v-show="charstcur==2" class="char-st-animate animate__animated animate__fadeInUp_SMALL animate__faster" src="../../assets/char/unsu_st.png" alt="">
                     </div>
                     
                     <div class="char-info">
@@ -248,6 +248,10 @@ li{
 :root{
     --animation-delay: 0.1s;
 }
+
+
+
+/* custom animate.css */
 
 
 

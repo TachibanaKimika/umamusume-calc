@@ -10,7 +10,7 @@
             :value="item.id">
             </el-option>
             </el-select> -->
-            <el-button v-model="spcSubmit.id" placeholder="支援卡1" @click="dialogVisible = true;getcard()" ><span v-if="selectedCardName">{{selectedCardName}}</span><span v-else>请选择支援卡4</span></el-button>
+            <el-button v-model="spcSubmit.id" @click="dialogVisible = true;getRegiedCard()" ><span v-if="selectedCardName">{{selectedCardName}}</span><span v-else>请选择支援卡</span></el-button>
         </el-col>
         <el-col :span="8">
             <el-form-item label="等级">
@@ -22,6 +22,7 @@
                 <el-select v-model="result" filterable placeholder="已存在的等级" clearable >
                 <el-option
                 v-for="item in regedcard"
+                :key="item.spc_id"
                 disabled
                 :label="'【'+item.spc_lv+'】'"
                 :value="item.spc_id">
@@ -47,7 +48,8 @@
                     <el-option
                     v-for="item in attribute_opt"
                     :label="item.label"
-                    :value="item.value">
+                    :value="item.value"
+                    :key="item.value">
                     </el-option>
                 </el-select>
                 <el-button type="primary" @click="add1PtBonasu_PT()" >+1</el-button>
@@ -121,7 +123,8 @@
                     <el-option
                     v-for="item in attribute_opt"
                     :label="item.label"
-                    :value="item.value">
+                    :value="item.value"
+                    :key="item.value">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -249,9 +252,13 @@ export default {
     mounted(){
         let query_spc = 'SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT(\'【\',spc_secname,\'】　－　\',spc_name) AS `name` FROM supportcard'
 
-        qurSql(this.sqlcon,query_spc,res=>{
+        qurSql({
+            username: 'Guest',
+            userpasswd: 'password#123',
+            hostname: 'rm-bp1id4y905ysrz6pvjo.mysql.rds.aliyuncs.com',
+            database: 'umamusume-pbl',
+        },query_spc,res=>{
             this.spcard = res;
-            //console.log(res)
         })
     },
 
@@ -284,15 +291,15 @@ export default {
                             this.spcSubmit.fan+', '+this.spcSubmit.hitlv+', '+
                             this.spcSubmit.hit_ritu +', '+this.spcSubmit.reduce_suta+', '+
                             this.spcSubmit.reduce_shipai+')';
-            console.log(querystr_a+querystr_b);
+            // console.log(querystr_a+querystr_b);
             qurSql(this.sqlcon,querystr_a+querystr_b,res=>{
                 this.result = res;
-                console.log(res)
+                // console.log(res)
                 let msg = "插入成功, 影响行数: "+res.affectedRows+"; insertId:"+res.insertId;
                 this.callOutMsg('success',msg);
-                console.log(res);
+                // console.log(res);
             })
-            console.log("success");
+            // console.log("success");
         },
 
         add1PtBonasu_PT(str){
@@ -339,28 +346,25 @@ export default {
             let querystr = `SELECT * FROM
             supportcard_stu
             WHERE supportcard_stu.spc_id = ${this.spcSubmit.id}`;
-            qurSql(this.sqlcon,querystr,res=>{
+            qurSql({
+                username: 'Guest',
+                userpasswd: 'password#123',
+                hostname: 'rm-bp1id4y905ysrz6pvjo.mysql.rds.aliyuncs.com',
+                database: 'umamusume-pbl',
+            },querystr,res=>{
                 this.regedcard = res;
-                console.log('getRegiedCard')
-                console.log(res)
+                // console.log('getRegiedCard')
+                // console.log(res)
             })
 
         },
         reciveCardItem(data){
-            console.log(data)
+            // console.log(data)
             this.selectedCardName=data.name
             this.spcSubmit.id=data.id
             this.dialogVisible=false
             this.getRegiedCard()
         },
-        getcard(){
-            let query_spc = 'SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT(\'【\',spc_secname,\'】　－　\',spc_name) AS `name` FROM supportcard'
-
-            qurSql(this.sqlcon,query_spc,res=>{
-                this.spcard = res;
-                //console.log(res)
-            })
-        }
     }
 }
 </script>
