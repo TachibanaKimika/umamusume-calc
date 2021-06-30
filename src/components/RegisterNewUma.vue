@@ -64,7 +64,6 @@ export default {
             sqlcon:{
                 username: 'Guest',
                 userpasswd: 'password#123',
-                hostname: 'rm-bp1id4y905ysrz6pvjo.mysql.rds.aliyuncs.com',
                 database: 'umamusume-pbl',
             },
             cardItem: [],

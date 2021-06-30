@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:46
- * @LastEditTime: 2021-06-28 17:35:23
+ * @LastEditTime: 2021-06-30 14:41:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\README.md
@@ -16,12 +16,12 @@ npm run electron:serve
 npm run electron:build
 ```
 ## 使用
-将本项目中的`database\umamusume-pbl@21.06.28.sql`同步至你的数据库中,将`src\jsfile\api\con2sql.js`中的所有链接改为你sql服务器所在的地址,运行
+将本项目中的`database\umamusume-pbl@21.06.28.sql`同步至你的数据库中,将`package.json`中的`config.sqldomain`改为你sql服务器所在的地址,运行以下命令即可
 ```
 npm install
 npm run electron:build
 ```
-即可
+
 
 ## 功能概述
 ### 主页

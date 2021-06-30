@@ -216,7 +216,6 @@ export default {
             sqlcon:{
                 username: 'akarichan',
                 userpasswd: '',
-                hostname: 'rm-bp1id4y905ysrz6pvjo.mysql.rds.aliyuncs.com',
                 database: 'umamusume-pbl',
             },
             attribute_opt:[{
@@ -255,7 +254,6 @@ export default {
         qurSql({
             username: 'Guest',
             userpasswd: 'password#123',
-            hostname: 'rm-bp1id4y905ysrz6pvjo.mysql.rds.aliyuncs.com',
             database: 'umamusume-pbl',
         },query_spc,res=>{
             this.spcard = res;
@@ -349,7 +347,6 @@ export default {
             qurSql({
                 username: 'Guest',
                 userpasswd: 'password#123',
-                hostname: 'rm-bp1id4y905ysrz6pvjo.mysql.rds.aliyuncs.com',
                 database: 'umamusume-pbl',
             },querystr,res=>{
                 this.regedcard = res;

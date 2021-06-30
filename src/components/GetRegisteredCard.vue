@@ -214,7 +214,6 @@ export default {
             sqlcon:{
                 username: 'akarichan',
                 userpasswd: 'akariChan@0721',
-                hostname: 'rm-bp1id4y905ysrz6pvjo.mysql.rds.aliyuncs.com',
                 database: 'umamusume-pbl',
             },
             card_item: [],
