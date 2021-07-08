@@ -77,8 +77,8 @@ export default {
         }
     },
     mounted(){
-        let query_spc = 'SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT(\'【\',spc_secname,\'】　－　\',spc_name) AS `name` FROM supportcard'
-        let query_uma = 'SELECT id, CONCAT(\'【\',uma_secname,\'】 － \',uma_name) AS `name` FROM uma'
+        let query_spc = 'SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT(\'【\',spc_secname,\'】－\',spc_name) AS `name` FROM supportcard'
+        let query_uma = 'SELECT id, CONCAT(\'【\',uma_secname,\'】－\',uma_name) AS `name` FROM uma'
         qurSql(this.sqlcon, query_spc, res=>{
             this.cardItem = res;
             console.log(res)
@@ -90,7 +90,7 @@ export default {
     },
     methods:{
         reciveCardItem(data){
-            console.log(this.potionSelector)
+            //console.log(this.potionSelector)
             this.myCardItem[this.potionSelector]=data;
             this.dialogVisible=false
         },
