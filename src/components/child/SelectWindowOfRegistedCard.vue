@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-07-08 13:29:38
+ * @LastEditTime: 2021-07-08 15:12:15
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\child\SelectWindowOfRegistedCard.vue
+-->
 <template>
     <div>
         <el-row>
@@ -48,7 +56,7 @@ export default {
         return{
             checkListType:['1'],
             checkListRare:['2','3'],
-            checkListLevel:['50'],
+            checkListLevel:['50','45'],
             checkedItem:{id:0}
         }
     },

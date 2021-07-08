@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-06-27 21:00:18
+ * @LastEditTime: 2021-07-08 15:08:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\router\index.js
@@ -51,6 +51,11 @@ const routes = [
     path: '/InsertSkill',
     name: 'InsertSkill',
     component: () => import('../components/InsertSkill.vue')
+  },
+  {
+    path: '/GetAllMyUma',
+    name: 'GetAllMyUma',
+    component: () => import('../components/GetAllMyUma.vue')
   },
   {
     path: '/Test',

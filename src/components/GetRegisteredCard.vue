@@ -266,7 +266,7 @@ export default {
                 //马的属性值加成
                 uma:[20,10,0,0,0],
                 //调子加成
-                yaruki:1.2,
+                yaruki:1.1,
                 //练习等级
                 torelv:[5,3,1,1,3]
             },
@@ -323,7 +323,7 @@ export default {
                         ORDER BY spc_name DESC'
         qurSql(this.sqlcon,querystr,res=>{
             this.card_item = res;
-            for(var i in this.card_item){
+            for(let i in this.card_item){
                 this.card_item[i].spc_bonasu_pt = this.card_item[i].spc_bonasu_pt.split(',').map(Number);
                 this.card_item[i].spc_init_stu = this.card_item[i].spc_init_stu.split(',').map(Number);
                 
@@ -337,11 +337,11 @@ export default {
             // this.options.uma = this.options.uma.split(',');
             // this.options.torelv = this.options.torelv.split(',');
             if(this.checkUpdata(this.seted_card_item)){
-                for(var i in this.card_kizuna){
+                for(let i in this.card_kizuna){
                     this.seted_card_item[i].spc_kizuna = this.card_kizuna[i]
                 }
                 this.recivedresult = simulation(this.seted_card_item,this.options)
-                for(var i in this.recivedresult){
+                for(let i in this.recivedresult){
                     this.result[i].result = this.recivedresult[i].result;
                     this.result[i].card = this.recivedresult[i].card;
                 }
@@ -353,7 +353,7 @@ export default {
                 this.showMsg("数组长度为"+data.length,'error')
                 return false;
             };
-            for(var i=0 ; i<6; i++){
+            for(let i=0 ; i<6; i++){
                 if(!data[i]){
                     //console.log("没选全")
                     this.showMsg("没选全",'error')
@@ -381,7 +381,7 @@ export default {
                 }
 
                 //相加多次
-                for(var j = 0; j<times; j++){
+                for(let j = 0; j<times; j++){
                     this.recivedresult = simulation(this.seted_card_item,this.options)
                     for(var i in this.recivedresult){
                         //两个数组相加
@@ -389,14 +389,14 @@ export default {
                         this.result[i].result = this.result[i].result.map((v,ii)=>v + this.recivedresult[i].result[ii]/times)
                     }
                 }
-                for(var i in this.result){
-                    for(var j in this.result[i].result){
+                for(let i in this.result){
+                    for(let j in this.result[i].result){
                         this.result[i].result[j] = Math.round(this.result[i].result[j]);
                     }
                 }
 
 
-                for(var i in this.result){
+                for(let i in this.result){
                     this.result[i].up = this.result[i].result[i]/this.stdtore[i].lv[this.options.torelv[i]-1][i]/this.options.yaruki/((this.options.uma[i]+100)/100)
                 }
                 // console.log(this.totalResult)
