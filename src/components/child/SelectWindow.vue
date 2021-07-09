@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-08 14:43:36
- * @LastEditors: your name
+ * @LastEditTime: 2021-07-09 15:13:26
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\child\SelectWindow.vue
 -->
@@ -12,7 +12,7 @@
         <el-col :span='14'>
         <el-radio-group v-model="checkListType">
             <el-radio label='1' true>スビート</el-radio>
-            <el-radio label='2' true>スタミナ</el-radio>
+            <el-radio label='2' >スタミナ</el-radio>
             <el-radio label='3' >パワー</el-radio>
             <el-radio label='4' >根性</el-radio>
             <el-radio label='5' >賢さ</el-radio>
@@ -50,13 +50,9 @@ export default {
     },
     methods:{
         hasType(item){
-            for(var i in this.checkListType){
-                if(item.atb == this.checkListType[i]){
-                    for(var j in this.checkListRare){
-                        if(item.rare == this.checkListRare[j]){
-                            return true
-                        }
-                    }
+            if(item.atb == this.checkListType){
+                if(item.rare == this.checkListRare){
+                    return true
                 }
             }
             return false;

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-07-08 15:08:40
+ * @LastEditTime: 2021-07-10 02:29:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\App.vue
@@ -29,7 +29,7 @@
     <el-menu class="el-menu-demo" mode="horizontal" router>
       <el-menu-item index="/">主页</el-menu-item>
       <el-menu-item index="/about">about</el-menu-item>
-      <el-menu-item index="/RegisteredCard">练习模拟</el-menu-item>
+      <el-menu-item index="/ToreSimulation">练习模拟</el-menu-item>
       <el-menu-item index="/DataAnalysis">数据分析</el-menu-item>
       <el-menu-item index="/RegisterNewUma">更新🐎</el-menu-item>
       <el-menu-item index="/UpdataAdm">更新支援卡数据</el-menu-item>

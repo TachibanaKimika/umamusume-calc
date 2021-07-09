@@ -1,5 +1,5 @@
 <template>
-  <div class="GetRegisteredCard">
+  <div class="ToreSimulation">
     <div class="block">
     <el-row>
     <el-col :span="24">
@@ -205,7 +205,7 @@ import {initChartsOption_boxplot} from "../jsfile/util/initChartsOption.js"
 import SelectWindowOfRegistedCard from "@/components/child/SelectWindowOfRegistedCard.vue"
 
 export default {
-    name: 'GetRegisteredCard',
+    name: 'ToreSimulation',
     components: {
         SelectWindowOfRegistedCard
     },
@@ -312,7 +312,7 @@ export default {
     },
     mounted(){
         let querystr = 'SELECT \
-                        supportcard_stu.`id`, supportcard_stu.`spc_id`,supportcard.`spc_attribute`,\
+                        supportcard_stu.`id`, supportcard_stu.`spc_id`,supportcard.`spc_attribute`,supportcard.`spc_rare`,\
                         supportcard_stu.`spc_lv`,supportcard_stu.`spc_youujo`,supportcard_stu.`spc_yaruki`,supportcard_stu.`spc_tore`,\
                         supportcard_stu.`spc_bonasu_pt`,supportcard_stu.`spc_tokuitu`,supportcard_stu.`spc_kizuna`,\
                         supportcard_stu.`spc_init_stu`,supportcard_stu.`spc_race`,supportcard_stu.`spc_fan`,supportcard_stu.`spc_hit_lv`,\

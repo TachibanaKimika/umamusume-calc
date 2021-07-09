@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-26 00:39:37
- * @LastEditTime: 2021-06-29 22:27:30
+ * @LastEditTime: 2021-07-10 02:39:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\InsertSkill.vue
@@ -99,24 +99,34 @@ export default {
     methods: {
         updateSkill(){
             if(!this.insertCheck){
-                this.$message.error("aaa")
                 return;
             }
             let query = `insert into skill (skill_name, skill_type, skill_rare, skill_long, skill_sakusen, skill_pt, skill_dsc)
-             value ('${this.skillOptions.name}', ${this.skillOptions.type}, ${this.skillOptions.rare}, ${this.skillOptions.long}, ${this.skillOptions.sakusen}, ${this.skillOptions.pt}, '${this.skillOptions.dsc}')`;
+             value ('${this.skillOptions.name}', ${this.skillOptions.type}, ${this.skillOptions.rare}, ${this.skillOptions.long}, ${this.skillOptions.sakusen}, ${this.skillOptions.pt}, '${this.skillOptions.dsc}')`
             console.log(query)
             qurSql(this.sqlcon, query, res=>{
                 console.log(res)
                 //this.$message(res.affectedRows)
             })
-            this.skillOptions.name='';this.skillOptions.rare=0;this.skillOptions.long=0;this.skillOptions.sakusen=0;this.skillOptions.dsc='';
+            this.skillOptions.name='';this.skillOptions.rare=0;this.skillOptions.long=0;this.skillOptions.sakusen=0;this.skillOptions.dsc=''
         },
 
         insertCheck(){
+            let errinfo = ''
             if(this.skillOptions.name==''||this.skillOptions.dsc==''){
-                return false;
+                this.$message.error("技能名或技能描述格式错误, 请重新输入")
+                return false
             }
-            return true;
+
+            let query = `SELECT COUNT( * ) AS \`count\` FROM skill WHERE skill_name='${this.skillOptions.name}'`
+            qurSql(this.sqlcon, query, res=>{
+                if(res.count!=0){
+                    errinfo = 'Skill has exist'
+                    return false
+                }
+            })
+
+            return true
         },
 
         getMySkill(){
@@ -124,6 +134,10 @@ export default {
             qurSql(this.sqlcon, query, res=>{
                 this.mySkill = res;
             })
+        },
+
+        sendMsg(Msg,err='err'){
+
         }
     },
     mounted(){

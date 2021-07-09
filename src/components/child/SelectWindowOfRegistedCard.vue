@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-08 15:12:15
- * @LastEditors: your name
+ * @LastEditTime: 2021-07-10 02:31:08
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\child\SelectWindowOfRegistedCard.vue
 -->
@@ -10,30 +10,30 @@
     <div>
         <el-row>
         <el-col :span='18'>
-        <el-checkbox-group v-model="checkListType">
-            <el-checkbox label='1' true>スビート</el-checkbox>
-            <el-checkbox label='2' true>スタミナ</el-checkbox>
-            <el-checkbox label='3' >パワー</el-checkbox>
-            <el-checkbox label='4' >根性</el-checkbox>
-            <el-checkbox label='5' >賢さ</el-checkbox>
-            <el-checkbox label='6' >友人</el-checkbox>
-        </el-checkbox-group>
+        <el-radio-group v-model="checkListType">
+            <el-radio label='1' true>スビート</el-radio>
+            <el-radio label='2' >スタミナ</el-radio>
+            <el-radio label='3' >パワー</el-radio>
+            <el-radio label='4' >根性</el-radio>
+            <el-radio label='5' >賢さ</el-radio>
+            <el-radio label='6' >友人</el-radio>
+        </el-radio-group>
         </el-col>
         <el-col :span="6">
-        <el-checkbox-group v-model="checkListRare">
-            <el-checkbox label='3' true>SSR</el-checkbox>
-            <el-checkbox label='2' true>SR</el-checkbox>
-        </el-checkbox-group>
+        <el-radio-group v-model="checkListRare">
+            <el-radio label='3' true>SSR</el-radio>
+            <el-radio label='2' >SR</el-radio>
+        </el-radio-group>
         </el-col>
         <el-col :span='12'>
-        <el-checkbox-group v-model="checkListLevel">
-            <el-checkbox label='50' true>50</el-checkbox>
-            <el-checkbox label='45' >45</el-checkbox>
-            <el-checkbox label='40' >40</el-checkbox>
-            <el-checkbox label='35' >35</el-checkbox>
-            <el-checkbox label='30' >30</el-checkbox>
-            <el-checkbox label='25' >25</el-checkbox>
-        </el-checkbox-group>
+        <el-radio-group v-model="checkListLevel">
+            <el-radio label='50' true>50</el-radio>
+            <el-radio label='45' >45</el-radio>
+            <el-radio label='40' >40</el-radio>
+            <el-radio label='35' >35</el-radio>
+            <el-radio label='30' >30</el-radio>
+            <el-radio label='25' >25</el-radio>
+        </el-radio-group>
         </el-col>
         <el-col :span='12'>
             <el-button @click="submitCard" type="success">选择</el-button>
@@ -41,7 +41,7 @@
         </el-row>
 
         <el-radio-group v-model="checkedItem">
-            <el-radio v-for="item in cards" v-if="hasType(item)" :label="item" border style="margin-top: 20px" >{{item.spc_name}}</el-radio>
+            <el-radio v-for="item in cards" v-if="hasType(item)" :label="item.id" border style="margin-top: 20px" >{{item.spc_name}}</el-radio>
         </el-radio-group>
     </div>
 </template>
@@ -54,24 +54,25 @@ export default {
     },
     data(){
         return{
-            checkListType:['1'],
-            checkListRare:['2','3'],
-            checkListLevel:['50','45'],
+            checkListType:'1',
+            checkListRare:'3',
+            checkListLevel:'50',
             checkedItem:{id:0}
         }
     },
     mounted(){console.log(this.cards)},
     methods:{
         hasType(item){
-            for(var i in this.checkListType){
-                if(item.spc_attribute == this.checkListType[i]){
-                    for(var j in this.checkListRare){
-                        if(item.spc_lv == this.checkListLevel[j]){
-                            return true
-                        }
+            if(item.spc_attribute == this.checkListType){
+                if(item.spc_lv == this.checkListLevel){
+                    if(item.spc_rare == this.checkListRare){
+                        console.log("TRUE")
+                        return true;
                     }
                 }
             }
+            console.log("FALSE");
+            console.log(`this.checkListRare=>${this.checkListRare}?=${item.spc_rare}<=item.spc_rare`)
             return false;
         },
         submitCard(){
