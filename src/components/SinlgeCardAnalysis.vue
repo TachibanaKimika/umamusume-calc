@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-10 03:08:08
- * @LastEditTime: 2021-07-10 16:09:34
+ * @LastEditTime: 2021-07-10 22:37:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\SinlgeCardAnalysis.vue
@@ -11,12 +11,82 @@
 
 <template>
     <div>
-        <div class="cardbox" v-for="i in 4">
-            <el-button
-            v-model="selected_card[i-1]"
-            @click="dialogVisible = true;potionSelector=i-1"
-            ><span class="selectedCardItem" v-if="selected_card[i-1]">{{selected_card[i-1].spc_name}}</span><span v-else>请选择支援卡{{i}}</span></el-button>
+        <div class="chooseOptions" >
+            <el-slider 
+            v-for="i in 5" 
+            v-model="calc_options.torelv[i]"
+            :step="20" show-stops
+            :format-tooltip="formatTooltip"></el-slider>
         </div>
+        <div class="cardbox" v-for="i in 4">
+            <el-button v-model="selected_card[i-1]" @click="dialogVisible = true;potionSelector = i-1;"><span
+                    class="selectedCardItem" v-if="selected_card[i-1]">{{selected_card[i-1].spc_name}}</span><span
+                    v-else>请选择支援卡{{i}}</span></el-button>
+            <div class="table">
+                <table v-if="selected_card[i-1]">
+                    <tr>
+                        <th>name</th>
+                        <th>num</th>
+                    </tr>
+                    <tr>
+                        <td>カテゴリー</td>
+                        <td v-if="selected_card[i-1]">{{getAttribute(selected_card[i-1].spc_attribute)}}</td>
+                        <td v-else>N/A</td>
+                    </tr>
+                    <tr>
+                        <td>得意率</td>
+                        <td v-if="selected_card[i-1]">{{selected_card[i-1].spc_tokuitu}}%</td>
+                        <td v-else>N/A</td>
+                    </tr>
+                    <tr>
+                        <td>友情ボーナス</td>
+                        <td v-if="selected_card[i-1]">{{selected_card[i-1].spc_youujo}}%</td>
+                        <td v-else>N/A</td>
+                    </tr>
+                    <tr>
+                        <td>やる気効果</td>
+                        <td v-if="selected_card[i-1]">{{selected_card[i-1].spc_yaruki}}%</td>
+                        <td v-else>N/A</td>
+                    </tr>
+                    <tr>
+                        <td>トレーニング効果</td>
+                        <td v-if="selected_card[i-1]">{{selected_card[i-1].spc_tore}}%</td>
+                        <td v-else>N/A</td>
+                    </tr>
+                    <tr>
+                        <td>ヒントLv</td>
+                        <td v-if="selected_card[i-1]">LV{{selected_card[i-1].spc_hit_lv}}</td>
+                        <td v-else>N/A</td>
+                    </tr>
+                    <tr>
+                        <td>ヒント発生率</td>
+                        <td v-if="selected_card[i-1]">{{selected_card[i-1].spc_hit_ritu}}%</td>
+                        <td v-else>N/A</td>
+                    </tr>
+                    <tr>
+                        <td>初期絆ゲージ</td>
+                        <td v-if="selected_card[i-1]">{{selected_card[i-1].spc_kizuna}}</td>
+                        <td v-else>N/A</td>
+                    </tr>
+                    <tr>
+                        <td>レースボーナス</td>
+                        <td v-if="selected_card[i-1]">{{selected_card[i-1].spc_race}}</td>
+                        <td v-else>N/A</td>
+                    </tr>
+                    <tr v-for="j in 5" v-if="selected_card[i-1].spc_init_stu.split(',')[j-1]>0">
+                        <td>初期{{getAttribute(j,'bonasu')}}</td>
+                        <td>{{selected_card[i-1].spc_init_stu.split(',')[j-1]}}</td>
+                    </tr>
+                    <tr v-for="j in 5" v-if="selected_card[i-1].spc_bonasu_pt.split(',')[j-1]>0">
+                        <td>{{getAttribute(j,'bonasu')}}ボーナス</td>
+                        <td>{{selected_card[i-1].spc_bonasu_pt.split(',')[j-1]}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="myCharts"></div>
         <el-dialog title="选择支援卡" :visible.sync="dialogVisible">
             <SelectWindowOfRegistedCard :cards="card_item" v-on:getCardFromChild='reciveCardItem' />
         </el-dialog>
@@ -24,7 +94,7 @@
 </template>
 
 <script>
-import SelectWindowOfRegistedCard from "@/components/child/SelectWindowOfRegistedCard.vue"
+    import SelectWindowOfRegistedCard from "@/components/child/SelectWindowOfRegistedCard.vue"
     import $ from 'jquery'
     import {
         qurSql
@@ -115,22 +185,28 @@ import SelectWindowOfRegistedCard from "@/components/child/SelectWindowOfRegiste
                         ORDER BY spc_name DESC'
             qurSql(this.sqlcon, query, res => {
                 this.card_item = res
-                this.selected_card[0] = this.card_item[0] //test
+                //this.selected_card[0] = this.card_item[0] //test
                 // console.log(res)
-                this.calcCard(this.selected_card[0])
+                // this.calcCard(this.selected_card[0])
             })
         },
+
+        
         methods: {
-            calcCard(card) {
-                const calc_options = this.calc_options;
+            calcCard(card) { //传一张卡
+                // TODO LIST 在表格中计算`出现率`, `练习性能`, `友情练习性能`
+                const my_calc_options = this.calc_options;
                 let mytore = [];
-                console.log(card)
+                // console.log(card)
                 //基础值
-                for (let i in calc_options.torelv) {
-                    // console.log(this.calc_options.stdtore[i].lv)
+                for (let i in my_calc_options.torelv) {
+                    // console.log(i)
+                    // console.log(my_calc_options.stdtore[i].lv[my_calc_options.torelv[i] - 1])
                     // console.log(this.calc_options.torelv[i])
-                    mytore[i] = calc_options.stdtore[i].lv[calc_options.torelv[i] - 1]
+                    mytore[i] = my_calc_options.stdtore[i].lv[my_calc_options.torelv[i] - 1]
                 }
+
+                //对照练习性能
                 const stdtore = $.extend(true, {}, mytore);
                 // console.log(mytore)
 
@@ -150,6 +226,9 @@ import SelectWindowOfRegistedCard from "@/components/child/SelectWindowOfRegiste
                         return parseInt(num.toFixed(0))
                     })
                 }
+
+
+                //友情练习性能
                 let mytore_y = []
                 for (let i in mytore) {
                     mytore_y[i] = mytore[i].map(function (item, index, array) {
@@ -157,29 +236,92 @@ import SelectWindowOfRegistedCard from "@/components/child/SelectWindowOfRegiste
                         return parseInt(num.toFixed(0))
                     })
                 }
-                console.log(stdtore)
-                console.log(mytore)
-                console.log(mytore_y)
             },
             reciveCardItem(data) {
-                console.log(this.potionSelector)
                 this.selected_card[this.potionSelector] = data;
                 this.dialogVisible = false
             },
+            formatTooltip(val) {
+                return val / 20;
+            },
+            getAttribute(num, mode = 'atb') {
+                switch (num) {
+                    case 1:
+                        return 'スビート'
+                    case 2:
+                        return 'スタミナ'
+                    case 3:
+                        return 'パワー'
+                    case 4:
+                        return '根性'
+                    case 5:
+                        return '賢さ'
+                    case 6:
+                        if (mode == 'atb') {
+                            return '友人'
+                        } else if (mode == 'bonasu') {
+                            return 'スキル'
+                        }
+                }
+            }
         }
     }
 </script>
 
 
 <style scoped>
-.cardbox {
-    display: inline-block;
-    width: 20vw;
-    margin: 1vw;
-}
+    .cardbox {
+        display: inline-block;
+        width: 22vw;
+        margin: 0.5vw;
+    }
 
-.selectedCardItem{
-    font-size: 0.8vw;
-    letter-spacing: 0;
-}
+    .selectedCardItem {
+        font-size: 0.8vw;
+        letter-spacing: 0;
+    }
+
+
+
+    .chooseOptions>.el-slider {
+        display: inline-block;
+        width:10vw;
+        margin: 1vw;
+    }
+
+    /* Border styles */
+    table thead,
+    table tr {
+        border-top-width: 1px;
+        border-top-style: solid;
+        border-top-color: rgb(230, 189, 189);
+    }
+
+    table {
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: rgb(230, 189, 189);
+    }
+
+    /* Padding and font style */
+    table td,
+    table th {
+        padding: 5px 10px;
+        font-size: 12px;
+        font-family: Verdana;
+        color: rgb(188, 19, 255);
+    }
+
+    /* Alternating background colors */
+    table tr:nth-child(even) {
+        background: rgba(231, 113, 255, 0.555)
+    }
+
+    table tr:nth-child(odd) {
+        background: #FFF
+    }
+
+    table {
+        margin: 1vw auto;
+    }
 </style>
