@@ -215,7 +215,7 @@ export default {
             },
             sqlcon:{
                 username: 'akarichan',
-                userpasswd: '',
+                userpasswd: 'akariChan@0721',
                 database: 'umamusume-pbl',
             },
             attribute_opt:[{

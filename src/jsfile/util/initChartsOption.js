@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-07-08 13:29:38
+ * @LastEditTime: 2021-07-10 13:24:59
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\jsfile\util\initChartsOption.js
+ */
 var initChartsOption_boxplot=function(Rawdata){
     let option = {
         title: [
@@ -55,8 +63,19 @@ var initChartsOption_boxplot=function(Rawdata){
                 type: 'boxplot',
                 tooltip: {
                     formatter: function(params){
+                        var name = ''
+                        switch(params.name){
+                            case '0': name = '速度';break;
+                            case '1': name = '体力';break;
+                            case '2': name = '力量';break;
+                            case '3': name = '根性';break;
+                            case '4': name = '智力';break;
+                        }
+
+
+
                         return [
-                            '类别名称: ' + params.name,
+                            '类别名称: ' + name,
                             '最小值: ' + params.data[1],
                             '后25%: ' + params.data[2],
                             '中位数: ' + params.data[3],

@@ -188,7 +188,7 @@
         width="180">
       </el-table-column>
     </el-table>
-    <div id="BoxChart" class="echarts" style="width: 1800px; height: 1200px"></div>
+    <div id="BoxChart" class="echarts" style="width: 80vw; height: 50vw"></div>
     
     <el-dialog
         title="选择支援卡"

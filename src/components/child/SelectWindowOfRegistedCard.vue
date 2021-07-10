@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-10 02:31:08
+ * @LastEditTime: 2021-07-10 13:08:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\child\SelectWindowOfRegistedCard.vue
@@ -41,7 +41,7 @@
         </el-row>
 
         <el-radio-group v-model="checkedItem">
-            <el-radio v-for="item in cards" v-if="hasType(item)" :label="item.id" border style="margin-top: 20px" >{{item.spc_name}}</el-radio>
+            <el-radio v-for="item in cards" v-if="hasType(item)" :label="item" border style="margin-top: 20px" >{{item.spc_name}}</el-radio>
         </el-radio-group>
     </div>
 </template>
@@ -57,7 +57,7 @@ export default {
             checkListType:'1',
             checkListRare:'3',
             checkListLevel:'50',
-            checkedItem:{id:0}
+            checkedItem:{},
         }
     },
     mounted(){console.log(this.cards)},
@@ -66,17 +66,17 @@ export default {
             if(item.spc_attribute == this.checkListType){
                 if(item.spc_lv == this.checkListLevel){
                     if(item.spc_rare == this.checkListRare){
-                        console.log("TRUE")
+                        console.log(item)
                         return true;
                     }
                 }
             }
-            console.log("FALSE");
-            console.log(`this.checkListRare=>${this.checkListRare}?=${item.spc_rare}<=item.spc_rare`)
+            // console.log("FALSE");
+            // console.log(`this.checkListRare=>${this.checkListRare}?=${item.spc_rare}<=item.spc_rare`)
             return false;
         },
         submitCard(){
-            console.log(this.cards)
+            // console.log(this.cards)
             console.log(this.checkedItem)
             if(this.checkedItem.id!=0){
                 this.$emit('getCardFromChild',this.checkedItem)
