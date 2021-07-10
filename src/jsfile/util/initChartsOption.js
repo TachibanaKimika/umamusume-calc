@@ -1,22 +1,20 @@
 /*
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-10 13:24:59
+ * @LastEditTime: 2021-07-10 15:28:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\jsfile\util\initChartsOption.js
  */
-var initChartsOption_boxplot=function(Rawdata){
+var initChartsOption_boxplot = function (Rawdata) {
     let option = {
-        title: [
-            {
-                text: '模拟结果',
-                left: 'center'
-            },
-        ],
+        title: [{
+            text: '模拟结果',
+            left: 'center'
+        }, ],
         dataset: [{
             // dimensions: ['name','num'],
-            source: [Rawdata[0].num,Rawdata[1].num,Rawdata[2].num,Rawdata[3].num,Rawdata[4].num]
+            source: [Rawdata[0].num, Rawdata[1].num, Rawdata[2].num, Rawdata[3].num, Rawdata[4].num]
         }, {
             transform: {
                 type: 'boxplot',
@@ -33,7 +31,7 @@ var initChartsOption_boxplot=function(Rawdata){
             axisPointer: {
                 type: 'shadow'
             },
-            
+
         },
         grid: {
             left: '10%',
@@ -57,19 +55,28 @@ var initChartsOption_boxplot=function(Rawdata){
                 show: true
             }
         },
-        series: [
-            {
+        series: [{
                 name: 'boxplot',
                 type: 'boxplot',
                 tooltip: {
-                    formatter: function(params){
+                    formatter: function (params) {
                         var name = ''
-                        switch(params.name){
-                            case '0': name = '速度';break;
-                            case '1': name = '体力';break;
-                            case '2': name = '力量';break;
-                            case '3': name = '根性';break;
-                            case '4': name = '智力';break;
+                        switch (params.name) {
+                            case '0':
+                                name = '速度';
+                                break;
+                            case '1':
+                                name = '体力';
+                                break;
+                            case '2':
+                                name = '力量';
+                                break;
+                            case '3':
+                                name = '根性';
+                                break;
+                            case '4':
+                                name = '智力';
+                                break;
                         }
 
 
@@ -89,7 +96,10 @@ var initChartsOption_boxplot=function(Rawdata){
             {
                 name: 'outlier',
                 type: 'scatter',
-                encode: { x: 1, y: 0 },
+                encode: {
+                    x: 1,
+                    y: 0
+                },
                 // tooltip:{
                 //     formatter:function(params){
                 //         return params.data
@@ -103,6 +113,6 @@ var initChartsOption_boxplot=function(Rawdata){
 }
 
 
-export{
+export {
     initChartsOption_boxplot
 }

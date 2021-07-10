@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-26 00:39:37
- * @LastEditTime: 2021-07-10 15:24:40
+ * @LastEditTime: 2021-07-10 15:30:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\InsertSkill.vue
@@ -35,14 +35,26 @@
             <el-radio-button label="4">赤スキル</el-radio-button>
         </el-radio-group>
         <el-row>
-            <el-col :span='4'><el-input v-model="skillOptions.name" style="width:auto"></el-input></el-col>
-            <el-col :span='3'><el-input-number v-model="skillOptions.pt" :step="10"></el-input-number></el-col>
-            <el-col :span='6'><el-input v-model="skillOptions.dsc"  autosize placeholder="効果" style="width:20vw"></el-input></el-col>
-            <el-col :span='4'><el-input v:model="sqlcon.username" placeholder="用户名" ></el-input></el-col>
-            <el-col :span='4'><el-input v:model="sqlcon.userpasswd" placeholder="密码" ></el-input></el-col>
-            <el-col :span='3'><el-button @click="updateSkill">Submit</el-button></el-col>
+            <el-col :span='4'>
+                <el-input v-model="skillOptions.name" style="width:auto"></el-input>
+            </el-col>
+            <el-col :span='3'>
+                <el-input-number v-model="skillOptions.pt" :step="10"></el-input-number>
+            </el-col>
+            <el-col :span='6'>
+                <el-input v-model="skillOptions.dsc" autosize placeholder="効果" style="width:20vw"></el-input>
+            </el-col>
+            <el-col :span='4'>
+                <el-input v:model="sqlcon.username" placeholder="用户名"></el-input>
+            </el-col>
+            <el-col :span='4'>
+                <el-input v:model="sqlcon.userpasswd" placeholder="密码"></el-input>
+            </el-col>
+            <el-col :span='3'>
+                <el-button @click="updateSkill">Submit</el-button>
+            </el-col>
         </el-row>
-        
+
         <!-- <div class="sqlinfo">
             <el-input v:model="sqlcon.username" placeholder="用户名" style="width:30%"></el-input>
             <el-input v:model="sqlcon.userpasswd" placeholder="密码" style="width:30%"></el-input>
@@ -53,11 +65,7 @@
 
 
         <div class="skill">
-            <el-tag
-            :key="tag.id"
-            v-for="tag in mySkill"
-            :disable-transitions="false"
-            style="margin:10px">
+            <el-tag :key="tag.id" v-for="tag in mySkill" :disable-transitions="false" style="margin:10px">
                 {{tag.skill_name}}
             </el-tag>
         </div>
@@ -65,97 +73,107 @@
 </template>
 
 <script>
-import{qurSql}from '../jsfile/api/con2sql.js'
-export default {
-    name: 'InsertSkill',
-    data(){
-        return{
-            sqlcon:{
-                username: 'akarichan',
-                userpasswd: 'akariChan@0721',
-                database: 'umamusume-pbl',
-            },
-            skillOptions:{
-                name:'',
-                type:0,
-                rare:0,
-                long:0,
-                sakusen:0,
-                pt:160,
-                dsc:'',
-            },
-            // skillOptionsModel:{
-            //     name:'',
-            //     type:0,
-            //     rare:0,
-            //     long:0,
-            //     sakusen:0,
-            //     pt:160,
-            //     dsc:'',
-            // },
-            mySkill:[],
-        }
-    },
-    methods: {
-        updateSkill(){
-            if(!this.insertCheck()){
-                return;
+    import {
+        qurSql
+    } from '../jsfile/api/con2sql.js'
+    export default {
+        name: 'InsertSkill',
+        data() {
+            return {
+                sqlcon: {
+                    username: 'akarichan',
+                    userpasswd: 'akariChan@0721',
+                    database: 'umamusume-pbl',
+                },
+                skillOptions: {
+                    name: '',
+                    type: 0,
+                    rare: 0,
+                    long: 0,
+                    sakusen: 0,
+                    pt: 160,
+                    dsc: '',
+                },
+                // skillOptionsModel:{
+                //     name:'',
+                //     type:0,
+                //     rare:0,
+                //     long:0,
+                //     sakusen:0,
+                //     pt:160,
+                //     dsc:'',
+                // },
+                mySkill: [],
             }
-            let query = `insert into skill (skill_name, skill_type, skill_rare, skill_long, skill_sakusen, skill_pt, skill_dsc)
-             value ('${this.skillOptions.name}', ${this.skillOptions.type}, ${this.skillOptions.rare}, ${this.skillOptions.long}, ${this.skillOptions.sakusen}, ${this.skillOptions.pt}, '${this.skillOptions.dsc}')`
-            console.log(query)
-            qurSql(this.sqlcon, query, res=>{
-                console.log(res)
-                //this.$message(res.affectedRows)
-            })
-            this.skillOptions.name='';this.skillOptions.rare=0;this.skillOptions.long=0;this.skillOptions.sakusen=0;this.skillOptions.dsc=''
         },
+        methods: {
+            updateSkill() {
+                if (!this.insertCheck()) {
+                    return;
+                }
+                let query =
+                    `insert into skill (skill_name, skill_type, skill_rare, skill_long, skill_sakusen, skill_pt, skill_dsc)
+             value ('${this.skillOptions.name}', ${this.skillOptions.type}, ${this.skillOptions.rare}, ${this.skillOptions.long}, ${this.skillOptions.sakusen}, ${this.skillOptions.pt}, '${this.skillOptions.dsc}')`
+                console.log(query)
+                qurSql(this.sqlcon, query, res => {
+                    console.log(res)
+                    //this.$message(res.affectedRows)
+                })
+                this.skillOptions.name = '';
+                this.skillOptions.rare = 0;
+                this.skillOptions.long = 0;
+                this.skillOptions.sakusen = 0;
+                this.skillOptions.dsc = '';
+            },
 
-        insertCheck(){
-            if(this.skillOptions.name==''||this.skillOptions.dsc==''){
-                this.sendMsg('技能名或技能描述格式错误, 请重新输入','error')
-                return false
-            }
-
-            let query = `SELECT COUNT( * ) AS \`count\` FROM skill WHERE skill_name='${this.skillOptions.name}'`
-            qurSql(this.sqlcon, query, res=>{
-                //console.log(res)
-                if(res.count!=0){
-                    this.sendMsg('this skill has exist','error')
+            insertCheck() {
+                if (this.skillOptions.name == '' || this.skillOptions.dsc == '') {
+                    this.sendMsg('技能名或技能描述格式错误, 请重新输入', 'error')
                     return false
                 }
-            })
-            return true
-        },
 
-        getMySkill(){
-            let query = `select * from skill`
-            qurSql(this.sqlcon, query, res=>{
-                this.mySkill = res;
-            })
-        },
+                let query = `SELECT COUNT( * ) AS \`count\` FROM skill WHERE skill_name='${this.skillOptions.name}'`
+                qurSql(this.sqlcon, query, res => {
+                    //console.log(res)
+                    if (res.count != 0) {
+                        this.sendMsg('this skill has exist', 'error')
+                        return false
+                    }
+                })
+                return true
+            },
 
-        sendMsg(Msg,type='success'){
-            this.$message({
-                message:Msg,type:type
-            })
+            getMySkill() {
+                let query = `select * from skill`
+                qurSql(this.sqlcon, query, res => {
+                    this.mySkill = res
+                })
+            },
+
+            sendMsg(Msg, type = 'success') {
+                this.$message({
+                    message: Msg,
+                    type: type
+                })
+            }
+        },
+        mounted() {
+            this.getMySkill()
         }
-    },
-    mounted(){
-        this.getMySkill()
     }
-}
 </script>
 
 <style scoped>
-.el-radio-group, .el-input-number, .el-input, .el-button{
-    margin:1vw;
-    
-}
+    .el-radio-group,
+    .el-input-number,
+    .el-input,
+    .el-button {
+        margin: 1vw;
 
+    }
 
- .sqlinfo{
-    display: inline;
-    margin:1vw;
-}
+    .sqlinfo {
+        display: inline;
+        margin: 1vw;
+    }
 </style>
