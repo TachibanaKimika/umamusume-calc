@@ -3,48 +3,48 @@
         <div class="block">
             <el-row>
                 <el-col :span="24">
-                    <el-button v-model="seted_card_item[0]" placeholder="支援卡1"
+                    <el-button v-model="selected_card_item[0]" placeholder="支援卡1"
                         @click="dialogVisible = true;potionSelector=0" style="width:27%" class="line-limit-length">
-                        <span v-if="seted_card_item[0]">{{seted_card_item[0].spc_name}}</span><span
+                        <span v-if="selected_card_item[0]">{{selected_card_item[0].spc_name}}</span><span
                             v-else>请选择支援卡1</span>
                     </el-button>
                     <el-switch v-model="card_kizuna[0]" active-color="#13ce66" inactive-color="#ff4949" active-value=100
                         inactive-value=0>
                     </el-switch>
-                    <el-button v-model="seted_card_item[1]" placeholder="支援卡2"
+                    <el-button v-model="selected_card_item[1]" placeholder="支援卡2"
                         @click="dialogVisible = true;potionSelector=1" style="width:27%" class="line-limit-length">
-                        <span v-if="seted_card_item[1]">{{seted_card_item[1].spc_name}}</span><span
+                        <span v-if="selected_card_item[1]">{{selected_card_item[1].spc_name}}</span><span
                             v-else>请选择支援卡2</span>
                     </el-button>
                     <el-switch v-model="card_kizuna[1]" active-color="#13ce66" inactive-color="#ff4949" active-value=100
                         inactive-value=0>
                     </el-switch>
-                    <el-button v-model="seted_card_item[2]" placeholder="支援卡3"
+                    <el-button v-model="selected_card_item[2]" placeholder="支援卡3"
                         @click="dialogVisible = true;potionSelector=2" style="width:27%" class="line-limit-length">
-                        <span v-if="seted_card_item[2]">{{seted_card_item[2].spc_name}}</span><span
+                        <span v-if="selected_card_item[2]">{{selected_card_item[2].spc_name}}</span><span
                             v-else>请选择支援卡3</span>
                     </el-button>
                     <el-switch v-model="card_kizuna[2]" active-color="#13ce66" inactive-color="#ff4949" active-value=100
                         inactive-value=0>
                     </el-switch>
                 </el-col>
-                <el-button v-model="seted_card_item[3]" placeholder="支援卡4"
+                <el-button v-model="selected_card_item[3]" placeholder="支援卡4"
                     @click="dialogVisible = true;potionSelector=3" style="width:27%" class="line-limit-length">
-                    <span v-if="seted_card_item[3]">{{seted_card_item[3].spc_name}}</span><span v-else>请选择支援卡4</span>
+                    <span v-if="selected_card_item[3]">{{selected_card_item[3].spc_name}}</span><span v-else>请选择支援卡4</span>
                 </el-button>
                 <el-switch v-model="card_kizuna[3]" active-color="#13ce66" inactive-color="#ff4949" active-value=100
                     inactive-value=0>
                 </el-switch>
-                <el-button v-model="seted_card_item[4]" placeholder="支援卡5"
+                <el-button v-model="selected_card_item[4]" placeholder="支援卡5"
                     @click="dialogVisible = true;potionSelector=4" style="width:27%" class="line-limit-length">
-                    <span v-if="seted_card_item[4]">{{seted_card_item[4].spc_name}}</span><span v-else>请选择支援卡5</span>
+                    <span v-if="selected_card_item[4]">{{selected_card_item[4].spc_name}}</span><span v-else>请选择支援卡5</span>
                 </el-button>
                 <el-switch v-model="card_kizuna[4]" active-color="#13ce66" inactive-color="#ff4949" active-value=100
                     inactive-value=0>
                 </el-switch>
-                <el-button v-model="seted_card_item[5]" placeholder="支援卡6"
+                <el-button v-model="selected_card_item[5]" placeholder="支援卡6"
                     @click="dialogVisible = true;potionSelector=5" style="width:27%" class="line-limit-length">
-                    <span v-if="seted_card_item[5]">{{seted_card_item[5].spc_name}}</span><span v-else>请选择支援卡6</span>
+                    <span v-if="selected_card_item[5]">{{selected_card_item[5].spc_name}}</span><span v-else>请选择支援卡6</span>
                 </el-button>
                 <el-switch v-model="card_kizuna[5]" active-color="#13ce66" inactive-color="#ff4949" active-value=100
                     inactive-value=0>
@@ -157,7 +157,7 @@
                     database: 'umamusume-pbl',
                 },
                 card_item: [],
-                seted_card_item: [], //将卡用id表示
+                selected_card_item: [], //将卡用id表示
                 trash: [],
                 card_kizuna: [0, 0, 0, 0, 0, 0],
                 stdtore: [{
@@ -298,11 +298,11 @@
                 console.log(this.options.uma)
                 // this.options.uma = this.options.uma.split(',');
                 // this.options.torelv = this.options.torelv.split(',');
-                if (this.checkUpdata(this.seted_card_item)) {
+                if (this.checkUpdata(this.selected_card_item)) {
                     for (let i in this.card_kizuna) {
-                        this.seted_card_item[i].spc_kizuna = this.card_kizuna[i]
+                        this.selected_card_item[i].spc_kizuna = this.card_kizuna[i]
                     }
-                    this.recivedresult = simulation(this.seted_card_item, this.options)
+                    this.recivedresult = simulation(this.selected_card_item, this.options)
                     for (let i in this.recivedresult) {
                         this.result[i].result = this.recivedresult[i].result;
                         this.result[i].card = this.recivedresult[i].card;
@@ -348,9 +348,9 @@
                     },
                 ];
                 var times = this.simulationtime * 100;
-                if (this.checkUpdata(this.seted_card_item)) {
+                if (this.checkUpdata(this.selected_card_item)) {
                     for (var i in this.card_kizuna) {
-                        this.seted_card_item[i].spc_kizuna = this.card_kizuna[i]
+                        this.selected_card_item[i].spc_kizuna = this.card_kizuna[i]
                     }
                     for (var i in this.recivedresult) {
                         this.result[i].result = [0, 0, 0, 0, 0, 0]
@@ -358,7 +358,7 @@
 
                     //相加多次
                     for (let j = 0; j < times; j++) {
-                        this.recivedresult = simulation(this.seted_card_item, this.options)
+                        this.recivedresult = simulation(this.selected_card_item, this.options)
                         for (var i in this.recivedresult) {
                             //两个数组相加
                             this.totalResult[i].num.push(this.recivedresult[i].result[i])
@@ -394,7 +394,7 @@
             },
             reciveCardItem(data) {
                 console.log(this.potionSelector)
-                this.seted_card_item[this.potionSelector] = data;
+                this.selected_card_item[this.potionSelector] = data;
                 this.dialogVisible = false
             },
         }

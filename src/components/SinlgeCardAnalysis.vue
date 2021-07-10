@@ -1,44 +1,49 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-10 03:08:08
- * @LastEditTime: 2021-07-10 15:29:58
+ * @LastEditTime: 2021-07-10 16:09:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\SinlgeCardAnalysis.vue
 -->
 
+<!-- 单卡性能计算 -->
+
 <template>
     <div>
-        <div calss="count">
-            <ul>
-                <li>
-
-                </li>
-            </ul>
-
+        <div class="cardbox" v-for="i in 4">
+            <el-button
+            v-model="selected_card[i-1]"
+            @click="dialogVisible = true;potionSelector=i-1"
+            ><span class="selectedCardItem" v-if="selected_card[i-1]">{{selected_card[i-1].spc_name}}</span><span v-else>请选择支援卡{{i}}</span></el-button>
         </div>
+        <el-dialog title="选择支援卡" :visible.sync="dialogVisible">
+            <SelectWindowOfRegistedCard :cards="card_item" v-on:getCardFromChild='reciveCardItem' />
+        </el-dialog>
     </div>
 </template>
 
 <script>
+import SelectWindowOfRegistedCard from "@/components/child/SelectWindowOfRegistedCard.vue"
     import $ from 'jquery'
     import {
         qurSql
     } from '../jsfile/api/con2sql.js'
     export default {
         name: 'SinlgeCardAnalysis',
+        components: {
+            SelectWindowOfRegistedCard
+        },
         data() {
             return {
+                dialogVisible: false,
                 sqlcon: {
                     username: 'akarichan',
                     userpasswd: 'akariChan@0721',
                     database: 'umamusume-pbl',
                 },
-                card: [],
-                selected_card: '',
-
-
-
+                card_item: [],
+                selected_card: [],
                 calc_options: {
                     stdtore: [{
                             cost: 21,
@@ -93,16 +98,26 @@
                     ],
                     yaruki: 1.1,
                     torelv: [5, 5, 5, 5, 5]
-                }
+                },
+                potionSelector: 0,
             }
         },
         mounted() {
-            let query = `SELECT * FROM supportcard_stu LEFT JOIN supportcard ON supportcard.id = supportcard_stu.spc_id`
+            let query = 'SELECT \
+                        supportcard_stu.`id`, supportcard_stu.`spc_id`,supportcard.`spc_attribute`,supportcard.`spc_rare`,\
+                        supportcard_stu.`spc_lv`,supportcard_stu.`spc_youujo`,supportcard_stu.`spc_yaruki`,supportcard_stu.`spc_tore`,\
+                        supportcard_stu.`spc_bonasu_pt`,supportcard_stu.`spc_tokuitu`,supportcard_stu.`spc_kizuna`,\
+                        supportcard_stu.`spc_init_stu`,supportcard_stu.`spc_race`,supportcard_stu.`spc_fan`,supportcard_stu.`spc_hit_lv`,\
+                        supportcard_stu.`spc_hit_ritu`,supportcard_stu.`spc_reduce_suta`,supportcard_stu.`spc_reduce_shipai`,\
+                        CONCAT(\'[\',supportcard_stu.`spc_lv`,\']‐[\',supportcard.`spc_secname`,\']-\',supportcard.`spc_name`) spc_name\
+                        FROM supportcard_stu\
+                        LEFT JOIN supportcard ON supportcard.`id` = supportcard_stu.`spc_id`\
+                        ORDER BY spc_name DESC'
             qurSql(this.sqlcon, query, res => {
-                this.card = res
-                this.select_card = this.card[0] //test
+                this.card_item = res
+                this.selected_card[0] = this.card_item[0] //test
                 // console.log(res)
-                this.calcCard(this.select_card)
+                this.calcCard(this.selected_card[0])
             })
         },
         methods: {
@@ -130,7 +145,6 @@
                 }
                 for (let i in mytore) {
                     mytore[i] = mytore[i].map(function (item, index, array) {
-                        //        //人头数    //联系性能                //干劲
                         let num = item * 1.05 * (1 + card.spc_tore / 100) * (1 + (calc_options.yaruki - 1) * (
                             1 + card.spc_yaruki / 100))
                         return parseInt(num.toFixed(0))
@@ -146,7 +160,26 @@
                 console.log(stdtore)
                 console.log(mytore)
                 console.log(mytore_y)
-            }
+            },
+            reciveCardItem(data) {
+                console.log(this.potionSelector)
+                this.selected_card[this.potionSelector] = data;
+                this.dialogVisible = false
+            },
         }
     }
 </script>
+
+
+<style scoped>
+.cardbox {
+    display: inline-block;
+    width: 20vw;
+    margin: 1vw;
+}
+
+.selectedCardItem{
+    font-size: 0.8vw;
+    letter-spacing: 0;
+}
+</style>

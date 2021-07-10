@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-26 00:39:37
- * @LastEditTime: 2021-07-10 15:30:58
+ * @LastEditTime: 2021-07-10 15:36:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\InsertSkill.vue
@@ -94,15 +94,6 @@
                     pt: 160,
                     dsc: '',
                 },
-                // skillOptionsModel:{
-                //     name:'',
-                //     type:0,
-                //     rare:0,
-                //     long:0,
-                //     sakusen:0,
-                //     pt:160,
-                //     dsc:'',
-                // },
                 mySkill: [],
             }
         },

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-10 15:28:55
+ * @LastEditTime: 2021-07-10 15:52:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\jsfile\util\initChartsOption.js
@@ -112,6 +112,9 @@ var initChartsOption_boxplot = function (Rawdata) {
     return option;
 }
 
+var initChartsOption_singleCard = function(card) {
+    
+}
 
 export {
     initChartsOption_boxplot
