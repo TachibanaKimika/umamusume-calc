@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-10 21:01:57
+ * @LastEditTime: 2021-07-11 02:01:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\jsfile\util\initChartsOption.js
@@ -112,8 +112,10 @@ var initChartsOption_boxplot = function (Rawdata) {
     return option;
 }
 
-var initChartsOption_Bar_singleCard = function(result) {
-    
+var initChartsOption_Bar_singleCard = function(cardArr, myoptions) {
+    console.log(cardArr)
+    console.log(myoptions)
+    //每组柱状图表示当时卡的某属性加成数值, 各个柱子表示不同的卡
     let options = {
         legend: {},
         tooltip: {},
@@ -136,6 +138,39 @@ var initChartsOption_Bar_singleCard = function(result) {
             {type: 'bar'}
         ]
     }
+    
+    let staticData = {
+        atb:['スビート','スタミナ','パワー','根性','賢さ','スキル']
+    }
+
+    let flag = '';
+    switch(myoptions.attribute){
+        case 0:flag = 'スビート';break;
+        case 1:flag = 'スタミナ';break;
+        case 2:flag = 'パワー';break;
+        case 3:flag = '根性';break;
+        case 4:flag = '賢さ';break; 
+    }
+
+    let source2decade = []
+    
+    for(let i in cardArr){
+        var obj = {}
+        obj.name = cardArr[i].spc_name
+        for(let j in cardArr[i].spc_result.tore_Common_y[myoptions.attribute]){
+            cardArr[i].spc_result.tore_Common_y[myoptions.attribute][j]!=0?obj[staticData.atb[j]] = cardArr[i].spc_result.tore_Common_y[myoptions.attribute][j]:true
+        }
+        source2decade.push(obj);
+    }
+    console.log(source2decade)
+
+
+
+
+    //const model = [{common:[1,1,1],common_y:[1,2,2,2,2,2]},{...a}] //=> [{}]
+
+
+    
 }
 
 export {

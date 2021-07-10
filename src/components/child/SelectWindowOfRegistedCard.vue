@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-10 15:32:52
+ * @LastEditTime: 2021-07-10 23:56:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\child\SelectWindowOfRegistedCard.vue
@@ -69,7 +69,7 @@
                 if (item.spc_attribute == this.checkListType) {
                     if (item.spc_lv == this.checkListLevel) {
                         if (item.spc_rare == this.checkListRare) {
-                            console.log(item)
+                            // console.log(item)
                             return true;
                         }
                     }

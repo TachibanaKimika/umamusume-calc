@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-10 03:08:08
- * @LastEditTime: 2021-07-10 22:37:40
+ * @LastEditTime: 2021-07-11 02:06:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\SinlgeCardAnalysis.vue
@@ -11,13 +11,37 @@
 
 <template>
     <div>
-        <div class="chooseOptions" >
+        <!-- <div class="chooseOptions" >
             <el-slider 
             v-for="i in 5" 
             v-model="calc_options.torelv[i]"
             :step="20" show-stops
             :format-tooltip="formatTooltip"></el-slider>
+        </div> -->
+
+        <div class="setOptions">
+
+            <el-row >
+                <el-col :span="6">
+                    <el-select v-model="my_options.attribute" placeholder="请选择">
+                        <el-option v-for="item in static.atbOpt" :key="item.value" :label="item.label" :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-col>
+                <el-col :span="6">
+                    <el-slider v-model="my_options.level" :step="20" show-stops :format-tooltip="formatTooltip" ></el-slider>
+                </el-col>
+                <el-col :span="6">
+                    <el-button type="success" @click="initChart"><span>生成图表</span></el-button>
+                </el-col>
+            </el-row>
+            <!-- <el-select v-model="my_options.attribute" placeholder="请选择">
+                <el-option v-for="item in static.atbOpt" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+            </el-select>
+            <el-slider v-model="my_options.level" :step="20" show-stops :format-tooltip="formatTooltip" style="width: 10vw"></el-slider> -->
         </div>
+
         <div class="cardbox" v-for="i in 4">
             <el-button v-model="selected_card[i-1]" @click="dialogVisible = true;potionSelector = i-1;"><span
                     class="selectedCardItem" v-if="selected_card[i-1]">{{selected_card[i-1].spc_name}}</span><span
@@ -81,6 +105,19 @@
                         <td>{{getAttribute(j,'bonasu')}}ボーナス</td>
                         <td>{{selected_card[i-1].spc_bonasu_pt.split(',')[j-1]}}</td>
                     </tr>
+
+                    <tr>
+                        <td>练习性能</td>
+                        <td v-if="selected_card[i-1]">{{selected_card[i-1].spc_result.common}}</td>
+                    </tr>
+                    <tr>
+                        <td>友情练习性能</td>
+                        <td v-if="selected_card[i-1]">{{selected_card[i-1].spc_result.common_y}}</td>
+                    </tr>
+                    <tr>
+                        <td>得意练习出现率</td>
+                        <td v-if="selected_card[i-1]">{{selected_card[i-1].spc_result.awareritu}}</td>
+                    </tr>
                 </table>
             </div>
         </div>
@@ -96,9 +133,10 @@
 <script>
     import SelectWindowOfRegistedCard from "@/components/child/SelectWindowOfRegistedCard.vue"
     import $ from 'jquery'
-    import {
-        qurSql
-    } from '../jsfile/api/con2sql.js'
+
+
+    import {qurSql} from '../jsfile/api/con2sql.js'
+    import {initChartsOption_Bar_singleCard} from '../jsfile/util/initChartsOption.js'
     export default {
         name: 'SinlgeCardAnalysis',
         components: {
@@ -166,10 +204,41 @@
                             ]
                         },
                     ],
-                    yaruki: 1.1,
+                    yaruki: 1.2,
                     torelv: [5, 5, 5, 5, 5]
                 },
-                potionSelector: 0,
+                my_options: {
+                    attribute: '', //练习的类型
+                    level: 1,
+                },
+                potionSelector: '',
+
+
+
+                // 静态资源
+                static: {
+                    atbOpt: [{
+                            value: 0,
+                            label: 'スビート'
+                        },
+                        {
+                            value: 1,
+                            label: 'スタミナ'
+                        },
+                        {
+                            value: 2,
+                            label: 'パワー'
+                        },
+                        {
+                            value: 3,
+                            label: '根性'
+                        },
+                        {
+                            value: 4,
+                            label: '賢さ'
+                        },
+                    ]
+                }
             }
         },
         mounted() {
@@ -191,41 +260,42 @@
             })
         },
 
-        
+
         methods: {
             calcCard(card) { //传一张卡
                 // TODO LIST 在表格中计算`出现率`, `练习性能`, `友情练习性能`
-                const my_calc_options = this.calc_options;
+                var my_calc_options = this.calc_options;
                 let mytore = [];
-                // console.log(card)
                 //基础值
                 for (let i in my_calc_options.torelv) {
-                    // console.log(i)
-                    // console.log(my_calc_options.stdtore[i].lv[my_calc_options.torelv[i] - 1])
-                    // console.log(this.calc_options.torelv[i])
                     mytore[i] = my_calc_options.stdtore[i].lv[my_calc_options.torelv[i] - 1]
                 }
 
                 //对照练习性能
                 const stdtore = $.extend(true, {}, mytore);
-                // console.log(mytore)
 
                 //计算每一项的加成点:
-                card.spc_bonasu_pt = card.spc_bonasu_pt.split(",")
                 for (let i in mytore) {
                     for (let j in mytore[i]) {
                         if (mytore[i][j] != 0) {
-                            mytore[i][j] += parseInt(card.spc_bonasu_pt[j])
+                            mytore[i][j] += parseInt(card.spc_bonasu_pt.split(",")[j])
                         }
                     }
                 }
+                console.log(mytore)
                 for (let i in mytore) {
                     mytore[i] = mytore[i].map(function (item, index, array) {
-                        let num = item * 1.05 * (1 + card.spc_tore / 100) * (1 + (calc_options.yaruki - 1) * (
+                        let num = item * 1.05 * (1 + card.spc_tore / 100) * (1 + (my_calc_options.yaruki - 1) * (
                             1 + card.spc_yaruki / 100))
-                        return parseInt(num.toFixed(0))
+                        return num
                     })
                 }
+
+                //练习性能 resultCommon
+                // console.log(mytore)
+                let atb = card.spc_attribute - 1
+                let resultCommon = mytore[atb][atb] / stdtore[atb][atb]
+                // console.log(`atb= ${atb}, and mytore[atb][atb] = ${mytore[atb][atb]}, stdtore[atb][atb] = ${stdtore[atb][atb]}`)
 
 
                 //友情练习性能
@@ -233,13 +303,31 @@
                 for (let i in mytore) {
                     mytore_y[i] = mytore[i].map(function (item, index, array) {
                         let num = i == card.spc_attribute - 1 ? item * (1 + card.spc_youujo / 100) : item
-                        return parseInt(num.toFixed(0))
+                        return num.toFixed(2)
                     })
                 }
+                let resultCommon_y = mytore_y[atb][atb] / stdtore[atb][atb]
+
+
+                // 得意练习出现率
+                let awareritu = (card.spc_tokuitu+100)/(card.spc_tokuitu+100+450)
+                
+
+
+                return {
+                    common: resultCommon.toFixed(2),
+                    common_y: resultCommon_y.toFixed(2),
+                    tore_Common: mytore,
+                    tore_Common_y: mytore_y,
+                    awareritu: awareritu.toFixed(2)
+                }
+
             },
             reciveCardItem(data) {
                 this.selected_card[this.potionSelector] = data;
-                this.dialogVisible = false
+                this.dialogVisible = false;
+                console.log(this.calc_options)
+                this.selected_card[this.potionSelector].spc_result = this.calcCard(this.selected_card[this.potionSelector]);
             },
             formatTooltip(val) {
                 return val / 20;
@@ -263,6 +351,17 @@
                             return 'スキル'
                         }
                 }
+            },
+            initChart(){
+                this.$message('aaaa');
+                let card2Submit = []
+                console.log(this.selected_card)
+                for(let i in this.selected_card){
+                    if(this.selected_card[i].id){
+                        card2Submit.push(this.selected_card[i])
+                    }
+                }
+                initChartsOption_Bar_singleCard(card2Submit, this.my_options)
             }
         }
     }
@@ -281,13 +380,10 @@
         letter-spacing: 0;
     }
 
-
-
-    .chooseOptions>.el-slider {
-        display: inline-block;
-        width:10vw;
-        margin: 1vw;
+    .setOptions{
+        margin: 2vw
     }
+
 
     /* Border styles */
     table thead,
