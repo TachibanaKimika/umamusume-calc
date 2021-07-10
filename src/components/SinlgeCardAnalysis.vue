@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-10 03:08:08
- * @LastEditTime: 2021-07-11 02:06:23
+ * @LastEditTime: 2021-07-11 02:09:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\SinlgeCardAnalysis.vue
@@ -21,15 +21,17 @@
 
         <div class="setOptions">
 
-            <el-row >
+            <el-row>
                 <el-col :span="6">
                     <el-select v-model="my_options.attribute" placeholder="请选择">
-                        <el-option v-for="item in static.atbOpt" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in static.atbOpt" :key="item.value" :label="item.label"
+                            :value="item.value">
                         </el-option>
                     </el-select>
                 </el-col>
                 <el-col :span="6">
-                    <el-slider v-model="my_options.level" :step="20" show-stops :format-tooltip="formatTooltip" ></el-slider>
+                    <el-slider v-model="my_options.level" :step="20" show-stops :format-tooltip="formatTooltip">
+                    </el-slider>
                 </el-col>
                 <el-col :span="6">
                     <el-button type="success" @click="initChart"><span>生成图表</span></el-button>
@@ -135,8 +137,12 @@
     import $ from 'jquery'
 
 
-    import {qurSql} from '../jsfile/api/con2sql.js'
-    import {initChartsOption_Bar_singleCard} from '../jsfile/util/initChartsOption.js'
+    import {
+        qurSql
+    } from '../jsfile/api/con2sql.js'
+    import {
+        initChartsOption_Bar_singleCard
+    } from '../jsfile/util/initChartsOption.js'
     export default {
         name: 'SinlgeCardAnalysis',
         components: {
@@ -285,8 +291,9 @@
                 console.log(mytore)
                 for (let i in mytore) {
                     mytore[i] = mytore[i].map(function (item, index, array) {
-                        let num = item * 1.05 * (1 + card.spc_tore / 100) * (1 + (my_calc_options.yaruki - 1) * (
-                            1 + card.spc_yaruki / 100))
+                        let num = item * 1.05 * (1 + card.spc_tore / 100) * (1 + (my_calc_options.yaruki - 1) *
+                            (
+                                1 + card.spc_yaruki / 100))
                         return num
                     })
                 }
@@ -310,8 +317,8 @@
 
 
                 // 得意练习出现率
-                let awareritu = (card.spc_tokuitu+100)/(card.spc_tokuitu+100+450)
-                
+                let awareritu = (card.spc_tokuitu + 100) / (card.spc_tokuitu + 100 + 450)
+
 
 
                 return {
@@ -327,7 +334,8 @@
                 this.selected_card[this.potionSelector] = data;
                 this.dialogVisible = false;
                 console.log(this.calc_options)
-                this.selected_card[this.potionSelector].spc_result = this.calcCard(this.selected_card[this.potionSelector]);
+                this.selected_card[this.potionSelector].spc_result = this.calcCard(this.selected_card[this
+                    .potionSelector]);
             },
             formatTooltip(val) {
                 return val / 20;
@@ -352,12 +360,12 @@
                         }
                 }
             },
-            initChart(){
+            initChart() {
                 this.$message('aaaa');
                 let card2Submit = []
                 console.log(this.selected_card)
-                for(let i in this.selected_card){
-                    if(this.selected_card[i].id){
+                for (let i in this.selected_card) {
+                    if (this.selected_card[i].id) {
                         card2Submit.push(this.selected_card[i])
                     }
                 }
@@ -380,7 +388,7 @@
         letter-spacing: 0;
     }
 
-    .setOptions{
+    .setOptions {
         margin: 2vw
     }
 

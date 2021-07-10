@@ -112,7 +112,7 @@ var initChartsOption_boxplot = function (Rawdata) {
     return option;
 }
 
-var initChartsOption_Bar_singleCard = function(cardArr, myoptions) {
+var initChartsOption_Bar_singleCard = function (cardArr, myoptions) {
     console.log(cardArr)
     console.log(myoptions)
     //每组柱状图表示当时卡的某属性加成数值, 各个柱子表示不同的卡
@@ -121,44 +121,80 @@ var initChartsOption_Bar_singleCard = function(cardArr, myoptions) {
         tooltip: {},
         dataset: {
             dimensions: ['product', '2015', '2016', '2017'],
-            source: [
-                {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},
-                {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},
-                {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},
-                {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}
+            source: [{
+                    product: 'Matcha Latte',
+                    '2015': 43.3,
+                    '2016': 85.8,
+                    '2017': 93.7
+                },
+                {
+                    product: 'Milk Tea',
+                    '2015': 83.1,
+                    '2016': 73.4,
+                    '2017': 55.1
+                },
+                {
+                    product: 'Cheese Cocoa',
+                    '2015': 86.4,
+                    '2016': 65.2,
+                    '2017': 82.5
+                },
+                {
+                    product: 'Walnut Brownie',
+                    '2015': 72.4,
+                    '2016': 53.9,
+                    '2017': 39.1
+                }
             ]
         },
-        xAxis: {type: 'category'},
+        xAxis: {
+            type: 'category'
+        },
         yAxis: {},
         // Declare several bar series, each will be mapped
         // to a column of dataset.source by default.
-        series: [
-            {type: 'bar'},
-            {type: 'bar'},
-            {type: 'bar'}
+        series: [{
+                type: 'bar'
+            },
+            {
+                type: 'bar'
+            },
+            {
+                type: 'bar'
+            }
         ]
     }
-    
+
     let staticData = {
-        atb:['スビート','スタミナ','パワー','根性','賢さ','スキル']
+        atb: ['スビート', 'スタミナ', 'パワー', '根性', '賢さ', 'スキル']
     }
 
     let flag = '';
-    switch(myoptions.attribute){
-        case 0:flag = 'スビート';break;
-        case 1:flag = 'スタミナ';break;
-        case 2:flag = 'パワー';break;
-        case 3:flag = '根性';break;
-        case 4:flag = '賢さ';break; 
+    switch (myoptions.attribute) {
+        case 0:
+            flag = 'スビート';
+            break;
+        case 1:
+            flag = 'スタミナ';
+            break;
+        case 2:
+            flag = 'パワー';
+            break;
+        case 3:
+            flag = '根性';
+            break;
+        case 4:
+            flag = '賢さ';
+            break;
     }
 
     let source2decade = []
-    
-    for(let i in cardArr){
+
+    for (let i in cardArr) {
         var obj = {}
         obj.name = cardArr[i].spc_name
-        for(let j in cardArr[i].spc_result.tore_Common_y[myoptions.attribute]){
-            cardArr[i].spc_result.tore_Common_y[myoptions.attribute][j]!=0?obj[staticData.atb[j]] = cardArr[i].spc_result.tore_Common_y[myoptions.attribute][j]:true
+        for (let j in cardArr[i].spc_result.tore_Common_y[myoptions.attribute]) {
+            cardArr[i].spc_result.tore_Common_y[myoptions.attribute][j] != 0 ? obj[staticData.atb[j]] = cardArr[i].spc_result.tore_Common_y[myoptions.attribute][j] : true
         }
         source2decade.push(obj);
     }
@@ -170,7 +206,7 @@ var initChartsOption_Bar_singleCard = function(cardArr, myoptions) {
     //const model = [{common:[1,1,1],common_y:[1,2,2,2,2,2]},{...a}] //=> [{}]
 
 
-    
+
 }
 
 export {
