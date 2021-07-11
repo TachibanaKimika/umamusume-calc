@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-11 02:01:53
+ * @LastEditTime: 2021-07-11 12:27:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\jsfile\util\initChartsOption.js
@@ -120,32 +120,8 @@ var initChartsOption_Bar_singleCard = function (cardArr, myoptions) {
         legend: {},
         tooltip: {},
         dataset: {
-            dimensions: ['product', '2015', '2016', '2017'],
-            source: [{
-                    product: 'Matcha Latte',
-                    '2015': 43.3,
-                    '2016': 85.8,
-                    '2017': 93.7
-                },
-                {
-                    product: 'Milk Tea',
-                    '2015': 83.1,
-                    '2016': 73.4,
-                    '2017': 55.1
-                },
-                {
-                    product: 'Cheese Cocoa',
-                    '2015': 86.4,
-                    '2016': 65.2,
-                    '2017': 82.5
-                },
-                {
-                    product: 'Walnut Brownie',
-                    '2015': 72.4,
-                    '2016': 53.9,
-                    '2017': 39.1
-                }
-            ]
+            dimensions: [],
+            source: [],
         },
         xAxis: {
             type: 'category'
@@ -153,16 +129,7 @@ var initChartsOption_Bar_singleCard = function (cardArr, myoptions) {
         yAxis: {},
         // Declare several bar series, each will be mapped
         // to a column of dataset.source by default.
-        series: [{
-                type: 'bar'
-            },
-            {
-                type: 'bar'
-            },
-            {
-                type: 'bar'
-            }
-        ]
+        series: []
     }
 
     let staticData = {
@@ -194,14 +161,20 @@ var initChartsOption_Bar_singleCard = function (cardArr, myoptions) {
         var obj = {}
         obj.name = cardArr[i].spc_name
         for (let j in cardArr[i].spc_result.tore_Common_y[myoptions.attribute]) {
-            cardArr[i].spc_result.tore_Common_y[myoptions.attribute][j] != 0 ? obj[staticData.atb[j]] = cardArr[i].spc_result.tore_Common_y[myoptions.attribute][j] : true
+            cardArr[i].spc_result.tore_Common_y[myoptions.attribute][j] != 0 && j!=5 ? obj[staticData.atb[j]] = cardArr[i].spc_result.tore_Common_y[myoptions.attribute][j] : true
         }
-        source2decade.push(obj);
+        options.dataset.dimensions = Object.keys(obj)
+        source2decade.push(obj)
     }
-    console.log(source2decade)
+    //console.log(source2decade)
+    options.dataset.source = source2decade
+    const bar = {type: 'bar'}
+    console.log(Object.keys(obj).length)
+    for(let i =1; i < Object.keys(obj).length; i++){
+        options.series.push(bar)
+    }
 
-
-
+    return options
 
     //const model = [{common:[1,1,1],common_y:[1,2,2,2,2,2]},{...a}] //=> [{}]
 

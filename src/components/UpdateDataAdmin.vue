@@ -32,8 +32,9 @@
             <el-row :gutter="20">
                 <el-col :span="8">
                     <el-form-item label="友情ボーナス">
-                        <el-input-number v-model="spcSubmit.youujo" controls-position="right" :step="10">
+                        <el-input-number v-model="spcSubmit.youujo" :controls=false style="width:7vw">
                         </el-input-number>
+                        <el-button @click="spcSubmit.youujo!=0?spcSubmit.youujo = ((spcSubmit.youujo/100+1)*1.1-1)*100:spcSubmit.youujo+=10">固有</el-button>
                     </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -100,8 +101,9 @@
             <el-row :gutter="20">
                 <el-col :span="8">
                     <el-form-item label="得意率">
-                        <el-input-number v-model="spcSubmit.tokuitu" controls-position="right" :step="20">
+                        <el-input-number v-model="spcSubmit.tokuitu" :controls=false style="width:7vw">
                         </el-input-number>
+                        <el-button @click="spcSubmit.tokuitu!=0?spcSubmit.tokuitu = ((spcSubmit.tokuitu/100+1)*1.2-1)*100:spcSubmit.tokuitu+=20">固有</el-button>
                     </el-form-item>
 
                 </el-col>
@@ -368,6 +370,16 @@
                 this.dialogVisible = false
                 this.getRegiedCard()
             },
+        },
+        watch:{
+            spcSubmit:{
+                deep: true,
+                handler(){
+                    this.spcSubmit.youujo = (this.spcSubmit.youujo*1).toFixed(0)
+                    this.spcSubmit.tokuitu = (this.spcSubmit.tokuitu*1).toFixed(0)
+                }
+                
+            }
         }
     }
 </script>

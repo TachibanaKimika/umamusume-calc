@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-10 03:08:08
- * @LastEditTime: 2021-07-11 02:09:06
+ * @LastEditTime: 2021-07-11 13:07:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\SinlgeCardAnalysis.vue
@@ -125,7 +125,7 @@
         </div>
 
 
-        <div class="myCharts"></div>
+        <div id="myCharts" style="width: 600px;height:400px;"></div>
         <el-dialog title="选择支援卡" :visible.sync="dialogVisible">
             <SelectWindowOfRegistedCard :cards="card_item" v-on:getCardFromChild='reciveCardItem' />
         </el-dialog>
@@ -270,7 +270,7 @@
         methods: {
             calcCard(card) { //传一张卡
                 // TODO LIST 在表格中计算`出现率`, `练习性能`, `友情练习性能`
-                var my_calc_options = this.calc_options;
+                var my_calc_options = $.extend(true, {}, this.calc_options);
                 let mytore = [];
                 //基础值
                 for (let i in my_calc_options.torelv) {
@@ -369,7 +369,9 @@
                         card2Submit.push(this.selected_card[i])
                     }
                 }
-                initChartsOption_Bar_singleCard(card2Submit, this.my_options)
+                const option = initChartsOption_Bar_singleCard(card2Submit, this.my_options)
+                var myChart = this.$echarts.init(document.getElementById('myCharts'))
+                myChart.setOption(option);
             }
         }
     }
