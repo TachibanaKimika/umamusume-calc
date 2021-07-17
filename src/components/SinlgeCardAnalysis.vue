@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-10 03:08:08
- * @LastEditTime: 2021-07-11 13:07:39
+ * @LastEditTime: 2021-07-17 18:26:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\SinlgeCardAnalysis.vue
@@ -23,15 +23,26 @@
 
             <el-row>
                 <el-col :span="6">
-                    <el-select v-model="my_options.attribute" placeholder="请选择">
+                    <el-tag>トレタイプ</el-tag>
+                    <el-select v-model="my_options.attribute" placeholder="タイプ">
                         <el-option v-for="item in static.atbOpt" :key="item.value" :label="item.label"
                             :value="item.value">
                         </el-option>
                     </el-select>
                 </el-col>
                 <el-col :span="6">
-                    <el-slider v-model="my_options.level" :step="20" show-stops :format-tooltip="formatTooltip">
-                    </el-slider>
+                    <el-tag>トレレベル</el-tag>
+                    <el-input-number v-model="my_options.level" :step='1' :min='1' :max='5'></el-input-number>
+                    <!-- <el-slider v-model="my_options.level*20" :step="20" show-stops :format-tooltip="formatTooltip">
+                    </el-slider> -->
+                </el-col>
+                <el-col :span="6">
+                    <el-tag>やる気</el-tag>
+                    <el-select v-model="calc_options.yaruki" placeholder="请选择">
+                        <el-option v-for="item in static.yarukiOpt" :key="item.key" :label="item.key"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
                 </el-col>
                 <el-col :span="6">
                     <el-button type="success" @click="initChart"><span>生成图表</span></el-button>
@@ -47,7 +58,7 @@
         <div class="cardbox" v-for="i in 4">
             <el-button v-model="selected_card[i-1]" @click="dialogVisible = true;potionSelector = i-1;"><span
                     class="selectedCardItem" v-if="selected_card[i-1]">{{selected_card[i-1].spc_name}}</span><span
-                    v-else>请选择支援卡{{i}}</span></el-button>
+                    v-else>サポートカード{{i}}</span></el-button>
             <div class="table">
                 <table v-if="selected_card[i-1]">
                     <tr>
@@ -216,6 +227,7 @@
                 my_options: {
                     attribute: '', //练习的类型
                     level: 1,
+                    yaruki: ''
                 },
                 potionSelector: '',
 
@@ -243,6 +255,28 @@
                             value: 4,
                             label: '賢さ'
                         },
+                    ],
+                    yarukiOpt:[
+                        {
+                            key:'絶好調',
+                            value: 1.2
+                        },
+                        {
+                            key:'好調',
+                            value: 1.1
+                        },
+                        {
+                            key:'普通',
+                            value: 1.0
+                        },
+                        {
+                            key:'不調',
+                            value: 0.9
+                        },
+                        {
+                            key:'絶不調',
+                            value: 0.8
+                        }
                     ]
                 }
             }
@@ -338,7 +372,7 @@
                     .potionSelector]);
             },
             formatTooltip(val) {
-                return val / 20;
+                return val / 20 + 1;
             },
             getAttribute(num, mode = 'atb') {
                 switch (num) {
@@ -392,6 +426,11 @@
 
     .setOptions {
         margin: 2vw
+    }
+
+
+    .el-tag{
+        margin: 1vw ;
     }
 
 
