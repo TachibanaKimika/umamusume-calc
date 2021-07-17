@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-10 03:08:08
- * @LastEditTime: 2021-07-17 18:35:05
+ * @LastEditTime: 2021-07-18 02:21:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\SinlgeCardAnalysis.vue
@@ -136,7 +136,7 @@
         </div>
 
 
-        <div id="myCharts" style="width: 600px;height:400px;"></div>
+        <div id="myCharts" style="width: 90vw;height:40vw;"></div>
         <el-dialog title="选择支援卡" :visible.sync="dialogVisible">
             <SelectWindowOfRegistedCard :cards="card_item" v-on:getCardFromChild='reciveCardItem' />
         </el-dialog>
