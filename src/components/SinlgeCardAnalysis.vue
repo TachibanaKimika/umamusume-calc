@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-10 03:08:08
- * @LastEditTime: 2021-07-17 18:26:06
+ * @LastEditTime: 2021-07-17 18:35:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\SinlgeCardAnalysis.vue
@@ -231,8 +231,6 @@
                 },
                 potionSelector: '',
 
-
-
                 // 静态资源
                 static: {
                     atbOpt: [{
@@ -368,11 +366,7 @@
                 this.selected_card[this.potionSelector] = data;
                 this.dialogVisible = false;
                 console.log(this.calc_options)
-                this.selected_card[this.potionSelector].spc_result = this.calcCard(this.selected_card[this
-                    .potionSelector]);
-            },
-            formatTooltip(val) {
-                return val / 20 + 1;
+                this.selected_card[this.potionSelector].spc_result = this.calcCard(this.selected_card[this.potionSelector]);
             },
             getAttribute(num, mode = 'atb') {
                 switch (num) {
@@ -395,7 +389,10 @@
                 }
             },
             initChart() {
-                this.$message('aaaa');
+                if(this.selected_card.length == 0) {
+                    this.$message('请选择至少一张卡')
+                    return
+                }
                 let card2Submit = []
                 console.log(this.selected_card)
                 for (let i in this.selected_card) {
@@ -406,6 +403,7 @@
                 const option = initChartsOption_Bar_singleCard(card2Submit, this.my_options)
                 var myChart = this.$echarts.init(document.getElementById('myCharts'))
                 myChart.setOption(option);
+                this.$message('初始化完成');
             }
         }
     }

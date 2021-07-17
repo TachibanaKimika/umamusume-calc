@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-26 00:39:37
- * @LastEditTime: 2021-07-11 02:10:22
+ * @LastEditTime: 2021-07-17 21:10:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\InsertSkill.vue
@@ -65,7 +65,7 @@
 
 
         <div class="skill">
-            <el-tag :key="tag.id" v-for="tag in mySkill" :disable-transitions="false" style="margin:10px">
+            <el-tag :key="tag.id" v-for="tag in mySkill" :disable-transitions="false" style="margin:10px" :class="">
                 {{tag.skill_name}}
             </el-tag>
         </div>
@@ -95,6 +95,31 @@
                     dsc: '',
                 },
                 mySkill: [],
+
+
+                skillOpt: [
+                    {
+                        name:'skill_type',
+                        key:[0,1,2,3,4],
+                        value:['','type_1_0','type_1_1','type_1_2','type_1_3']
+                    },
+                    {
+                        name:'skill_race',
+                        key:[0,1],
+                        value:['type_2_0','type_2_1']
+                    },
+                    {
+                        name:'skill_long',
+                        key:[0,1,2,3,4,5],
+                        //value:['无', '短', '英', '中', '长', '泥']
+                        value:['', 'type_3_0', 'type_3_1', 'type_3_2', 'type_3_3', 'type_3_4']
+                    },
+                    {
+                        name:'skill_sakusen',
+                        key:[0,1,2,3,4],
+                        //value:['无','追', '差', '先', '逃']
+                    }
+                ]
             }
         },
         methods: {
@@ -146,6 +171,10 @@
                     message: Msg,
                     type: type
                 })
+            },
+
+            renderCard(skill) {
+                
             }
         },
         mounted() {
