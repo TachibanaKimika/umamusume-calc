@@ -160,6 +160,7 @@
                 <el-col :span="8">
                     <el-form-item label="提交更改">
                         <el-button type="success" @click="updateSPCstaus()">提交</el-button>
+                        <el-button type="success" @click="updateSPCstaus('local')">提交(本地)</el-button>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -268,7 +269,7 @@
         },
 
         methods: {
-            async updateSPCstaus() {
+            async updateSPCstaus(method) {
                 //this.spcSubmit.bonasu_pt[this.attrBonazu.bonasu_pt_p] = this.attrBonazu.bonasu_pt;
                 //this.spcSubmit.init_stu[this.attrBonazu.init_stu_p] = this.attrBonazu.init_stu;
 
@@ -283,6 +284,14 @@
                     return;
                 }
 
+                if(method == 'local'){  
+                    //TO DO
+
+
+
+
+
+                }
                 //sql语句
                 let querystr_a = 'INSERT INTO supportcard_stu (spc_id, spc_lv, spc_youujo, spc_yaruki, \
                             spc_tore, spc_bonasu_pt, spc_tokuitu, spc_kizuna, spc_init_stu, spc_race, \

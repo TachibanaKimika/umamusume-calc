@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-07-10 15:32:15
+ * @LastEditTime: 2021-07-24 01:26:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\App.vue
@@ -37,7 +37,6 @@
         <el-menu-item index="/SinlgeCardAnalysis">单卡分析</el-menu-item>
         <el-menu-item index="/GetAllMyUma">GETMYUMA</el-menu-item>
         <el-menu-item index="/Test">测试用</el-menu-item>
-
       </el-menu>
     </div>
     <div class="router-view">
