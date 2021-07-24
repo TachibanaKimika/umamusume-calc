@@ -382,62 +382,22 @@
                 this.getRegiedCard()
             },
             transfer2std(rowcard){
-                // Sugar.extend();
-                /*
-                row={
-                    //useful
-                    bonasu_pt:array[6],
-                    fan:number,
-                    hit_ritu:number,
-                    hitlv:number,
-                    id:number,
-                    init_su:array[6],
-                    kizuna:number,
-                    level:number,
-                    race:number,
-                    tokuitu:string,
-                    tore:number,
-                    yaruki:number,
-                    youjo:string
-                }
-                final={
-                    id:number,//具体卡的id值
-                    spc_arribute:number,
-                    spc_bonasu_pt:string(array[6]),
-                    spc_fan:number,
-                    spc_hit_lv:number,
-                    spc_hit_ritu:number,
-                    spc_id:number,
-                    spc_init_stu:string(array[6]),
-                    spc_kizuna:number,
-                    spc_lv:number,
-                    spc_name:string,
-                    spc_race:number,
-                    spc_rare, 
-                    // spc_reduce_shipai, 
-                    // spc_reduce_suta, 
-                    spc_tokuitu, 
-                    spc_tore, 
-                    spc_yaruki, 
-                    spc_youujo
-                }
-                */
                 let {atb, name, rare} = this.spcard.find({id:rowcard.id})
                 return {
-                    id: rowcard.id*rowcard.id + Math.floor(Math.random()*(1000)),
+                    id: rowcard.id*rowcard.id + Math.floor(Math.random()*(1000)) + 1000,
                     spc_bonasu_pt: rowcard.bonasu_pt.toString(),
                     spc_fan: rowcard.fan,
                     spc_hit_lv: rowcard.hitlv,
                     spc_hit_ritu: rowcard.hit_ritu,
                     spc_id: rowcard.id,
                     spc_init_stu: rowcard.init_stu.toString(),
-                    spc_kizuna: rowcard.kizuna,
+                    spc_kizuna: parseInt(rowcard.kizuna),
                     spc_lv: rowcard.level,
                     spc_race: rowcard.race,
-                    spc_tokuitu: rowcard.tokuitu,
+                    spc_tokuitu: parseInt(rowcard.tokuitu),
                     spc_tore: rowcard.tore,
                     spc_yaruki: rowcard.yaruki,
-                    spc_youujo: rowcard.youujo,
+                    spc_youujo: parseInt(rowcard.youujo),
                     spc_name: name, 
                     spc_attribute: atb,
                     spc_rare: rare

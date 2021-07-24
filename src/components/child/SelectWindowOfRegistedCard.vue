@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-24 23:36:57
+ * @LastEditTime: 2021-07-25 00:25:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\child\SelectWindowOfRegistedCard.vue
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+    import $ from 'jquery'
     export default {
         name: 'SelectWindowOfRegistedCard',
         props: {
@@ -85,9 +86,12 @@
             },
             submitCard() {
                 // console.log(this.cards)
-                console.log(this.checkedItem)
-                if (this.checkedItem.id != 0) {
-                    this.$emit('getCardFromChild', this.checkedItem)
+                // console.log(this.checkedItem)
+                var ret = $.extend(true, {}, this.checkedItem)
+                if (ret.id != 0) {
+                    ret.spc_bonasu_pt = ret.spc_bonasu_pt.split(',').map(Number)
+                    ret.spc_init_stu = ret.spc_init_stu.split(',').map(Number)
+                    this.$emit('getCardFromChild', ret)
                 } else {
                     this.$message("请选择一张卡")
                 }

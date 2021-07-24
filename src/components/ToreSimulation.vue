@@ -285,11 +285,10 @@
                         ORDER BY spc_name DESC'
             qurSql(this.sqlcon, querystr, res => {
                 this.card_item = res;
-                for (let i in this.card_item) {
-                    this.card_item[i].spc_bonasu_pt = this.card_item[i].spc_bonasu_pt.split(',').map(Number);
-                    this.card_item[i].spc_init_stu = this.card_item[i].spc_init_stu.split(',').map(Number);
-
-                }
+                // for (let i in this.card_item) {
+                //     this.card_item[i].spc_bonasu_pt = this.card_item[i].spc_bonasu_pt.split(',').map(Number);
+                //     this.card_item[i].spc_init_stu = this.card_item[i].spc_init_stu.split(',').map(Number);
+                // }
                 //console.log(this.card_item);
             })
         },
@@ -302,6 +301,7 @@
                     for (let i in this.card_kizuna) {
                         this.selected_card_item[i].spc_kizuna = this.card_kizuna[i]
                     }
+                    console.log(this.selected_card_item)
                     this.recivedresult = simulation(this.selected_card_item, this.options)
                     for (let i in this.recivedresult) {
                         this.result[i].result = this.recivedresult[i].result;

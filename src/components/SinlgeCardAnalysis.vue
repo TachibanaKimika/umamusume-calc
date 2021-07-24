@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-10 03:08:08
- * @LastEditTime: 2021-07-24 18:00:25
+ * @LastEditTime: 2021-07-25 00:21:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\SinlgeCardAnalysis.vue
@@ -110,13 +110,13 @@
                         <td v-if="selected_card[i-1]">{{selected_card[i-1].spc_race}}</td>
                         <td v-else>N/A</td>
                     </tr>
-                    <tr v-for="j in 5" v-if="selected_card[i-1].spc_init_stu.split(',')[j-1]>0">
+                    <tr v-for="j in 5" v-if="selected_card[i-1].spc_init_stu[j-1]>0">
                         <td>初期{{getAttribute(j,'bonasu')}}</td>
-                        <td>{{selected_card[i-1].spc_init_stu.split(',')[j-1]}}</td>
+                        <td>{{selected_card[i-1].spc_init_stu[j-1]}}</td>
                     </tr>
-                    <tr v-for="j in 5" v-if="selected_card[i-1].spc_bonasu_pt.split(',')[j-1]>0">
+                    <tr v-for="j in 5" v-if="selected_card[i-1].spc_bonasu_pt[j-1]>0">
                         <td>{{getAttribute(j,'bonasu')}}ボーナス</td>
-                        <td>{{selected_card[i-1].spc_bonasu_pt.split(',')[j-1]}}</td>
+                        <td>{{selected_card[i-1].spc_bonasu_pt[j-1]}}</td>
                     </tr>
 
                     <tr>
@@ -293,7 +293,6 @@
             qurSql(this.sqlcon, query, res => {
                 this.card_item = res
                 //this.selected_card[0] = this.card_item[0] //test
-                console.log(res)
                 // this.calcCard(this.selected_card[0])
             })
         },
@@ -316,7 +315,7 @@
                 for (let i in mytore) {
                     for (let j in mytore[i]) {
                         if (mytore[i][j] != 0) {
-                            mytore[i][j] += parseInt(card.spc_bonasu_pt.split(",")[j])
+                            mytore[i][j] += parseInt(card.spc_bonasu_pt[j])
                         }
                     }
                 }
