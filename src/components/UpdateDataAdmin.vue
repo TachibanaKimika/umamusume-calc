@@ -275,7 +275,7 @@
                 if(method == 'local'){  
                     //TO DO
                     console.log(this.spcSubmit)
-                    let sub = transfer2std(this.spcSubmit)
+                    let sub = this.transfer2std(this.spcSubmit)
                     this.$store.commit('insertcard2store',sub);
                     
                     //let tmp = await this.$store.state.myCard
@@ -382,6 +382,7 @@
                 this.getRegiedCard()
             },
             transfer2std(rowcard){
+                // Sugar.extend();
                 /*
                 row={
                     //useful
@@ -421,9 +422,9 @@
                     spc_youujo
                 }
                 */
-                let {atb, name} = this.spcard.find({id:rowcard.id})
+                let {atb, name, rare} = this.spcard.find({id:rowcard.id})
                 return {
-                    id: rowcard.id*rowcard.id,
+                    id: rowcard.id*rowcard.id + Math.floor(Math.random()*(1000)),
                     spc_bonasu_pt: rowcard.bonasu_pt.toString(),
                     spc_fan: rowcard.fan,
                     spc_hit_lv: rowcard.hitlv,
@@ -435,10 +436,11 @@
                     spc_race: rowcard.race,
                     spc_tokuitu: rowcard.tokuitu,
                     spc_tore: rowcard.tore,
-                    spc_yaruki: rowcard.yaryki,
-                    spc_youujo: rowcard.youjo,
+                    spc_yaruki: rowcard.yaruki,
+                    spc_youujo: rowcard.youujo,
                     spc_name: name, 
-                    spc_arribute: atb
+                    spc_attribute: atb,
+                    spc_rare: rare
                 }
             }
         },

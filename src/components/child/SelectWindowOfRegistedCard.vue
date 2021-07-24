@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-10 23:56:29
+ * @LastEditTime: 2021-07-24 23:36:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\child\SelectWindowOfRegistedCard.vue
@@ -42,7 +42,11 @@
 
         <el-radio-group v-model="checkedItem">
             <el-radio v-for="item in cards" v-if="hasType(item)" :label="item" border style="margin-top: 20px">
-                {{item.spc_name}}</el-radio>
+                {{item.spc_name}}
+            </el-radio>
+            <el-radio v-for="item in mycardInVuex" v-if="hasType(item)" :label="item" border style="margin-top: 20px">
+                {{item.spc_name}}
+            </el-radio>
         </el-radio-group>
     </div>
 </template>
@@ -63,6 +67,7 @@
         },
         mounted() {
             console.log(this.cards)
+            console.log(this.mycardInVuex)
         },
         methods: {
             hasType(item) {
@@ -87,6 +92,11 @@
                     this.$message("请选择一张卡")
                 }
 
+            }
+        },
+        computed:{
+            mycardInVuex(){
+                return this.$store.state.myCard
             }
         }
     }

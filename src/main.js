@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-06-28 17:53:42
+ * @LastEditTime: 2021-07-24 23:16:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\main.js
@@ -10,6 +10,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+
+
+import Sugar from 'sugar'
+Sugar.extend()
 
 import animate from 'animate.css'
 
@@ -20,7 +24,6 @@ import * as echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 
 import VueYoutube from 'vue-youtube'
-
 import twitter from 'vue-twitter'
 
 Vue.config.productionTip = false
