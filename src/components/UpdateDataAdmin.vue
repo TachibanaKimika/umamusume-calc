@@ -272,7 +272,17 @@
             async updateSPCstaus(method) {
                 //this.spcSubmit.bonasu_pt[this.attrBonazu.bonasu_pt_p] = this.attrBonazu.bonasu_pt;
                 //this.spcSubmit.init_stu[this.attrBonazu.init_stu_p] = this.attrBonazu.init_stu;
-
+                if(method == 'local'){  
+                    //TO DO
+                    console.log(this.spcSubmit)
+                    let sub = transfer2std(this.spcSubmit)
+                    this.$store.commit('insertcard2store',sub);
+                    
+                    //let tmp = await this.$store.state.myCard
+                    console.log('this is component')
+                    console.log(this.mycardInVuex)
+                    return;
+                }
                 let isexist;
                 await this.isItemExist().then(res => {
                     isexist = res;
@@ -284,14 +294,7 @@
                     return;
                 }
 
-                if(method == 'local'){  
-                    //TO DO
-
-
-
-
-
-                }
+                
                 //sql语句
                 let querystr_a = 'INSERT INTO supportcard_stu (spc_id, spc_lv, spc_youujo, spc_yaruki, \
                             spc_tore, spc_bonasu_pt, spc_tokuitu, spc_kizuna, spc_init_stu, spc_race, \
@@ -359,16 +362,14 @@
             },
             getRegiedCard() {
                 let querystr = `SELECT * FROM
-            supportcard_stu
-            WHERE supportcard_stu.spc_id = ${this.spcSubmit.id}`;
+                supportcard_stu
+                WHERE supportcard_stu.spc_id = ${this.spcSubmit.id}`;
                 qurSql({
                     username: 'Guest',
                     userpasswd: 'password#123',
                     database: 'umamusume-pbl',
                 }, querystr, res => {
                     this.regedcard = res;
-                    // console.log('getRegiedCard')
-                    // console.log(res)
                 })
 
             },
@@ -376,9 +377,70 @@
                 // console.log(data)
                 this.selectedCardName = data.name
                 this.spcSubmit.id = data.id
+                
                 this.dialogVisible = false
                 this.getRegiedCard()
             },
+            transfer2std(rowcard){
+                /*
+                row={
+                    //useful
+                    bonasu_pt:array[6],
+                    fan:number,
+                    hit_ritu:number,
+                    hitlv:number,
+                    id:number,
+                    init_su:array[6],
+                    kizuna:number,
+                    level:number,
+                    race:number,
+                    tokuitu:string,
+                    tore:number,
+                    yaruki:number,
+                    youjo:string
+                }
+                final={
+                    id:number,//具体卡的id值
+                    spc_arribute:number,
+                    spc_bonasu_pt:string(array[6]),
+                    spc_fan:number,
+                    spc_hit_lv:number,
+                    spc_hit_ritu:number,
+                    spc_id:number,
+                    spc_init_stu:string(array[6]),
+                    spc_kizuna:number,
+                    spc_lv:number,
+                    spc_name:string,
+                    spc_race:number,
+                    spc_rare, 
+                    // spc_reduce_shipai, 
+                    // spc_reduce_suta, 
+                    spc_tokuitu, 
+                    spc_tore, 
+                    spc_yaruki, 
+                    spc_youujo
+                }
+                */
+                let {atb, name} = this.spcard.find({id:rowcard.id})
+                return {
+                    id: rowcard.id*rowcard.id,
+                    spc_bonasu_pt: rowcard.bonasu_pt.toString(),
+                    spc_fan: rowcard.fan,
+                    spc_hit_lv: rowcard.hitlv,
+                    spc_hit_ritu: rowcard.hit_ritu,
+                    spc_id: rowcard.id,
+                    spc_init_stu: rowcard.init_stu.toString(),
+                    spc_kizuna: rowcard.kizuna,
+                    spc_lv: rowcard.level,
+                    spc_race: rowcard.race,
+                    spc_tokuitu: rowcard.tokuitu,
+                    spc_tore: rowcard.tore,
+                    spc_yaruki: rowcard.yaryki,
+                    spc_youujo: rowcard.youjo,
+                    spc_name: name, 
+                    spc_arribute: atb
+                }
+            }
         },
         watch:{
             spcSubmit:{
@@ -388,6 +450,11 @@
                     this.spcSubmit.tokuitu = (this.spcSubmit.tokuitu*1).toFixed(0)
                 }
                 
+            }
+        },
+        computed:{
+            mycardInVuex(){
+                return this.$store.state.myCard
             }
         }
     }

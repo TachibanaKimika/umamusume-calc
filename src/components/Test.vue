@@ -1,79 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-20 23:40:42
- * @LastEditTime: 2021-06-27 20:30:25
+ * @LastEditTime: 2021-07-24 16:45:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\Test.vue
 -->
 <template>
     <div class="Test">
-        <h2 class="ttl">
-            <img src="../assets/char/ttl.png" alt="">
-        </h2>
-
-        <div class="showchar">
-            <ul class="topnav-show " v-show="charcur==0">
-                <div class="char-frame" id="supe">
-                    <div class="char-st">
-                        <img v-show="charstcur==0" class="char-st-animate animate__animated animate__fadeInUp animate__faster" src="../assets/char/supe_st.png" alt="">
-                        <img v-show="charstcur==1" class="char-st-animate animate__animated animate__fadeInUp animate__faster" src="../assets/char/supe_st_1.png" alt="">
-                        <img v-show="charstcur==2" class="char-st-animate animate__animated animate__fadeInUp animate__faster" src="../assets/char/supe_st.png" alt="">
-                    </div>
-                    
-                    <div class="char-info">
-                        <img class="animate__animated animate__fadeIn animate__faster" src="../assets/char/supe_bg.png" alt="">
-                    </div>
-                    <div class="char-hanashi">
-                        <img class="animate__animated animate__bounceInLeft" src="../assets/char/supe_st_t.png" alt="">
-                    </div>
-                    <div class="char-moreinfo">
-                        <img class="animate__animated animate__bounceInLeft" src="../assets/char/moreinfo.png" alt="">
-                    </div>
-                    <div class="char-st-selector animate__animated animate__bounceInLeft">
-                        <ul>
-                            <!-- <li><img src="../assets/char/supe_btn.png"><span>111</span></img></li> -->
-                            <li><a @click="charstcur=0">制服</a></li>
-                            <li><a @click="charstcur=1">勝負服</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </ul>
-            <ul class="topnav-show " v-show="charcur==1">
-                <div class="char-frame" id="unsu">
-                    <div class="char-st">
-                        <img v-show="charstcur==0" class="char-st-animate animate__animated animate__fadeInUp animate__faster" src="../assets/char/unsu_st.png" alt="">
-                        <img v-show="charstcur==1" class="char-st-animate animate__animated animate__fadeInUp animate__faster" src="../assets/char/unsu_st_1.png" alt="">
-                        <img v-show="charstcur==2" class="char-st-animate animate__animated animate__fadeInUp animate__faster" src="../assets/char/unsu_st.png" alt="">
-                    </div>
-                    
-                    <div class="char-info">
-                        <img class="animate__animated animate__fadeIn animate__faster" src="../assets/char/unsu_bg.png" alt="">
-                    </div>
-                    <div class="char-hanashi">
-                        <img class="animate__animated animate__bounceInLeft" src="../assets/char/unsu_st_t.png" alt="">
-                    </div>
-                    <div class="char-moreinfo">
-                        <img class="animate__animated animate__bounceInLeft" src="../assets/char/moreinfo.png" alt="">
-                    </div>
-                    <div class="char-st-selector animate__animated animate__bounceInLeft">
-                        <ul>
-                            <!-- <li><img src="../assets/char/supe_btn.png"><span>111</span></img></li> -->
-                            <li><a @click="charstcur=0">制服</a></li>
-                            <li><a @click="charstcur=1">勝負服</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </ul>
-            <ul class="topnav-show" v-show="charcur==2">
-                <li>内容3</li>
-            </ul>
-        </div>
-
-        <div class="char-selector">
-            <img @click="charcur=0" src="../assets/char/supe_small.png" alt="">
-            <img @click="charcur=1" src="../assets/char/unsu_small.png" alt="">
-        </div>
+       
     </div>
 </template>
 
@@ -86,6 +21,9 @@ export default {
             charstcur:0
         }
     },
+    mounted() {
+        // console.log(this.$store.state.myCard)
+    }
 }
 </script>
 

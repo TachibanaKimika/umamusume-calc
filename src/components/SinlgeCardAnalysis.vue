@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-10 03:08:08
- * @LastEditTime: 2021-07-18 02:21:34
+ * @LastEditTime: 2021-07-24 18:00:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\SinlgeCardAnalysis.vue
@@ -293,7 +293,7 @@
             qurSql(this.sqlcon, query, res => {
                 this.card_item = res
                 //this.selected_card[0] = this.card_item[0] //test
-                // console.log(res)
+                console.log(res)
                 // this.calcCard(this.selected_card[0])
             })
         },

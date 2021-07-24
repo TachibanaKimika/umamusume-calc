@@ -1,29 +1,12 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-07-24 01:26:24
+ * @LastEditTime: 2021-07-24 16:32:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\App.vue
 -->
 <template>
-  <!-- <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/UpdataAdm">UpdataAdm</router-link> | 
-      <router-link to="/RegisteredCard">RegisteredCard</router-link> |
-      <router-link to="/DataAnalysis">DataAnalysis</router-link> | 
-      <router-link to="/RegisterNewUma">RegisterNewUma</router-link> | 
-      <router-link to="/Test">Test</router-link>
-    </div>
-    <router-view/>
-  </div> -->
-
-
-
-
-
   <div id="app">
     <div id="nav">
       <el-menu class="el-menu-demo" mode="horizontal" router>
