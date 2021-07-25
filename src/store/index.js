@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-24 22:54:29
+ * @LastEditTime: 2021-07-25 15:52:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\store\index.js
@@ -14,7 +14,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     myCard:[],
-    testnum: 1919810
   },
   mutations: {
     insertcard2store(state, card){
@@ -22,6 +21,14 @@ export default new Vuex.Store({
       state.myCard.push(card)
       // console.log(`this is vuex.js and the num is ${state.testnum}`)
       // console.log(state.myCard)
+    },
+    updatecard2store(state, card){
+      for(let i in state.myCard){
+        if(state.myCard[i].id === card.id){
+          state.myCard[i] = card
+          return
+        }
+      }
     }
   },
 })

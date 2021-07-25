@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-07-10 15:31:41
+ * @LastEditTime: 2021-07-25 14:43:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\router\index.js
@@ -27,9 +27,9 @@ const routes = [{
     component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/UpdataAdm',
-    name: 'UpdataAdm',
-    component: () => import('../components/UpdateDataAdmin.vue')
+    path: '/InsertCardData',
+    name: 'InsertCardData',
+    component: () => import('../components/InsertCardData.vue')
   },
   {
     path: '/ToreSimulation',

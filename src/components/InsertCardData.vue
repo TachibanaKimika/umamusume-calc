@@ -1,5 +1,7 @@
+<!-- 新增支援卡 -->
+
 <template>
-    <div class="UpdateDataAdmin">
+    <div class="InsertCardData">
         <el-form :model="spcSubmit" label-width="140px">
             <el-row :gutter="20">
                 <el-col :span="8">
@@ -15,7 +17,7 @@
                 </el-col>
                 <el-col :span="8">
                     <el-form-item label="等级">
-                        <el-input-number v-model="spcSubmit.level" controls-position="right" :step="5">
+                        <el-input-number v-model="spcSubmit.level" controls-position="right" :step="5" :max="50" :min="1">
                         </el-input-number>
                     </el-form-item>
                 </el-col>
@@ -32,20 +34,20 @@
             <el-row :gutter="20">
                 <el-col :span="8">
                     <el-form-item label="友情ボーナス">
-                        <el-input-number v-model="spcSubmit.youujo" :controls=false style="width:7vw">
+                        <el-input-number v-model="spcSubmit.youujo" :controls=false style="width:7vw" :min="0">
                         </el-input-number>
                         <el-button @click="spcSubmit.youujo!=0?spcSubmit.youujo = ((spcSubmit.youujo/100+1)*1.1-1)*100:spcSubmit.youujo+=10">固有</el-button>
                     </el-form-item>
                 </el-col>
                 <el-col :span="8">
                     <el-form-item label="やる気効果">
-                        <el-input-number v-model="spcSubmit.yaruki" controls-position="right" :step="15">
+                        <el-input-number v-model="spcSubmit.yaruki" controls-position="right" :step="15" :min="0">
                         </el-input-number>
                     </el-form-item>
                 </el-col>
                 <el-col :span="8">
                     <el-form-item label="属性点加成">
-                        <el-select v-model="attrBonazu.bonasu_pt_p" placeholder="请选择"
+                        <el-select v-model="attrBonazu.bonasu_pt_p" placeholder="请选择" :min="0"
                             style="width:100px; padding:0 10px">
                             <el-option v-for="item in attribute_opt" :label="item.label" :value="item.value"
                                 :key="item.value">
@@ -59,19 +61,19 @@
             <el-row :gutter="20">
                 <el-col :span="8">
                     <el-form-item label="トレーニング効果">
-                        <el-input-number v-model="spcSubmit.tore" controls-position="right" :step="5"></el-input-number>
+                        <el-input-number v-model="spcSubmit.tore" controls-position="right" :step="5" :min="0"></el-input-number>
                     </el-form-item>
                 </el-col>
                 <el-col :span="8">
                     <el-form-item label="初期絆ゲージ">
-                        <el-input-number v-model="spcSubmit.kizuna" controls-position="right" :step="15">
+                        <el-input-number v-model="spcSubmit.kizuna" controls-position="right" :step="15" :min="0">
                         </el-input-number>
                     </el-form-item>
 
                 </el-col>
                 <el-col :span="8">
                     <el-form-item label="レースボーナス">
-                        <el-input-number v-model="spcSubmit.race" controls-position="right" :step="5"></el-input-number>
+                        <el-input-number v-model="spcSubmit.race" controls-position="right" :step="5" :min="0"></el-input-number>
                     </el-form-item>
 
                 </el-col>
@@ -79,20 +81,20 @@
             <el-row :gutter="20">
                 <el-col :span="8">
                     <el-form-item label="ファン数ボーナス">
-                        <el-input-number v-model="spcSubmit.fan" controls-position="right" :step="5"></el-input-number>
+                        <el-input-number v-model="spcSubmit.fan" controls-position="right" :step="5" :min="0"></el-input-number>
                     </el-form-item>
 
                 </el-col>
                 <el-col :span="8">
                     <el-form-item label="ヒントレベルアップ">
-                        <el-input-number v-model="spcSubmit.hitlv" controls-position="right" :step="1">
+                        <el-input-number v-model="spcSubmit.hitlv" controls-position="right" :step="1" :min="0">
                         </el-input-number>
                     </el-form-item>
 
                 </el-col>
                 <el-col :span="8">
                     <el-form-item label="ヒント発生率アップ">
-                        <el-input-number v-model="spcSubmit.hit_ritu" controls-position="right" :step="20">
+                        <el-input-number v-model="spcSubmit.hit_ritu" controls-position="right" :step="20" :min="0">
                         </el-input-number>
                     </el-form-item>
 
@@ -101,7 +103,7 @@
             <el-row :gutter="20">
                 <el-col :span="8">
                     <el-form-item label="得意率">
-                        <el-input-number v-model="spcSubmit.tokuitu" :controls=false style="width:7vw">
+                        <el-input-number v-model="spcSubmit.tokuitu" :controls=false style="width:7vw" :min="0">
                         </el-input-number>
                         <el-button @click="spcSubmit.tokuitu!=0?spcSubmit.tokuitu = ((spcSubmit.tokuitu/100+1)*1.2-1)*100:spcSubmit.tokuitu+=20">固有</el-button>
                     </el-form-item>
@@ -109,14 +111,14 @@
                 </el-col>
                 <el-col :span="8">
                     <el-form-item label="消耗体力减少">
-                        <el-input-number v-model="spcSubmit.reduce_suta" controls-position="right" :step="5">
+                        <el-input-number v-model="spcSubmit.reduce_suta" controls-position="right" :step="5" :min="0">
                         </el-input-number>
                     </el-form-item>
 
                 </el-col>
                 <el-col :span="8">
                     <el-form-item label="失败率降低">
-                        <el-input-number v-model="spcSubmit.reduce_shipai" controls-position="right" :step="10">
+                        <el-input-number v-model="spcSubmit.reduce_shipai" controls-position="right" :step="10" :min="0">
                         </el-input-number>
                     </el-form-item>
 
@@ -126,7 +128,7 @@
                 <el-col :span="8">
                     <el-form-item label="初始属性点">
                         <el-select v-model="attrBonazu.init_stu_p" placeholder="请选择">
-                            <el-option v-for="item in attribute_opt" :label="item.label" :value="item.value"
+                            <el-option v-for="item in attribute_opt" :label="item.label" :value="item.value" 
                                 :key="item.value">
                             </el-option>
                         </el-select>
@@ -134,7 +136,7 @@
                 </el-col>
                 <el-col :span="8">
                     <el-form-item label="具体值">
-                        <el-input-number v-model="attrBonazu.init_stu" controls-position="right" :step="20">
+                        <el-input-number v-model="attrBonazu.init_stu" controls-position="right" :step="20" :min="0">
                         </el-input-number>
                     </el-form-item>
                 </el-col>
@@ -179,7 +181,7 @@
 
     import SelectWindow from "@/components/child/SelectWindow.vue"
     export default {
-        name: 'UpdateDataAdmin',
+        name: 'InsertCardData',
         components: {
             SelectWindow
         },
@@ -189,38 +191,24 @@
                 spcard: [],
                 spcSubmit: {
                     id: '',
-                    //等级
-                    level: '30',
-                    //友情锻炼加成
-                    youujo: '0',
-                    //调子加成
-                    yaruki: '0',
-                    //练习加成
-                    tore: '0',
-                    //练习属性点加成,最后为技能点
-                    bonasu_pt: [0, 0, 0, 0, 0, 0],
-                    //练习得意率
-                    tokuitu: '0',
-                    //初始羁绊
-                    kizuna: '0',
-                    //初始能力值加成, 最后为技能点
-                    init_stu: [0, 0, 0, 0, 0, 0],
-                    //比赛加成
-                    race: '0',
-                    //粉丝数加成
-                    fan: '0',
-                    //hit等级提升
-                    hitlv: '0',
-                    //hit率加成
-                    hit_ritu: '0',
-                    //体力减少
-                    reduce_suta: '0',
-                    //失败率降低
-                    reduce_shipai: '0',
+                    level: '30', //等级
+                    youujo: '0', //友情锻炼加成
+                    yaruki: '0', //调子加成
+                    tore: '0', //练习加成
+                    bonasu_pt: [0, 0, 0, 0, 0, 0], //练习属性点加成,最后为技能点
+                    tokuitu: '0', //练习得意率
+                    kizuna: '0', //初始羁绊
+                    init_stu: [0, 0, 0, 0, 0, 0], //初始能力值加成, 最后为技能点
+                    race: '0', //比赛加成
+                    fan: '0', //粉丝数加成
+                    hitlv: '0', //hit等级提升
+                    hit_ritu: '0', //hit率加成
+                    reduce_suta: '0', //体力减少
+                    reduce_shipai: '0', //失败率降低
                 },
                 sqlcon: {
                     username: 'akarichan',
-                    userpasswd: 'akariChan@0721',
+                    userpasswd: '',
                     database: 'umamusume-pbl',
                 },
                 attribute_opt: [{
@@ -256,9 +244,7 @@
             };
         },
         mounted() {
-            let query_spc =
-                'SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT(\'【\',spc_secname,\'】　－　\',spc_name) AS `name` FROM supportcard'
-
+            let query_spc = 'SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT(\'【\',spc_secname,\'】　－　\',spc_name) AS `name` FROM supportcard'
             qurSql({
                 username: 'Guest',
                 userpasswd: 'password#123',
@@ -270,17 +256,14 @@
 
         methods: {
             async updateSPCstaus(method) {
-                //this.spcSubmit.bonasu_pt[this.attrBonazu.bonasu_pt_p] = this.attrBonazu.bonasu_pt;
-                //this.spcSubmit.init_stu[this.attrBonazu.init_stu_p] = this.attrBonazu.init_stu;
+                if(this.spcSubmit.id == ''){
+                    this.callOutMsg('error', '请先选择一张卡');
+                }
                 if(method == 'local'){  
-                    //TO DO
                     console.log(this.spcSubmit)
                     let sub = this.transfer2std(this.spcSubmit)
                     this.$store.commit('insertcard2store',sub);
-                    
-                    //let tmp = await this.$store.state.myCard
-                    console.log('this is component')
-                    console.log(this.mycardInVuex)
+                    this.callOutMsg('success', '添加至本地成功');
                     return;
                 }
                 let isexist;
@@ -311,12 +294,9 @@
                 // console.log(querystr_a+querystr_b);
                 qurSql(this.sqlcon, querystr_a + querystr_b, res => {
                     this.result = res;
-                    // console.log(res)
                     let msg = "插入成功, 影响行数: " + res.affectedRows + "; insertId:" + res.insertId;
                     this.callOutMsg('success', msg);
-                    // console.log(res);
                 })
-                // console.log("success");
             },
 
             add1PtBonasu_PT(str) {
@@ -364,11 +344,7 @@
                 let querystr = `SELECT * FROM
                 supportcard_stu
                 WHERE supportcard_stu.spc_id = ${this.spcSubmit.id}`;
-                qurSql({
-                    username: 'Guest',
-                    userpasswd: 'password#123',
-                    database: 'umamusume-pbl',
-                }, querystr, res => {
+                qurSql(undefined, querystr, res => {
                     this.regedcard = res;
                 })
 
@@ -400,7 +376,8 @@
                     spc_youujo: parseInt(rowcard.youujo),
                     spc_name: name, 
                     spc_attribute: atb,
-                    spc_rare: rare
+                    spc_rare: rare,
+                    localData:true
                 }
             }
         },
