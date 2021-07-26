@@ -92,7 +92,7 @@
 
 
         <el-dialog title="选择支援卡" :visible.sync="dialogVisible">
-            <SelectWindow :cards="cardItem" v-on:getCardFromChild='reciveCardItem' />
+            <SelectWindow  v-on:getCardFromChild='reciveCardItem' />
         </el-dialog>
     </div>
 </template>
@@ -118,7 +118,7 @@
                     userpasswd: 'password#123',
                     database: 'umamusume-pbl',
                 },
-                cardItem: [],
+                //cardItem: [],
                 myCardItem: [], //卡-提交
                 myCardItemLV: [30, 30, 30, 30, 30, 30], //等级-提交
                 dialogVisible: false,
@@ -129,13 +129,13 @@
             }
         },
         mounted() {
-            let query_spc =
-                'SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT(\'【\',spc_secname,\'】－\',spc_name) AS `name` FROM supportcard'
+            // let query_spc =
+            //     'SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT(\'【\',spc_secname,\'】－\',spc_name) AS `name` FROM supportcard'
             let query_uma = 'SELECT id, CONCAT(\'【\',uma_secname,\'】－\',uma_name) AS `name` FROM uma'
-            qurSql(this.sqlcon, query_spc, res => {
-                this.cardItem = res
-                console.log(res)
-            })
+            // qurSql(this.sqlcon, query_spc, res => {
+            //     this.cardItem = res
+            //     console.log(res)
+            // })
             qurSql(this.sqlcon, query_uma, res => {
                 this.umaItem = res
                 console.log(res)

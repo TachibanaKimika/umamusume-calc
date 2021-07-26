@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-10 03:08:08
- * @LastEditTime: 2021-07-25 00:21:02
+ * @LastEditTime: 2021-07-26 19:32:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\SinlgeCardAnalysis.vue
@@ -138,7 +138,7 @@
 
         <div id="myCharts" style="width: 90vw;height:40vw;"></div>
         <el-dialog title="选择支援卡" :visible.sync="dialogVisible">
-            <SelectWindowOfRegistedCard :cards="card_item" v-on:getCardFromChild='reciveCardItem' />
+            <SelectWindowOfRegistedCard v-on:getCardFromChild='reciveCardItem' />
         </el-dialog>
     </div>
 </template>
@@ -147,10 +147,6 @@
     import SelectWindowOfRegistedCard from "@/components/child/SelectWindowOfRegistedCard.vue"
     import $ from 'jquery'
 
-
-    import {
-        qurSql
-    } from '../jsfile/api/con2sql.js'
     import {
         initChartsOption_Bar_singleCard
     } from '../jsfile/util/initChartsOption.js'
@@ -167,7 +163,6 @@
                     userpasswd: 'akariChan@0721',
                     database: 'umamusume-pbl',
                 },
-                card_item: [],
                 selected_card: [],
                 calc_options: {
                     stdtore: [{
@@ -230,8 +225,6 @@
                     yaruki: ''
                 },
                 potionSelector: '',
-
-                // 静态资源
                 static: {
                     atbOpt: [{
                             value: 0,
@@ -279,28 +272,8 @@
                 }
             }
         },
-        mounted() {
-            let query = 'SELECT \
-                        supportcard_stu.`id`, supportcard_stu.`spc_id`,supportcard.`spc_attribute`,supportcard.`spc_rare`,\
-                        supportcard_stu.`spc_lv`,supportcard_stu.`spc_youujo`,supportcard_stu.`spc_yaruki`,supportcard_stu.`spc_tore`,\
-                        supportcard_stu.`spc_bonasu_pt`,supportcard_stu.`spc_tokuitu`,supportcard_stu.`spc_kizuna`,\
-                        supportcard_stu.`spc_init_stu`,supportcard_stu.`spc_race`,supportcard_stu.`spc_fan`,supportcard_stu.`spc_hit_lv`,\
-                        supportcard_stu.`spc_hit_ritu`,supportcard_stu.`spc_reduce_suta`,supportcard_stu.`spc_reduce_shipai`,\
-                        CONCAT(\'[\',supportcard_stu.`spc_lv`,\']‐[\',supportcard.`spc_secname`,\']-\',supportcard.`spc_name`) spc_name\
-                        FROM supportcard_stu\
-                        LEFT JOIN supportcard ON supportcard.`id` = supportcard_stu.`spc_id`\
-                        ORDER BY spc_name DESC'
-            qurSql(this.sqlcon, query, res => {
-                this.card_item = res
-                //this.selected_card[0] = this.card_item[0] //test
-                // this.calcCard(this.selected_card[0])
-            })
-        },
-
-
         methods: {
             calcCard(card) { //传一张卡
-                // TODO LIST 在表格中计算`出现率`, `练习性能`, `友情练习性能`
                 var my_calc_options = $.extend(true, {}, this.calc_options);
                 let mytore = [];
                 //基础值

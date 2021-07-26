@@ -134,9 +134,6 @@
 
 <script>
     import {
-        qurSql
-    } from "../jsfile/api/con2sql.js"
-    import {
         simulation
     } from "../jsfile/util/sumulation_tore.js"
     import {
@@ -156,7 +153,6 @@
                     userpasswd: 'akariChan@0721',
                     database: 'umamusume-pbl',
                 },
-                card_item: [],
                 selected_card_item: [], //将卡用id表示
                 trash: [],
                 card_kizuna: [0, 0, 0, 0, 0, 0],
@@ -272,31 +268,9 @@
                 potionSelector: '',
             }
         },
-        mounted() {
-            let querystr = 'SELECT \
-                        supportcard_stu.`id`, supportcard_stu.`spc_id`,supportcard.`spc_attribute`,supportcard.`spc_rare`,\
-                        supportcard_stu.`spc_lv`,supportcard_stu.`spc_youujo`,supportcard_stu.`spc_yaruki`,supportcard_stu.`spc_tore`,\
-                        supportcard_stu.`spc_bonasu_pt`,supportcard_stu.`spc_tokuitu`,supportcard_stu.`spc_kizuna`,\
-                        supportcard_stu.`spc_init_stu`,supportcard_stu.`spc_race`,supportcard_stu.`spc_fan`,supportcard_stu.`spc_hit_lv`,\
-                        supportcard_stu.`spc_hit_ritu`,supportcard_stu.`spc_reduce_suta`,supportcard_stu.`spc_reduce_shipai`,\
-                        CONCAT(\'【\',supportcard_stu.`spc_lv`,\'】 ‐ 【\',supportcard.`spc_secname`,\'】　-　\',supportcard.`spc_name`) spc_name\
-                        FROM supportcard_stu\
-                        LEFT JOIN supportcard ON supportcard.`id` = supportcard_stu.`spc_id`\
-                        ORDER BY spc_name DESC'
-            qurSql(this.sqlcon, querystr, res => {
-                this.card_item = res;
-                // for (let i in this.card_item) {
-                //     this.card_item[i].spc_bonasu_pt = this.card_item[i].spc_bonasu_pt.split(',').map(Number);
-                //     this.card_item[i].spc_init_stu = this.card_item[i].spc_init_stu.split(',').map(Number);
-                // }
-                //console.log(this.card_item);
-            })
-        },
         methods: {
             up2sumulation() {
                 console.log(this.options.uma)
-                // this.options.uma = this.options.uma.split(',');
-                // this.options.torelv = this.options.torelv.split(',');
                 if (this.checkUpdata(this.selected_card_item)) {
                     for (let i in this.card_kizuna) {
                         this.selected_card_item[i].spc_kizuna = this.card_kizuna[i]
@@ -311,17 +285,9 @@
             },
             checkUpdata(data) {
                 if (data.length != 6) {
-                    //console.log("数组长度为"+data.length)
-                    this.showMsg("数组长度为" + data.length, 'error')
+                    this.showMsg(`你只选择了${data.length}张支援卡`)
                     return false;
                 };
-                for (let i = 0; i < 6; i++) {
-                    if (!data[i]) {
-                        //console.log("没选全")
-                        this.showMsg("没选全", 'error')
-                        return false;
-                    }
-                }
                 return true;
             },
             up2sumulationTimes() {
@@ -374,8 +340,8 @@
 
 
                     for (let i in this.result) {
-                        this.result[i].up = this.result[i].result[i] / this.stdtore[i].lv[this.options.torelv[i] - 1][
-                            i] / this.options.yaruki / ((this.options.uma[i] + 100) / 100)
+                        this.result[i].up = this.result[i].result[i] / this.stdtore[i].lv[this.options.torelv[i] - 1][i] / 
+                        this.options.yaruki / ((this.options.uma[i] + 100) / 100)
                     }
                     // console.log(this.totalResult)
 
@@ -401,7 +367,7 @@
     }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
     .el-select {
         padding: 10px;

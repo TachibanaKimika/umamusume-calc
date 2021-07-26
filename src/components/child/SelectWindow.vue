@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-11 02:09:40
+ * @LastEditTime: 2021-07-26 15:08:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\child\SelectWindow.vue
@@ -37,13 +37,15 @@
 </template>
 
 <script>
+    import {qurSql} from "../../jsfile/api/con2sql.js"
     export default {
         name: 'SelectWindow',
-        props: {
-            cards: Array
-        },
+        // props: {
+        //     cards: Array
+        // },
         data() {
             return {
+                cards:[],
                 checkListType: '1',
                 checkListRare: '3',
                 checkedItem: {
@@ -69,6 +71,12 @@
                 }
 
             }
+        },
+        mounted() {
+            let query_spc = 'SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT(\'【\',spc_secname,\'】　－　\',spc_name) AS `name` FROM supportcard'
+            qurSql(undefined, query_spc, res => {
+                this.cards = res;
+            })
         }
     }
 </script>
