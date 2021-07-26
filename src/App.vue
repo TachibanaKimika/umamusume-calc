@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-07-26 15:11:29
+ * @LastEditTime: 2021-07-26 20:05:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\App.vue
@@ -16,10 +16,10 @@
         <el-menu-item index="/SinlgeCardAnalysis">单卡分析</el-menu-item>
         <el-menu-item index="/DataAnalysis">数据统计</el-menu-item>
         <el-menu-item index="/RegisterNewUma">更新🐎</el-menu-item>
-        <el-menu-item index="/InsertCardData">插入支援卡数据</el-menu-item>
+        <el-menu-item index="/InsertCardData">插入, 修改支援卡数据</el-menu-item>
         <el-menu-item index="/InsertSkill">插入技能</el-menu-item>
-        <!-- <el-menu-item index="/UpdateCardData">修改支援卡数据</el-menu-item> -->
         <el-menu-item index="/GetAllMyUma">GETMYUMA</el-menu-item>
+        <el-menu-item index="/InsertData2DB">更新数据库</el-menu-item>
         <el-menu-item index="/Test">测试用</el-menu-item>
       </el-menu>
     </div>
