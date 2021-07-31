@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-07-24 23:16:42
+ * @LastEditTime: 2021-07-31 17:29:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\main.js
@@ -10,7 +10,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
 
 import Sugar from 'sugar'
 Sugar.extend()
