@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:44:03
- * @LastEditTime: 2021-07-25 15:27:08
+ * @LastEditTime: 2021-08-01 01:13:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\jsfile\api\con2sql.js
@@ -28,14 +28,18 @@ var qurSql = async function (sqlcon = {
     })
 }
 
-var qurSqlPromise = function (sqlcon, myquery) {
+var qurSqlPromise = function (sqlcon= {
+    username: 'Guest',
+    userpasswd: 'password#123',
+    database: 'umamusume-pbl',
+}, myquery) {
     const pool = mysql.createPool({
         host: sqlurl,
         user: sqlcon.username,
         password: sqlcon.userpasswd,
         database: sqlcon.database,
     });
-    console.log(sqlurl)
+    // console.log(sqlurl)
     // pool.getConnection(function(err,connection){
     //     connection.query(myquery,(err,response,fieleds) => {
     //         resolve(response);

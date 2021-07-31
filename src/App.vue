@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-07-31 23:38:38
+ * @LastEditTime: 2021-08-01 01:30:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\App.vue
@@ -22,7 +22,7 @@
         <el-menu-item index="/InsertData2DB">更新数据库</el-menu-item>
         <el-menu-item index="/Test">测试用</el-menu-item>
         <div style="float: right; line-height: 60px; padding: 0 60px;">
-          <div v-if="user.uuid==null">未登录 | <el-button size="small" @click="dialogVisible = true">登录/注册</el-button></div><div v-else="user.uuid!=null">用户id:{{user.uuid}} | <el-button size="small" @click="logout()">登出</el-button></div>
+          <div v-if="user.uuid==null">未登录 | <el-button size="small" @click="dialogVisible = true">登录/注册</el-button></div><div v-else="user.uuid!=null">{{user.name}} | {{user.uuid}} | <el-button size="small" @click="logout()">登出</el-button></div>
         </div>
       </el-menu>
     </div>
@@ -32,39 +32,42 @@
     <el-dialog
       :visible.sync="dialogVisible"
       width="30%">
-      <UserSignUp />
+      <el-radio-group v-model="signOrLog">
+        <el-radio-button label="0">注册</el-radio-button>
+        <el-radio-button label="1">登录</el-radio-button>
+      </el-radio-group>
+      <UserSignUp v-if="signOrLog==0" />
+      <UserLogIn v-if="signOrLog==1" />
     </el-dialog>
   </div>
 </template>
 
 <script>
 import UserSignUp from "@/components/child/UserSignUp.vue"
-
-
+import UserLogIn from "@/components/child/UserLogIn.vue"
 
 export default {
   components:{
-    UserSignUp
+    UserSignUp,
+    UserLogIn
   },
   data(){
     return{
+      signOrLog:0,  //sign-0, log-1
       dialogVisible: false,
-      user:{
+      usertest:{
         uuid:'123456789',
-        passwd: null
+        name:'null'
       }
     }
   },
   methods:{
     logout(){
-      this.user =  {
-        uuid: null,
-        passwd: null
-      }
+      this.$store.commit('getUser',{uuid:null, name:null})
     },
   },
   computed: {
-    usertest() {
+    user() {
         return this.$store.state.user
     }
   }

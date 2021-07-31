@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-31 18:19:14
- * @LastEditTime: 2021-08-01 00:03:01
+ * @LastEditTime: 2021-08-01 01:22:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\components\child\UserSignIn.vue
@@ -31,7 +31,7 @@
 <script>
 import sha256 from 'crypto-js/sha256'
 
-import {qurSql} from "../../jsfile/api/con2sql.js"
+import {qurSql, qurSqlPromise} from "../../jsfile/api/con2sql.js"
 export default {
     name: 'UserSignUp',
     data(){
@@ -45,11 +45,14 @@ export default {
         }
     },
     methods: {
-        SignUp(){
-            if(!this.signCheck()){
+        async SignUp(){
+            let bol = await this.signCheck()
+            console.log(bol)
+            if(!bol){
                 return
             }
             let passwd = sha256(this.user.passwd).toString()
+            console.log('...')
             qurSql({
                 username: 'akarichan',
                 userpasswd: 'akariChan@0721',
@@ -57,23 +60,39 @@ export default {
             },`INSERT INTO user (user_name, user_password, user_uuid) VALUES ('${this.user.name}', '${passwd}', ${this.user.uuid})`,res=>{
                 console.log(res)
                 this.$message('注册成功')
+                this.$store.commit('getUser',{uuid:this.user.uuid, name:this.user.name})
             })
+            
+            
 
         },
-        signCheck(){
+        async signCheck(){
             if(!/^\d{9}$/g.test(this.user.uuid)){
                 this.$message.error('uuid必须为9为纯数字')
+                return false
+            }
+            if(!/^(a-z|A-Z|0-9)*[^$%^&*;:,<>?()\""\']{6,16}$/.test(this.user.passwdRp)){
+                this.$message.error('密码长度应为6-16位')
+                return false
             }
             if(this.user.passwd!=this.user.passwdRp){
                 this.$message.error('两次密码输入不一致')
                 return false
             }
-            qurSql(undefined, `select count(*) as cou from user where user_uuid=${this.user.uuid}`, res=>{
-                if(res.cou > 0){
-                    this.$message.error('已有重复的uuid, 无法注册')
-                    return false
-                }
-            })
+
+            let res1 = await qurSqlPromise(undefined, `select count(*) as cou from user where user_uuid=${this.user.uuid}`)
+            let res2 = await qurSqlPromise(undefined, `select count(*) as cou from user where user_name='${this.user.name}'`)
+            console.log(res2)
+            if(res1[0].cou>0){
+                this.$message.error('uuid重复')
+                return false
+            }
+            
+            if(res2[0].cou>0){
+                this.$message.error('用户名重复')
+                return false
+            }
+            console.log('return true')
             return true
         }
     }

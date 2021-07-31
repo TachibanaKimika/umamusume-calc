@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-31 17:29:24
+ * @LastEditTime: 2021-08-01 01:21:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\store\index.js
@@ -16,7 +16,7 @@ export default new Vuex.Store({
     myCard:[],
     user:{
       uuid:null,
-      passwd:null
+      name:null
     }
   },
   mutations: {
@@ -36,7 +36,7 @@ export default new Vuex.Store({
     },
     getUser(state, user){
       state.user.uuid = user.uuid
-      state.user.passwd = user.passwd
+      state.user.name = user.name
     }
   },
 })
