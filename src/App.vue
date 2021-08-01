@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-08-01 01:30:58
+ * @LastEditTime: 2021-08-01 15:25:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\App.vue
@@ -63,7 +63,7 @@ export default {
   },
   methods:{
     logout(){
-      this.$store.commit('getUser',{uuid:null, name:null})
+      this.$store.commit('getUser',{uuid:null, name:null, group:null})
     },
   },
   computed: {

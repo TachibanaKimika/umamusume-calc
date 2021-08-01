@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-31 17:56:35
- * @LastEditTime: 2021-08-01 01:37:11
+ * @LastEditTime: 2021-08-01 15:16:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\components\child\UserLogIn.vue
@@ -49,12 +49,12 @@ export default {
     methods: {
         logIn(){
             let passwd = sha256(this.user.passwd).toString()
-            let query = `select user_name as name, user_uuid as uuid from user where ${this.user.methods==0?'user_uuid':'user_name'} = ${this.user.methods==0?this.user.uuid:'\''+this.user.name+'\''} AND user_password = '${passwd}'`
+            let query = `select user_name as 'name', user_uuid as 'uuid', user_group as 'group' from user where ${this.user.methods==0?'user_uuid':'user_name'} = ${this.user.methods==0?this.user.uuid:'\''+this.user.name+'\''} AND user_password = '${passwd}'`
             console.log(query)
             qurSql(undefined, query, res => {
                 if(res.length == 1){
                     this.$message.success('登录成功')
-                    this.$store.commit('getUser',{uuid:res[0].uuid, name:res[0].name})
+                    this.$store.commit('getUser',{uuid:res[0].uuid, name:res[0].name, group:res[0].group})
                 }else{
                     this.$message.error('登录失败')
                 }

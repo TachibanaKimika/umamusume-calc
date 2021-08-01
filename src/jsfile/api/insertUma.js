@@ -1,7 +1,19 @@
+/*
+ * @Author: your name
+ * @Date: 2021-07-08 13:29:38
+ * @LastEditTime: 2021-08-01 13:32:14
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\jsfile\api\insertUma.js
+ */
 import {qurSql} from './con2sql.js';
 
-var updatenewuma = async function(obj,sqlcon){
-
+var updatenewuma = async function(obj){
+  let sqlcon = {
+    username:'akarichan',
+    userpasswd: 'akariChan@0721',
+    database: 'umamusume-pbl',
+  }
   Date.prototype.Format = function (fmt) { // author: meizz
     var o = {
         "M+": this.getMonth() + 1, // 月份

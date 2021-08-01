@@ -1,4 +1,4 @@
-<!-- 新增(修改 TODO)支援卡 -->
+<!-- 新增 修改 支援卡 -->
 <template>
     <div class="InsertCardData">
         <el-form :model="spcSubmit" label-width="140px">
@@ -164,10 +164,10 @@
                     <p>初始能力值:{{spcSubmit.init_stu}}</p>
                 </el-col>
                 <el-col :span="4">
-                    <el-input v-model="sqlcon.username" placeholder="数据库用户名"></el-input>
+                    <!-- <el-input v-model="sqlcon.username" placeholder="数据库用户名"></el-input> -->
                 </el-col>
                 <el-col :span="4">
-                    <el-input show-password v-model="sqlcon.userpasswd" placeholder="数据库密码"></el-input>
+                    <!-- <el-input show-password v-model="sqlcon.userpasswd" placeholder="数据库密码"></el-input> -->
                 </el-col>
                 <el-col :span="8">
                     <el-form-item label="提交更改">
@@ -227,7 +227,7 @@
                 },
                 sqlcon: {
                     username: 'akarichan',
-                    userpasswd: '',
+                    userpasswd: 'akariChan@0721',
                     database: 'umamusume-pbl',
                 },
                 attribute_opt: [{
@@ -287,39 +287,37 @@
                             console.log(err)
                             this.callOutMsg('info', '已取消更改')
                         });
-                        return;
+                        return
                     }else{
                         let sub = this.transfer2std(this.spcSubmit)
-                        this.$store.commit('insertcard2store', sub);
-                        this.callOutMsg('success', '添加至本地成功');
-                        return;
+                        this.$store.commit('insertcard2store', sub)
+                        this.callOutMsg('success', '添加至本地成功')
+                        return
                     }
                     
                 }
-                let isexist;
-                await this.isItemExist('sql').then(res => {
-                    isexist = res;
-                }).catch(err => {
-                    console.log(err)
-                })
 
-
-                //数据库中已经存在
+                if(this.userData.uuid == null){
+                    this.callOutMsg('error', '请先登录')
+                    return
+                }
+                let isexist = await this.isItemExist('sql')
+                //更改数据
                 if (!isexist) {
                     this.$confirm('检测到已有重复的卡, 是否更新', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        let query = `UPDATE supportcard_stu
+                        let query = `UPDATE ${this.$store.state.user.group == 'admin'?'supportcard_stu':'supportcard_stu_user'}
                         SET spc_youujo=${this.spcSubmit.youujo}, spc_yaruki=${this.spcSubmit.yaruki}, spc_tore=${this.spcSubmit.tore}, spc_bonasu_pt='${this.spcSubmit.bonasu_pt.toString()}', spc_tokuitu=${this.spcSubmit.tokuitu},
                         spc_kizuna=${this.spcSubmit.kizuna}, spc_init_stu='${this.spcSubmit.init_stu.toString()}', spc_race=${this.spcSubmit.race}, 
                         spc_fan=${this.spcSubmit.fan}, spc_hit_lv=${this.spcSubmit.hitlv}, spc_hit_ritu=${this.spcSubmit.hit_ritu}, spc_reduce_suta=${this.spcSubmit.reduce_suta}, spc_reduce_shipai=${this.spcSubmit.reduce_shipai}
-                        WHERE spc_id = ${this.spcSubmit.id} AND spc_lv = ${this.spcSubmit.level}`
+                        WHERE spc_id = ${this.spcSubmit.id} AND spc_lv = ${this.spcSubmit.level} ${this.$store.state.user.group == 'admin'?'':'AND spc_uuid='+this.$store.state.user.uuid}`
                         console.log(query)
                         qurSql(this.sqlcon, query, res => {
                             console.log(res)
-                            let msg = `插入成功, 影响行数:  + ${res.affectedRows}, msg=${res.message}`
+                            let msg = `修改成功, 影响行数:  + ${res.affectedRows}, msg=${res.message}`
                             this.callOutMsg('success', msg)
                         })
                     }).catch((err) => {
@@ -331,19 +329,17 @@
 
 
                 //sql语句
-                let querystr_a = `INSERT INTO supportcard_stu (spc_id, spc_lv, spc_youujo, spc_yaruki, 
+                let querystr = `INSERT INTO ${this.$store.state.user.group == 'admin'?'supportcard_stu':'supportcard_stu_user'} (spc_id, spc_lv, spc_youujo, spc_yaruki, 
                                 spc_tore, spc_bonasu_pt, spc_tokuitu, spc_kizuna, spc_init_stu, spc_race, 
-                                spc_fan, spc_hit_lv, spc_hit_ritu, spc_reduce_suta, spc_reduce_shipai) VALUES`;
-                let querystr_b = '(' + this.spcSubmit.id + ', ' + this.spcSubmit.level + ',' +
-                    this.spcSubmit.youujo + ', ' +
-                    this.spcSubmit.yaruki + ', ' +
-                    this.spcSubmit.tore + ', \'' + this.spcSubmit.bonasu_pt.toString() + '\', ' +
-                    this.spcSubmit.tokuitu + ', ' + this.spcSubmit.kizuna + ', \'' +
-                    this.spcSubmit.init_stu.toString() + '\', ' + this.spcSubmit.race + ', ' +
-                    this.spcSubmit.fan + ', ' + this.spcSubmit.hitlv + ', ' +
-                    this.spcSubmit.hit_ritu + ', ' + this.spcSubmit.reduce_suta + ', ' +
-                    this.spcSubmit.reduce_shipai + ')';
-                qurSql(this.sqlcon, querystr_a + querystr_b, res => {
+                                spc_fan, spc_hit_lv, spc_hit_ritu, spc_reduce_suta, spc_reduce_shipai
+                                ${this.$store.state.user.group == 'admin'?'':', spc_uuid'}) VALUES
+                                (${this.spcSubmit.id}, ${this.spcSubmit.level}, ${this.spcSubmit.youujo}, ${this.spcSubmit.yaruki}, 
+                                ${this.spcSubmit.tore}, '${this.spcSubmit.bonasu_pt.toString()}', ${this.spcSubmit.tokuitu}, ${this.spcSubmit.kizuna}, '${this.spcSubmit.init_stu.toString()}',${this.spcSubmit.race},
+                                ${this.spcSubmit.fan}, ${this.spcSubmit.hitlv}, ${this.spcSubmit.hit_ritu}, ${this.spcSubmit.reduce_suta}, ${this.spcSubmit.reduce_shipai}
+                                ${this.$store.state.user.group == 'admin'?'':', '+this.$store.state.user.uuid})`
+                console.log(querystr)
+                qurSql(this.sqlcon, querystr, res => {
+                    console.log(res)
                     let msg = "插入成功, 影响行数: " + res.affectedRows + "; insertId:" + res.insertId;
                     this.callOutMsg('success', msg);
                 })
@@ -364,18 +360,18 @@
             isItemExist(method) {
                 if(method==='sql'){
                     return new Promise((resolve, reject) => {
-                        let id = this.spcSubmit.id;
-                        let level = this.spcSubmit.level;
-                        let querystr_a = 'SELECT COUNT(*) AS Count FROM supportcard_stu WHERE ';
-                        let querystr_b = 'spc_id=' + id + ' AND spc_lv=' + level;
-                        let returnData;
-                        qurSql(this.sqlcon, querystr_a + querystr_b, res => {
+                        let id = this.spcSubmit.id
+                        let level = this.spcSubmit.level
+                        let querystr = `SELECT COUNT(*) AS Count FROM ${this.$store.state.user.group == 'admin'?'supportcard_stu':'supportcard_stu_user'} 
+                                        WHERE spc_id=${id} AND spc_lv=${level} ${this.$store.state.user.group == 'admin'?'':'AND spc_uuid='+this.$store.state.user.uuid}`
+                        let returnData
+                        qurSql(this.sqlcon, querystr, res => {
                             if (res[0].Count > 0) {
-                                returnData = false;
+                                returnData = false
                             } else {
-                                returnData = true;
+                                returnData = true
                             }
-                            resolve(returnData);
+                            resolve(returnData)
                         })
                     })
                 }else if(method ==='vuex'){
@@ -479,6 +475,11 @@
                     reduce_suta: std.spc_reduce_suta,
                     reduce_shipai: std.spc_reduce_shipai,
                 }
+            },
+
+
+            updateOrInsertBySQL(method_1, method_2, carddata){
+                
             }
         },
         watch: {
@@ -493,6 +494,9 @@
         computed: {
             mycardInVuex() {
                 return this.$store.state.myCard
+            },
+            userData(){
+                return this.$store.state.user
             }
         }
     }

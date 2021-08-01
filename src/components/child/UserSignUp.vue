@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-31 18:19:14
- * @LastEditTime: 2021-08-01 01:22:40
+ * @LastEditTime: 2021-08-01 14:18:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\components\child\UserSignIn.vue
@@ -16,10 +16,10 @@
             <el-input v-model="user.name"></el-input>
         </el-form-item>
         <el-form-item label="密码">
-            <el-input v-model="user.passwd" placeholder="密码"></el-input>
+            <el-input v-model="user.passwd" placeholder="密码" show-password></el-input>
         </el-form-item>
         <el-form-item label="确认密码">
-            <el-input v-model="user.passwdRp" placeholder="密码"></el-input>
+            <el-input v-model="user.passwdRp" placeholder="密码" show-password></el-input>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="SignUp()">注册</el-button>
@@ -57,10 +57,10 @@ export default {
                 username: 'akarichan',
                 userpasswd: 'akariChan@0721',
                 database: 'umamusume-pbl',
-            },`INSERT INTO user (user_name, user_password, user_uuid) VALUES ('${this.user.name}', '${passwd}', ${this.user.uuid})`,res=>{
+            },`INSERT INTO user (user_name, user_password, user_uuid, user_group) VALUES ('${this.user.name}', '${passwd}', ${this.user.uuid}, 'user')`,res=>{
                 console.log(res)
                 this.$message('注册成功')
-                this.$store.commit('getUser',{uuid:this.user.uuid, name:this.user.name})
+                this.$store.commit('getUser',{uuid:this.user.uuid, name:this.user.name, group:'user'})
             })
             
             
@@ -73,6 +73,10 @@ export default {
             }
             if(!/^(a-z|A-Z|0-9)*[^$%^&*;:,<>?()\""\']{6,16}$/.test(this.user.passwdRp)){
                 this.$message.error('密码长度应为6-16位')
+                return false
+            }
+            if(!/^(a-z|A-Z|0-9)*[^$%^&*;:,<>?()\""\']{3,16}$/.test(this.user.name)){
+                this.$message.error('用户名长度应为3-16位')
                 return false
             }
             if(this.user.passwd!=this.user.passwdRp){
