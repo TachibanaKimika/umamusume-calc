@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-11 12:27:24
+ * @LastEditTime: 2021-08-03 15:47:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\jsfile\util\initChartsOption.js
@@ -78,9 +78,6 @@ var initChartsOption_boxplot = function (Rawdata) {
                                 name = '智力';
                                 break;
                         }
-
-
-
                         return [
                             '类别名称: ' + name,
                             '最小值: ' + params.data[1],

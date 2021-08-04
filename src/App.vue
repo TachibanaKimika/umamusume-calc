@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-08-01 15:25:55
+ * @LastEditTime: 2021-08-05 00:53:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\App.vue
@@ -55,10 +55,6 @@ export default {
     return{
       signOrLog:0,  //sign-0, log-1
       dialogVisible: false,
-      usertest:{
-        uuid:'123456789',
-        name:'null'
-      }
     }
   },
   methods:{
@@ -70,6 +66,9 @@ export default {
     user() {
         return this.$store.state.user
     }
+  },
+  mounted(){
+    this.$store.commit('getcardInDb')
   }
 }
 </script>

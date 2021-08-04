@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-26 15:08:02
+ * @LastEditTime: 2021-08-05 01:41:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\child\SelectWindow.vue
@@ -77,6 +77,12 @@
             qurSql(undefined, query_spc, res => {
                 this.cards = res;
             })
+        },
+        computed:{
+            mcards(){
+                return this.$store.state.myCardDb
+            }
         }
+
     }
 </script>

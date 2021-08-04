@@ -1,5 +1,16 @@
 {
     "sqlcon":{
         "sqldomain":"rm-bp1id4y905ysrz6pvjo.mysql.rds.aliyuncs.com"
+    },
+
+    "数据库账号":{
+        "admin":{
+            "username":"akarichan",
+            "password":"akariChan@0721"
+        },
+        "user":{
+            "username":"guest",
+            "password":"password#123"
+        }
     }
 }
