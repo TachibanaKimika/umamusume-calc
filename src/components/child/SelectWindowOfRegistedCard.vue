@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-07-26 15:16:51
+ * @LastEditTime: 2021-08-06 04:12:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\child\SelectWindowOfRegistedCard.vue
@@ -52,9 +52,9 @@
 </template>
 
 <script>
-    import {
-        qurSql
-    } from "../../jsfile/api/con2sql.js"
+    // import {
+    //     qurSql
+    // } from "../../jsfile/api/con2sql.js"
     import $ from 'jquery'
     export default {
         name: 'SelectWindowOfRegistedCard',
@@ -65,23 +65,23 @@
                 checkListRare: '3',
                 checkListLevel: '50',
                 checkedItem: {},
-                cards:[]
+                // cards:[]
             }
         },
         mounted() {
-            let querystr = 'SELECT \
-                            supportcard_stu.`id`, supportcard_stu.`spc_id`,supportcard.`spc_attribute`,supportcard.`spc_rare`,\
-                            supportcard_stu.`spc_lv`,supportcard_stu.`spc_youujo`,supportcard_stu.`spc_yaruki`,supportcard_stu.`spc_tore`,\
-                            supportcard_stu.`spc_bonasu_pt`,supportcard_stu.`spc_tokuitu`,supportcard_stu.`spc_kizuna`,\
-                            supportcard_stu.`spc_init_stu`,supportcard_stu.`spc_race`,supportcard_stu.`spc_fan`,supportcard_stu.`spc_hit_lv`,\
-                            supportcard_stu.`spc_hit_ritu`,supportcard_stu.`spc_reduce_suta`,supportcard_stu.`spc_reduce_shipai`,\
-                            CONCAT(\'【\',supportcard_stu.`spc_lv`,\'】 ‐ 【\',supportcard.`spc_secname`,\'】　-　\',supportcard.`spc_name`) spc_name\
-                            FROM supportcard_stu\
-                            LEFT JOIN supportcard ON supportcard.`id` = supportcard_stu.`spc_id`\
-                            ORDER BY spc_name DESC'
-            qurSql(undefined, querystr, res => {
-                this.cards = res;
-            })
+            // let querystr = 'SELECT \
+            //                 supportcard_stu.`id`, supportcard_stu.`spc_id`,supportcard.`spc_attribute`,supportcard.`spc_rare`,\
+            //                 supportcard_stu.`spc_lv`,supportcard_stu.`spc_youujo`,supportcard_stu.`spc_yaruki`,supportcard_stu.`spc_tore`,\
+            //                 supportcard_stu.`spc_bonasu_pt`,supportcard_stu.`spc_tokuitu`,supportcard_stu.`spc_kizuna`,\
+            //                 supportcard_stu.`spc_init_stu`,supportcard_stu.`spc_race`,supportcard_stu.`spc_fan`,supportcard_stu.`spc_hit_lv`,\
+            //                 supportcard_stu.`spc_hit_ritu`,supportcard_stu.`spc_reduce_suta`,supportcard_stu.`spc_reduce_shipai`,\
+            //                 CONCAT(\'【\',supportcard_stu.`spc_lv`,\'】 ‐ 【\',supportcard.`spc_secname`,\'】　-　\',supportcard.`spc_name`) spc_name\
+            //                 FROM supportcard_stu\
+            //                 LEFT JOIN supportcard ON supportcard.`id` = supportcard_stu.`spc_id`\
+            //                 ORDER BY spc_name DESC'
+            // qurSql(undefined, querystr, res => {
+            //     this.cards = res;
+            // })
         },
         methods: {
             hasType(item) {
@@ -113,6 +113,9 @@
         computed:{
             mycardInVuex(){
                 return this.$store.state.myCard
+            },
+            cards(){
+                return this.$store.state.myCardDb
             }
         }
     }
