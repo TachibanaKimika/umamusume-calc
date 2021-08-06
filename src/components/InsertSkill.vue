@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-26 00:39:37
- * @LastEditTime: 2021-07-17 21:10:40
+ * @LastEditTime: 2021-08-07 00:18:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\InsertSkill.vue
@@ -41,15 +41,15 @@
             <el-col :span='3'>
                 <el-input-number v-model="skillOptions.pt" :step="10"></el-input-number>
             </el-col>
-            <el-col :span='6'>
-                <el-input v-model="skillOptions.dsc" autosize placeholder="効果" style="width:20vw"></el-input>
+            <el-col :span='14'>
+                <el-input v-model="skillOptions.dsc" autosize placeholder="効果" style="width:80%"></el-input>
             </el-col>
-            <el-col :span='4'>
+            <!-- <el-col :span='4'>
                 <el-input v:model="sqlcon.username" placeholder="用户名"></el-input>
             </el-col>
             <el-col :span='4'>
                 <el-input v:model="sqlcon.userpasswd" placeholder="密码"></el-input>
-            </el-col>
+            </el-col> -->
             <el-col :span='3'>
                 <el-button @click="updateSkill">Submit</el-button>
             </el-col>
@@ -62,20 +62,29 @@
         </div> -->
 
 
+        <div class="skillTotal">
+            <div :key="tag.id" v-for="tag in mySkill" :disable-transitions="false" style="margin:10px" :class="'skill '+ renderSkill(tag)">
+                <el-popover
+                placement="top-start"
+                :title="tag.skill_name+getSkillAtb(tag)"
+                width="200"
+                trigger="hover"
+                :content="tag.skill_dsc">
+                <div slot="reference"><img :src="getSkillImgsrc(tag)" alt="">{{tag.skill_name}}</div>
+                  </el-popover>
 
-
-        <div class="skill">
-            <el-tag :key="tag.id" v-for="tag in mySkill" :disable-transitions="false" style="margin:10px" :class="">
-                {{tag.skill_name}}
-            </el-tag>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     import {
-        qurSql
+        qurSql, qurSqlPromise
     } from '../jsfile/api/con2sql.js'
+
+    import '../assets/css/skill.css'
+
     export default {
         name: 'InsertSkill',
         data() {
@@ -123,40 +132,50 @@
             }
         },
         methods: {
-            updateSkill() {
-                if (!this.insertCheck()) {
-                    return;
+            async updateSkill() {
+                if (await this.insertCheck()===false) {
+                    return
                 }
-                let query =
-                    `insert into skill (skill_name, skill_type, skill_rare, skill_long, skill_sakusen, skill_pt, skill_dsc)
-             value ('${this.skillOptions.name}', ${this.skillOptions.type}, ${this.skillOptions.rare}, ${this.skillOptions.long}, ${this.skillOptions.sakusen}, ${this.skillOptions.pt}, '${this.skillOptions.dsc}')`
+                
+                if(this.user.group!='admin'){
+                    console.log(this.user)
+                    this.$message.error('该操作需要管理员权限')
+                    return
+                }
+
+
+                let query =`insert into skill (skill_name, skill_type, skill_rare, skill_long, skill_sakusen, skill_pt, skill_dsc)
+                            value ('${this.skillOptions.name}', ${this.skillOptions.type}, ${this.skillOptions.rare}, ${this.skillOptions.long}, ${this.skillOptions.sakusen}, ${this.skillOptions.pt}, '${this.skillOptions.dsc}')`
                 console.log(query)
                 qurSql(this.sqlcon, query, res => {
+
                     console.log(res)
-                    //this.$message(res.affectedRows)
+                    this.$message('插入成功, affectedRows'+res.affectedRows)
                 })
-                this.skillOptions.name = '';
-                this.skillOptions.rare = 0;
-                this.skillOptions.long = 0;
-                this.skillOptions.sakusen = 0;
-                this.skillOptions.dsc = '';
+
+                mySkill.push({skill_name:this.skillOptions.name, skill_type:this.skillOptions.type, skill_rare:this.skillOptions.rare})
+                this.skillOptions.name = ''
+                this.skillOptions.rare = 0
+                this.skillOptions.long = 0
+                this.skillOptions.sakusen = 0
+                this.skillOptions.dsc = ''
             },
 
-            insertCheck() {
+            async insertCheck() {
                 if (this.skillOptions.name == '' || this.skillOptions.dsc == '') {
                     this.sendMsg('技能名或技能描述格式错误, 请重新输入', 'error')
                     return false
                 }
 
-                let query = `SELECT COUNT( * ) AS \`count\` FROM skill WHERE skill_name='${this.skillOptions.name}'`
-                qurSql(this.sqlcon, query, res => {
-                    //console.log(res)
-                    if (res.count != 0) {
-                        this.sendMsg('this skill has exist', 'error')
-                        return false
-                    }
-                })
-                return true
+                let query = `SELECT COUNT( * ) AS 'count' FROM skill WHERE skill_name='${this.skillOptions.name}'`
+                let flag = await qurSqlPromise(this.sqlcon, query)
+                // console.log(flag)
+                if(flag[0].count == 0){
+                    return true
+                }else{
+                    this.$message.error('插入失败')
+                    return false
+                }
             },
 
             getMySkill() {
@@ -173,12 +192,58 @@
                 })
             },
 
-            renderCard(skill) {
+            renderSkill(skill) {
+                // console.log(skill)
+                let skill_class = ``
+                switch(skill.skill_type) {
+                    case 0: skill_class = `yellowSkill`;break
+                    case 1: skill_class = `blueSkill`;break
+                    case 2: skill_class = `greenSkill`;break
+                    case 3: skill_class = `colorfulSkill`;break
+                }
+                if(skill.skill_rare==0&&skill.skill_type!=3){
+                    skill_class = `goldenSkill`
+                }
+                return skill_class
+            },
+
+            getSkillImgsrc(skill){
+                let skill_img = ``
+                switch(skill.skill_type) {
+                    case 0: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill3.png`;break
+                    case 1: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill6.png`;break
+                    case 2: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill1.png`;break
+                    case 3: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill3.png`;break
+                    case 4: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill49.png`;break
+                }
                 
+                return skill_img
+            },
+
+            getSkillAtb(skill){
+                switch(skill.skill_long){
+                    case 1:return ' <短距離>'
+                    case 2:return ' <マイル>'
+                    case 3:return ' <中距離>'
+                    case 4:return ' <長距離>'
+                    case 5:return ' <ダート>'
+                }
+                switch(skill.skill_sakusen){
+                    case 1:return ' <追込>'
+                    case 2:return ' <差し>'
+                    case 3:return ' <先行>'
+                    case 4:return ' <逃げ>'
+                }
+                return ''
             }
         },
         mounted() {
             this.getMySkill()
+        },
+        computed: {
+            user() {
+                return this.$store.state.user
+            }
         }
     }
 </script>

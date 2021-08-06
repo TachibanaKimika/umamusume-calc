@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-31 17:56:35
- * @LastEditTime: 2021-08-01 15:16:09
+ * @LastEditTime: 2021-08-06 20:36:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\components\child\UserLogIn.vue
@@ -55,6 +55,9 @@ export default {
                 if(res.length == 1){
                     this.$message.success('登录成功')
                     this.$store.commit('getUser',{uuid:res[0].uuid, name:res[0].name, group:res[0].group})
+                    console.log(res)
+                    //登录成功后, 重新初始化一遍数据
+                    this.$store.commit('dataInit')
                 }else{
                     this.$message.error('登录失败')
                 }

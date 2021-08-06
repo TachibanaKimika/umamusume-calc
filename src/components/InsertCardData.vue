@@ -268,6 +268,8 @@
                     this.callOutMsg('error', '请先选择一张卡');
                     return;
                 }
+
+                //加载到本地
                 if (method == 'local') {
                     console.log("this.spcSubmit")
                     console.log(this.spcSubmit)
@@ -302,7 +304,7 @@
                     return
                 }
                 let isexist = await this.isItemExist('sql')
-                //更改数据
+                //当数据已存在时更改数据
                 if (!isexist) {
                     this.$confirm('检测到已有重复的卡, 是否更新', '提示', {
                         confirmButtonText: '确定',
@@ -327,8 +329,7 @@
                     return;
                 }
 
-
-                //sql语句
+                //插入数据(用户以及管理员通用)
                 let querystr = `INSERT INTO ${this.$store.state.user.group == 'admin'?'supportcard_stu':'supportcard_stu_user'} (spc_id, spc_lv, spc_youujo, spc_yaruki, 
                                 spc_tore, spc_bonasu_pt, spc_tokuitu, spc_kizuna, spc_init_stu, spc_race, 
                                 spc_fan, spc_hit_lv, spc_hit_ritu, spc_reduce_suta, spc_reduce_shipai
@@ -359,6 +360,7 @@
             },
             isItemExist(method) {
                 if(method==='sql'){
+                    //检测数据库中是否有重复的行, user检测该uuid下的数据是否有重复, admin检测主表的数据是否有重复
                     return new Promise((resolve, reject) => {
                         let id = this.spcSubmit.id
                         let level = this.spcSubmit.level

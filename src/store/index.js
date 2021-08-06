@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-08-06 04:29:27
+ * @LastEditTime: 2021-08-06 20:45:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\store\index.js
@@ -15,6 +15,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    uma:[],
     cards:[], // 数据库中的卡(raw)
     myCard:[], // 用户本地保存的卡(in vuex)
     myCardDb:[], // 数据库中主表的卡
@@ -48,14 +49,20 @@ export default new Vuex.Store({
     getUser(state, user){
       state.user.uuid = user.uuid
       state.user.name = user.name
+      state.user.group = user.group
     },
 
     // 取得数据库中的卡
-    getcardInDb(state){
+    dataInit(state){
 
       //先是没有数值的卡
       qurSql(undefined, `SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT('【',spc_secname,'】　－　',spc_name) AS \`name\` FROM supportcard`, res => {
           state.cards = res;
+      })
+
+
+      qurSql(undefined, `SELECT id, CONCAT('【',uma_secname,'】－',uma_name) AS 'name' FROM uma`, res=>{
+        state.uma = res
       })
 
       //更新有数值的卡 
@@ -73,7 +80,7 @@ export default new Vuex.Store({
       })
 
       //若有登录的账户, 获取其账户中的数据
-      if(state.iser.group != null){
+      if(state.user.group != null){
         qurSql(undefined, `SELECT   
         supportcard_stu_user.id, spc_id, supportcard.spc_attribute, supportcard.spc_rare,
         spc_lv, spc_youujo, spc_yaruki, spc_tore,
@@ -84,8 +91,13 @@ export default new Vuex.Store({
         FROM supportcard_stu_user
         LEFT JOIN supportcard ON supportcard.id = supportcard_stu_user.spc_id
         WHERE spc_uuid = ${state.user.uuid}
-        ORDER BY spc_name DESC`)
+        ORDER BY spc_name DESC`,res=>{
+          state.myCardDbUser = res
+        })
       }
+
+
+
     }
   },
 })

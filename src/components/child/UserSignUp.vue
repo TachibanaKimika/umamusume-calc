@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-31 18:19:14
- * @LastEditTime: 2021-08-01 14:18:48
+ * @LastEditTime: 2021-08-06 21:03:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\components\child\UserSignIn.vue
@@ -52,7 +52,7 @@ export default {
                 return
             }
             let passwd = sha256(this.user.passwd).toString()
-            console.log('...')
+            //console.log('...')
             qurSql({
                 username: 'akarichan',
                 userpasswd: 'akariChan@0721',
@@ -61,6 +61,7 @@ export default {
                 console.log(res)
                 this.$message('注册成功')
                 this.$store.commit('getUser',{uuid:this.user.uuid, name:this.user.name, group:'user'})
+                this.$store.commit('dataInit')
             })
             
             
