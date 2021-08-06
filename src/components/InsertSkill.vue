@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-26 00:39:37
- * @LastEditTime: 2021-08-07 00:18:22
+ * @LastEditTime: 2021-08-07 00:24:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\InsertSkill.vue
@@ -133,16 +133,16 @@
         },
         methods: {
             async updateSkill() {
-                if (await this.insertCheck()===false) {
-                    return
-                }
+                
                 
                 if(this.user.group!='admin'){
                     console.log(this.user)
                     this.$message.error('该操作需要管理员权限')
                     return
                 }
-
+                if (await this.insertCheck()===false) {
+                    return
+                }
 
                 let query =`insert into skill (skill_name, skill_type, skill_rare, skill_long, skill_sakusen, skill_pt, skill_dsc)
                             value ('${this.skillOptions.name}', ${this.skillOptions.type}, ${this.skillOptions.rare}, ${this.skillOptions.long}, ${this.skillOptions.sakusen}, ${this.skillOptions.pt}, '${this.skillOptions.dsc}')`
@@ -153,7 +153,7 @@
                     this.$message('插入成功, affectedRows'+res.affectedRows)
                 })
 
-                mySkill.push({skill_name:this.skillOptions.name, skill_type:this.skillOptions.type, skill_rare:this.skillOptions.rare})
+                this.mySkill.push({skill_name:this.skillOptions.name, skill_type:this.skillOptions.type, skill_rare:this.skillOptions.rare, skill_long:this.skillOptions.long, skill_sakusen:this.skillOptions.sakusen, skill_pt:this.skillOptions.pt, skill_dsc:this.skillOptions.dsc})
                 this.skillOptions.name = ''
                 this.skillOptions.rare = 0
                 this.skillOptions.long = 0
@@ -173,7 +173,7 @@
                 if(flag[0].count == 0){
                     return true
                 }else{
-                    this.$message.error('插入失败')
+                    this.$message.error('插入失败, 有重复的卡')
                     return false
                 }
             },
