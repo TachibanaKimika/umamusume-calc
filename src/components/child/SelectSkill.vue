@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-07 18:18:24
- * @LastEditTime: 2021-08-07 18:54:41
+ * @LastEditTime: 2021-08-08 00:16:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \.gitf:\My Repo\umamusume-calc\src\components\child\SelectSkill.vue
@@ -18,7 +18,7 @@
                 trigger="hover"
                 :content="tag.skill_dsc">
                 <!-- TODO: 多选技能 -->
-                <div slot="reference" ><img :src="getSkillImgsrc(tag)" alt="">{{tag.skill_name}}</div>
+                <div slot="reference"><img :src="getSkillImgsrc(tag)" alt="">{{tag.skill_name}}</div>
                 </el-popover>
 
             </div>
