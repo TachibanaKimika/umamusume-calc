@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-08-06 00:20:51
+ * @LastEditTime: 2021-08-08 21:40:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\child\SelectWindow.vue
@@ -63,13 +63,11 @@
                 return false;
             },
             submitCard() {
-                console.log(this.checkedItem)
                 if (this.checkedItem.id != 0) {
                     this.$emit('getCardFromChild', this.checkedItem)
                 } else {
                     this.$message("请选择一张卡")
                 }
-
             }
         },
         mounted() {

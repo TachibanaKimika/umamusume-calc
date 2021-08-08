@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-08-06 18:03:36
+ * @LastEditTime: 2021-08-09 00:35:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\App.vue
@@ -15,12 +15,12 @@
         <el-menu-item index="/ToreSimulation">练习模拟</el-menu-item>
         <el-menu-item index="/SinlgeCardAnalysis">单卡分析</el-menu-item>
         <el-menu-item index="/DataAnalysis">数据统计</el-menu-item>
+        <el-menu-item index="/GetAllMyUma">查看🐎</el-menu-item>
         <el-menu-item index="/RegisterNewUma">更新🐎</el-menu-item>
         <el-menu-item index="/InsertCardData">插入/修改支援卡数据</el-menu-item>
-        <el-menu-item index="/InsertSkill">插入技能</el-menu-item>
-        <!-- <el-menu-item index="/GetAllMyUma">GETMYUMA</el-menu-item> -->
-        <el-menu-item index="/InsertData2DB">更新数据库</el-menu-item>
-        <el-menu-item index="/Test">测试用</el-menu-item>
+        <el-menu-item index="/InsertSkill" v-if="this.$store.state.user.group=='admin'">插入技能</el-menu-item>
+        <el-menu-item index="/InsertData2DB" v-if="this.$store.state.user.group=='admin'">更新数据库</el-menu-item>
+        <el-menu-item index="/Test" v-if="this.$store.state.user.group=='admin'">测试用</el-menu-item>
         <div style="float: right; line-height: 60px; padding: 0 60px;">
           <div v-if="user.uuid==null">未登录 | <el-button size="small" @click="dialogVisible = true">登录/注册</el-button></div><div v-else="user.uuid!=null">{{user.name}} | {{user.uuid}} | <el-button size="small" @click="logout()">登出</el-button></div>
         </div>

@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-26 00:39:37
- * @LastEditTime: 2021-08-07 00:24:39
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-09 01:30:13
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\InsertSkill.vue
 -->
@@ -155,7 +155,7 @@
 
                 this.mySkill.push({skill_name:this.skillOptions.name, skill_type:this.skillOptions.type, skill_rare:this.skillOptions.rare, skill_long:this.skillOptions.long, skill_sakusen:this.skillOptions.sakusen, skill_pt:this.skillOptions.pt, skill_dsc:this.skillOptions.dsc})
                 this.skillOptions.name = ''
-                this.skillOptions.rare = 0
+                // this.skillOptions.rare = 0
                 this.skillOptions.long = 0
                 this.skillOptions.sakusen = 0
                 this.skillOptions.dsc = ''
@@ -173,7 +173,7 @@
                 if(flag[0].count == 0){
                     return true
                 }else{
-                    this.$message.error('插入失败, 有重复的卡')
+                    this.$message.error('插入失败, 有重复的技能')
                     return false
                 }
             },
@@ -243,6 +243,9 @@
         computed: {
             user() {
                 return this.$store.state.user
+            },
+            myUmaSkill(){
+                return this.skillOptions.dsc.replace(/\n/g,'')
             }
         }
     }

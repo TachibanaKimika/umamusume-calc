@@ -203,7 +203,7 @@
 
         <el-dialog title="选择技能" :visible.sync="dialogVisibleSkill">
         <!-- TODO -->
-            <SelectSkill />
+            <SelectSkill v-on:getSkillFromChild='reciveSkill'/>
         </el-dialog>
     </div>
 </template>
@@ -261,7 +261,7 @@
                     }
                 },
                 rankOption:['S','A', 'B', 'C', 'D', 'E','F','G'],
-                myUmaSkill:[{id:1}, 2, 3, 4],
+                myUmaSkill:[],
             }
         },
         mounted() {
@@ -276,7 +276,10 @@
                 this.myCardItem[this.potionSelector] = data;
                 this.dialogVisibleSpc = false
             },
-            insertUma2Sql() {
+            reciveSkill(data){
+                this.myUmaSkill = data
+            },
+            async insertUma2Sql() {
                 if(this.$store.state.user.uuid==null){
                     this.$message.error('请先登录')
                     return
@@ -289,12 +292,12 @@
                     moreinfo: this.myUmaConfig,
                     skill: this.myUmaSkill,
                     userUUID: this.$store.state.user.uuid,
-
                 }
-                updatenewuma(umaInsert)
+                await updatenewuma(umaInsert)
                 this.$message("提交成功")
             }
-        }
+        },
+        
 
     }
 </script>
