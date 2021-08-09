@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-07 18:18:24
- * @LastEditTime: 2021-08-09 01:42:18
+ * @LastEditTime: 2021-08-09 19:33:35
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \.gitf:\My Repo\umamusume-calc\src\components\child\SelectSkill.vue
@@ -104,11 +104,11 @@ export default {
             getSkillImgsrc(skill){
                 let skill_img = ``
                 switch(skill.skill_type) {
-                    case 0: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill3.png`;break
-                    case 1: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill6.png`;break
-                    case 2: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill1.png`;break
-                    case 3: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill3.png`;break
-                    case 4: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill49.png`;break
+                    case 0: skill_img = require('../../assets/img/skill/i_skill3.png');break
+                    case 1: skill_img = require('../../assets/img/skill/i_skill6.png');break
+                    case 2: skill_img = require('../../assets/img/skill/i_skill1.png');break
+                    case 3: skill_img = require('../../assets/img/skill/i_skill3.png');break
+                    case 4: skill_img = require('../../assets/img/skill/i_skill49.png');break
                 }
                 return skill_img
             },

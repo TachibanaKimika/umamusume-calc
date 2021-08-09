@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-27 20:08:28
- * @LastEditTime: 2021-07-11 02:09:31
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-09 19:31:30
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\child\CharShow.vue
 -->
