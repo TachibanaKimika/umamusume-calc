@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-31 18:19:14
- * @LastEditTime: 2021-08-06 21:03:12
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-10 12:47:27
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\components\child\UserSignIn.vue
 -->
@@ -73,11 +73,11 @@ export default {
                 return false
             }
             if(!/^(a-z|A-Z|0-9)*[^$%^&*;:,<>?()\""\']{6,16}$/.test(this.user.passwdRp)){
-                this.$message.error('密码长度应为6-16位')
+                this.$message.error('密码长度应为6-16位且不包含特殊字符')
                 return false
             }
             if(!/^(a-z|A-Z|0-9)*[^$%^&*;:,<>?()\""\']{3,16}$/.test(this.user.name)){
-                this.$message.error('用户名长度应为3-16位')
+                this.$message.error('用户名长度应为3-16位且不包含特殊字符')
                 return false
             }
             if(this.user.passwd!=this.user.passwdRp){

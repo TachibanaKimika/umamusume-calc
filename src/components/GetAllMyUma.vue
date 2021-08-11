@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 14:49:48
- * @LastEditTime: 2021-08-09 21:13:33
+ * @LastEditTime: 2021-08-10 23:12:38
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\GetAllMyUma.vue
@@ -63,12 +63,29 @@
 
         <!-- TODO:显示🐎的详细信息 -->
         <el-dialog
-        title="详细信息"
+        :title="singleUma.uma_name"
         :visible.sync="moreinfoVisible"
-        width="30%">
-        <span>{{singleUma.speed}}</span>
+        id="umapage"
+        width="60%">
+        <table class="umaInfo">
+            <tr>
+                <td>スビート</td>
+                <td>スタミナ</td>
+                <td>パワー</td>
+                <td>根性</td>
+                <td>賢さ</td>
+            </tr>
+            <tr>
+                <td><img :src="getRankImg(singleUma.speed)" style="height:20px"></td>
+                <td><img :src="getRankImg(singleUma.sutamina)" style="height:20px"></td>
+                <td><img :src="getRankImg(singleUma.power)" style="height:20px"></td>
+                <td><img :src="getRankImg(singleUma.grit)" style="height:20px"></td>
+                <td><img :src="getRankImg(singleUma.intelligence)" style="height:20px"></td>
+            </tr>
+        </table>
+
+        <span class="info"><span>Speed: {{singleUma.speed}}</span><img :src="getRankImg(singleUma.speed)" style="height:20px"></span>
         <span slot="footer" class="dialog-footer">
-            <el-button @click="moreinfoVisible = false">取 消</el-button>
             <el-button type="primary" @click="moreinfoVisible = false">确 定</el-button>
         </span>
         </el-dialog>
@@ -77,6 +94,7 @@
 
 <script>
 import {qurSql} from '../jsfile/api/con2sql.js'
+import '../assets/css/umapage.scss'
 export default {
     name: 'GetAllMyUma',
     data(){
@@ -116,6 +134,74 @@ export default {
             this.uma = res;
             console.log(res)
         })
-    }
+    },
+    methods:{
+        getRankImg(numstr){
+            numstr == undefined?numstr=0:true
+            let rank = 'SSp'
+            let num = Number(numstr)
+            console.log(num)
+            switch(true){
+                case (1150<=num&&num<=1200):
+                    rank = 'SSp'
+                    break
+                case (1100<=num&&num<1150):
+                    rank = 'SS'
+                    break
+                case (1050<=num&&num<1100):
+                    rank = 'Sp'
+                    break
+                case (1000<=num&&num<1050):
+                    rank = 'S'
+                    break
+                case (900<=num&&num<1000):
+                    rank = 'Ap'
+                    break
+                case (800<=num&&num<900):
+                    rank = 'A'
+                    break
+                case (700<=num&&num<800):
+                    rank = 'Bp'
+                    break
+                case (600<=num&&num<700):
+                    rank = 'B'
+                    break
+                case (500<=num&&num<600):
+                    rank = 'Cp'
+                    break
+                case (400<=num&&num<500):
+                    rank = 'C'
+                    break
+                case (350<=num&&num<400):
+                    rank = 'Dp'
+                    break
+                case (300<=num&&num<350):
+                    rank = 'D'
+                    break
+                case (250<=num&&num<300):
+                    rank = 'Ep'
+                    break
+                case (200<=num&&num<250):
+                    rank = 'E'
+                    break
+                case (150<=num&&num<200):
+                    rank = 'Fp'
+                    break
+                case (100<=num&&num<150):
+                    rank = 'F'
+                    break
+                case (50<=num&&num<100):
+                    rank = 'Gp'
+                    break
+                case (num<50):
+                    rank = 'G'
+                    break
+            }
+            let path = `i_rank_${rank}.png`
+            console.log(path)
+            return require('../assets/img/rank/umastatus/'+path)
+        }
+    },
+
 }
 </script>
