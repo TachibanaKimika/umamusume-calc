@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 14:49:48
- * @LastEditTime: 2021-08-12 03:55:01
+ * @LastEditTime: 2021-08-12 12:19:53
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\GetAllMyUma.vue
@@ -11,7 +11,8 @@
     <div>
         <el-table
         :data="uma" stripe
-        style="width: 100%">
+        style="width: 100%"
+        height="680">
             <el-table-column
                 prop="time"
                 label="時間"
