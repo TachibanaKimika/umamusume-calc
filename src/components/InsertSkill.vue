@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-26 00:39:37
- * @LastEditTime: 2021-08-09 01:30:13
+ * @LastEditTime: 2021-08-14 02:48:18
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\InsertSkill.vue
@@ -63,15 +63,17 @@
 
 
         <div class="skillTotal">
-            <div :key="tag.id" v-for="tag in mySkill" :disable-transitions="false" style="margin:10px" :class="'skill '+ renderSkill(tag)">
-                <el-popover
+            <div :key="tag.id" v-for="tag in mySkill" :disable-transitions="false" :class="'skill '+ renderSkill(tag)">
+                <!--<el-popover
                 placement="top-start"
                 :title="tag.skill_name+getSkillAtb(tag)"
                 width="200"
                 trigger="hover"
                 :content="tag.skill_dsc">
-                <div slot="reference"><img :src="getSkillImgsrc(tag)" alt="">{{tag.skill_name}}</div>
-                  </el-popover>
+                <div slot="reference">-->
+                    <img :src="getSkillImgsrc(tag)" alt=""><span class="skill_text">{{tag.skill_name}}</span>
+                <!-- </div>
+                </el-popover> -->
 
             </div>
         </div>
@@ -83,7 +85,7 @@
         qurSql, qurSqlPromise
     } from '../jsfile/api/con2sql.js'
 
-    import '../assets/css/skill.css'
+    import '../assets/css/skill.scss'
 
     export default {
         name: 'InsertSkill',
@@ -194,13 +196,13 @@
 
             renderSkill(skill) {
                 // console.log(skill)
-                let skill_class = ``
-                switch(skill.skill_type) {
-                    case 0: skill_class = `yellowSkill`;break
-                    case 1: skill_class = `blueSkill`;break
-                    case 2: skill_class = `greenSkill`;break
-                    case 3: skill_class = `colorfulSkill`;break
-                }
+                let skill_class = `commonSkill`
+                // switch(skill.skill_type) {
+                //     case 0: skill_class = `yellowSkill`;break
+                //     case 1: skill_class = `blueSkill`;break
+                //     case 2: skill_class = `greenSkill`;break
+                //     case 3: skill_class = `colorfulSkill`;break
+                // }
                 if(skill.skill_rare==0&&skill.skill_type!=3){
                     skill_class = `goldenSkill`
                 }

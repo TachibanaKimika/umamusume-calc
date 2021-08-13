@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-26 20:07:01
- * @LastEditTime: 2021-08-12 23:37:51
+ * @LastEditTime: 2021-08-13 00:55:51
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\components\InsertData2DB.vue
@@ -327,7 +327,7 @@
                     this.callOutMsg('success', msg)
                 })
                 qurSql(undefined, `select * from uma`, res => {
-                    this.allCard = res;
+                    this.allUma = res;
                 })
             }
         },

@@ -1,0 +1,88 @@
+$smallpx: -2px;
+$borderRadius :7px;
+
+
+.skill{
+    text-align: left;
+    width: 250px;
+    display: inline-block;
+    border:  2px solid transparent;
+    border-radius: $borderRadius;
+    line-height: 30px;
+    margin: 8px;
+    padding: 0px 4px 0px 2px;
+    // background-color:white;
+    cursor: pointer;
+    // 实现边框必须的代码
+    position: relative;
+    outline: 0;
+    border: 2px solid transparent;
+    border-radius: $borderRadius;
+    background-clip: padding-box;
+
+
+    box-shadow: 0px 3px 0px rgba(94, 94, 94, 0.5);
+    
+    // 文字效果
+    .skill_text{
+        margin-left: 4px;
+        vertical-align: middle;
+        font-size: 16px;
+        font-weight: bold;
+        color:#58360f;
+        text-shadow: 0 1.2px white, 1.2px 0 white, -1.2px 0 white, 0 -1.2px white;
+        
+    }
+}
+
+.goldenSkill{
+    background-image: linear-gradient(to right, rgb(255, 255, 193), rgb(255, 173, 66));
+    // border-image: #ff9100;
+
+    ::after{
+        position: absolute;
+        top: $smallpx;
+        bottom: $smallpx;
+        left: $smallpx;
+        right: $smallpx;
+        background: linear-gradient(to right, rgb(255, 192, 133), rgb(255, 151, 15)); 
+        content: '';
+        z-index: -1;
+        border-radius: $borderRadius;
+    }
+}
+.el-dialog{
+    z-index: -2;
+}
+
+
+.commonSkill{
+    background-image: linear-gradient(to right, rgb(255, 255, 255) 30%, rgb(226, 226, 226) 70%, rgb(170, 170, 170));
+    // border-image: #ff9100;
+
+    ::after{
+        position: absolute;
+        top: $smallpx;
+        bottom: $smallpx;
+        left: $smallpx;
+        right: $smallpx;
+        background: linear-gradient(to right, rgb(204, 204, 204), rgb(119, 119, 119)); 
+        content: '';
+        z-index: -1;
+        border-radius: $borderRadius;
+    }
+}
+
+
+
+/* 图标类 */
+.skill img{
+    margin:5px 1px;
+    display: inline-block; 
+    vertical-align: middle;
+    border-radius: 5px;
+    width: 25px;
+    height: 25px;
+    background-color: rgb(53, 53, 53);
+}
+
