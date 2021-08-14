@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-26 00:39:37
- * @LastEditTime: 2021-08-14 02:48:18
+ * @LastEditTime: 2021-08-15 01:52:46
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\InsertSkill.vue
@@ -9,8 +9,9 @@
 <template>
     <div class="InsertSkill">
         <el-radio-group v-model="skillOptions.rare">
-            <el-radio-button label="0">金スキル/固有</el-radio-button>
+            <el-radio-button label="0">金スキル</el-radio-button>
             <el-radio-button label="1">非金スキル</el-radio-button>
+            <el-radio-button label="2">固有</el-radio-button>
         </el-radio-group>
         <el-radio-group v-model="skillOptions.long">
             <el-radio-button label="0">制限なし</el-radio-button>
@@ -44,37 +45,16 @@
             <el-col :span='14'>
                 <el-input v-model="skillOptions.dsc" autosize placeholder="効果" style="width:80%"></el-input>
             </el-col>
-            <!-- <el-col :span='4'>
-                <el-input v:model="sqlcon.username" placeholder="用户名"></el-input>
-            </el-col>
-            <el-col :span='4'>
-                <el-input v:model="sqlcon.userpasswd" placeholder="密码"></el-input>
-            </el-col> -->
             <el-col :span='3'>
                 <el-button @click="updateSkill">Submit</el-button>
             </el-col>
         </el-row>
 
-        <!-- <div class="sqlinfo">
-            <el-input v:model="sqlcon.username" placeholder="用户名" style="width:30%"></el-input>
-            <el-input v:model="sqlcon.userpasswd" placeholder="密码" style="width:30%"></el-input>
-            <el-button @click="updateSkill">Submit</el-button>
-        </div> -->
 
 
         <div class="skillTotal">
             <div :key="tag.id" v-for="tag in mySkill" :disable-transitions="false" :class="'skill '+ renderSkill(tag)">
-                <!--<el-popover
-                placement="top-start"
-                :title="tag.skill_name+getSkillAtb(tag)"
-                width="200"
-                trigger="hover"
-                :content="tag.skill_dsc">
-                <div slot="reference">-->
                     <img :src="getSkillImgsrc(tag)" alt=""><span class="skill_text">{{tag.skill_name}}</span>
-                <!-- </div>
-                </el-popover> -->
-
             </div>
         </div>
     </div>
@@ -85,7 +65,7 @@
         qurSql, qurSqlPromise
     } from '../jsfile/api/con2sql.js'
 
-    import '../assets/css/skill.scss'
+    // import '../assets/css/skill.scss'
 
     export default {
         name: 'InsertSkill',
@@ -135,8 +115,6 @@
         },
         methods: {
             async updateSkill() {
-                
-                
                 if(this.user.group!='admin'){
                     console.log(this.user)
                     this.$message.error('该操作需要管理员权限')
@@ -147,7 +125,13 @@
                 }
 
                 let query =`insert into skill (skill_name, skill_type, skill_rare, skill_long, skill_sakusen, skill_pt, skill_dsc)
-                            value ('${this.skillOptions.name}', ${this.skillOptions.type}, ${this.skillOptions.rare}, ${this.skillOptions.long}, ${this.skillOptions.sakusen}, ${this.skillOptions.pt}, '${this.skillOptions.dsc}')`
+                            value ('${this.skillOptions.name}', 
+                            ${this.skillOptions.type}, 
+                            ${this.skillOptions.rare}, 
+                            ${this.skillOptions.long}, 
+                            ${this.skillOptions.sakusen}, 
+                            ${this.skillOptions.pt}, 
+                            '${this.skillOptions.dsc}')`
                 console.log(query)
                 qurSql(this.sqlcon, query, res => {
 
@@ -196,17 +180,17 @@
 
             renderSkill(skill) {
                 // console.log(skill)
-                let skill_class = `commonSkill`
-                // switch(skill.skill_type) {
-                //     case 0: skill_class = `yellowSkill`;break
-                //     case 1: skill_class = `blueSkill`;break
-                //     case 2: skill_class = `greenSkill`;break
-                //     case 3: skill_class = `colorfulSkill`;break
+                // let skill_class = `commonSkill`
+                // if(skill.skill_rare==0){
+                //     skill_class = `goldenSkill`
                 // }
-                if(skill.skill_rare==0&&skill.skill_type!=3){
-                    skill_class = `goldenSkill`
+
+                switch(skill.skill_rare){
+                    case 0: return 'goldenSkill'
+                    case 1: return 'commonSkill'
+                    case 2: return 'colorfulSkill'
                 }
-                return skill_class
+                // return skill_class
             },
 
             getSkillImgsrc(skill){
@@ -253,7 +237,8 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    @import '../assets/css/skill.scss';
     .el-radio-group,
     .el-input-number,
     .el-input,

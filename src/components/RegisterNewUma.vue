@@ -201,8 +201,7 @@
             <SelectWindow  v-on:getCardFromChild='reciveCardItem' />
         </el-dialog>
 
-        <el-dialog title="选择技能" :visible.sync="dialogVisibleSkill">
-        <!-- TODO -->
+        <el-dialog title="选择技能" :visible.sync="dialogVisibleSkill" fullscreen>
             <SelectSkill v-on:getSkillFromChild='reciveSkill'/>
         </el-dialog>
     </div>
@@ -278,6 +277,7 @@
             },
             reciveSkill(data){
                 this.myUmaSkill = data
+                this.dialogVisibleSkill = false
             },
             async insertUma2Sql() {
                 if(this.$store.state.user.uuid==null){

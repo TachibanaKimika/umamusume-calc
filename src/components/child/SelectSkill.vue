@@ -1,13 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-07 18:18:24
- * @LastEditTime: 2021-08-14 03:44:23
+ * @LastEditTime: 2021-08-15 01:54:21
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \.gitf:\My Repo\umamusume-calc\src\components\child\SelectSkill.vue
 -->
 <template>
-    <div class="skillTotal">
+    <div class="skill_selector">
         <div class="selectedSkill">
             <el-tag>已选技能</el-tag> <el-button @click="submitSkill" type="success" size="mini">提交</el-button>
             <div class="skillTotal">
@@ -24,12 +24,16 @@
                     </el-popover>
                 </div>
             </div>
+
+            <!-- 占位用 -->
+            <div class="skillTotal_position">
+            </div>
         </div>
         
         <div class="skill2Select">
             <el-tag>技能选择</el-tag>
             <div class="skillFilter">
-                <div style="margin-top: 20px">
+                <div>
                     <el-radio-group v-model="fliter.skill_long" size="mini">
                         <el-radio-button label="1">短距離</el-radio-button>
                         <el-radio-button label="2">マイル</el-radio-button>
@@ -38,7 +42,6 @@
                         <el-radio-button label="5">ダート</el-radio-button>
                         <el-radio-button label="0">全て</el-radio-button>
                     </el-radio-group>
-                    <br>
                     <el-radio-group v-model="fliter.skill_sakusen" size="mini">
                         <el-radio-button label="1">追込</el-radio-button>
                         <el-radio-button label="2">差し</el-radio-button>
@@ -46,7 +49,6 @@
                         <el-radio-button label="4">逃げ</el-radio-button>
                         <el-radio-button label="0">全て</el-radio-button>
                     </el-radio-group>
-
                     <el-input v-model="fliter.searchtext" placeholder="关键词搜索(支持正则)" clearable style="display:inline-block;width:15vw"></el-input>
                 </div>
             </div>
@@ -63,6 +65,10 @@
                         </div>
                     </el-popover>
                 </div>
+            </div>
+            <!-- 占位用 -->
+            <div class="skillTotal_position">
+                
             </div>
         </div>
 
@@ -91,18 +97,11 @@ export default {
     },
     methods:{
         renderSkill(skill) {
-            // console.log(skill)
-            let skill_class = `commonSkill`
-            // switch(skill.skill_type) {
-            //     case 0: skill_class = `yellowSkill`;break
-            //     case 1: skill_class = `blueSkill`;break
-            //     case 2: skill_class = `greenSkill`;break
-            //     case 3: skill_class = `colorfulSkill`;break
-            // }
-            if(skill.skill_rare==0&&skill.skill_type!=3){
-                skill_class = `goldenSkill`
+            switch(skill.skill_rare){
+                    case 0: return 'goldenSkill'
+                    case 1: return 'commonSkill'
+                    case 2: return 'colorfulSkill'
             }
-            return skill_class
         },
 
         getSkillImgsrc(skill){

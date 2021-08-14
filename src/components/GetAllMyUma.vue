@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 14:49:48
- * @LastEditTime: 2021-08-12 12:19:53
+ * @LastEditTime: 2021-08-15 01:46:30
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\GetAllMyUma.vue
@@ -107,6 +107,24 @@
                     <span class="uma_config_item"><span class="uma_config_item_label">追込</span><span class="uma_config_item_img"><img :src="getConfigImg(this.singleUma.others.kyakushitu.oikomi)" alt=""></span></span>
                 </div>
             </div>
+            <div class="uma_skill">
+                <div class="skillTotal">
+                    <div :key="tag.id" v-for="tag in singleUma.skill" :disable-transitions="false" :class="'skill '+ renderSkill(tag)">
+                        <el-popover
+                        placement="top-start"
+                        :title="tag.skill_name+getSkillAtb(tag)"
+                        width="200"
+                        trigger="hover"
+                        :content="tag.skill_dsc">
+                            <div slot="reference">
+                                <img :src="getSkillImgsrc(tag)" alt=""><span class="skill_text">{{tag.skill_name}}</span>
+                            </div>
+                        </el-popover>
+                    </div>
+                </div>
+                <!-- 占位用 -->
+                <div class="skillTotal_position"></div>
+            </div>
         </div>
         </el-dialog>
     </div>
@@ -114,7 +132,7 @@
 
 <script>
 import {qurSql} from '../jsfile/api/con2sql.js'
-import '../assets/css/umapage.scss'
+// import '../assets/css/umapage.scss'
 export default {
     name: 'GetAllMyUma',
     data(){
@@ -226,6 +244,43 @@ export default {
         },
         getConfigImg(str){
             return require('../assets/img/rank/umaconfig/i_rank_'+str+'.png')
+        },
+        renderSkill(skill) {
+            switch(skill.skill_rare){
+                    case 0: return 'goldenSkill'
+                    case 1: return 'commonSkill'
+                    case 2: return 'colorfulSkill'
+            }
+        },
+
+        getSkillImgsrc(skill){
+            let skill_img = ``
+            switch(skill.skill_type) {
+                case 0: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill3.png`;break
+                case 1: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill6.png`;break
+                case 2: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill1.png`;break
+                case 3: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill3.png`;break
+                case 4: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill49.png`;break
+            }
+            
+            return skill_img
+        },
+
+        getSkillAtb(skill){
+            switch(skill.skill_long){
+                case 1:return ' <短距離>'
+                case 2:return ' <マイル>'
+                case 3:return ' <中距離>'
+                case 4:return ' <長距離>'
+                case 5:return ' <ダート>'
+            }
+            switch(skill.skill_sakusen){
+                case 1:return ' <追込>'
+                case 2:return ' <差し>'
+                case 3:return ' <先行>'
+                case 4:return ' <逃げ>'
+            }
+            return ''
         }
     },
     watch: {
@@ -247,3 +302,12 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+@import '../assets/css/umapage.scss';
+@import '../assets/css/skill.scss';
+.skillTotal, .skillTotal_position{
+    margin-left: 82px;
+    margin-right: 82px;
+}
+</style>
