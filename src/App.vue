@@ -1,13 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-08-09 00:35:52
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-16 23:42:16
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\App.vue
 -->
 <template>
   <div id="app">
+    <BackGround style="z-index:-100" />
     <div id="nav">
       <el-menu class="el-menu-demo" mode="horizontal" router>
         <el-menu-item index="/">主页</el-menu-item>
@@ -45,9 +46,10 @@
 <script>
 import UserSignUp from "@/components/child/UserSignUp.vue"
 import UserLogIn from "@/components/child/UserLogIn.vue"
-
+import BackGround from '@/components/BackGround.vue'
 export default {
   components:{
+    BackGround,
     UserSignUp,
     UserLogIn
   },
@@ -84,7 +86,7 @@ export default {
   }
 
   #nav {
-    padding: 30px;
+    padding-bottom: 30px;
   }
 
   #nav a {

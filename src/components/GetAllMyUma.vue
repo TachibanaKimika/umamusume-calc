@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 14:49:48
- * @LastEditTime: 2021-08-15 01:46:30
+ * @LastEditTime: 2021-08-15 17:43:21
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\GetAllMyUma.vue
@@ -68,6 +68,14 @@
         :visible.sync="moreinfoVisible"
         id="umapage">
         <div class="uma_dia">
+            <div class="uma_header">
+                <span><img :src="singleUma.uma_icon" alt=""></span>
+                <span class="uma_header_name">
+                    <div>
+                        <span>[{{singleUma.name_2}}]<br>{{singleUma.name_1}}</span>
+                    </div>
+                </span>
+            </div>
             <div class="uma_status">
             <table class="umainfo_table">
                 <tr class="umainfo_name">
@@ -153,7 +161,7 @@ export default {
     mounted(){
         let query = `
                     SELECT umasingle.id 'id', 
-                    CONCAT(uma.uma_secname,'-',uma.uma_name) uma_name, 
+                    CONCAT(uma.uma_secname,'-',uma.uma_name) uma_name, uma.uma_icon, uma.uma_secname name_2, uma.uma_name name_1, 
                     uma_speed speed, uma_stamina sutamina, uma_power 'power', uma_grit grit, uma_intelligence intelligence, uma_total total, uma_ranknum ranknum, uma_rank 'rank',uma_wheninsert 'time',
                     uma_skill skill, uma_user_id userid, uma_others others,
                     CONCAT('[',uma_scl1,']-',spc1.spc_secname,'-',spc1.spc_name) spc1 , 
@@ -256,11 +264,11 @@ export default {
         getSkillImgsrc(skill){
             let skill_img = ``
             switch(skill.skill_type) {
-                case 0: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill3.png`;break
-                case 1: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill6.png`;break
-                case 2: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill1.png`;break
-                case 3: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill3.png`;break
-                case 4: skill_img = `https://img.gamewith.jp/article_tools/uma-musume/gacha/i_skill49.png`;break
+                case 0: skill_img = require('../assets/img/skill/i_skill3.png');break
+                case 1: skill_img = require('../assets/img/skill/i_skill6.png');break
+                case 2: skill_img = require('../assets/img/skill/i_skill1.png');break
+                case 3: skill_img = require('../assets/img/skill/i_skill3.png');break
+                case 4: skill_img = require('../assets/img/skill/i_skill49.png');break
             }
             
             return skill_img

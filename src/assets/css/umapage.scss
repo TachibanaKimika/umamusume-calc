@@ -8,6 +8,26 @@
         justify-content: center;
         flex-wrap: wrap ;
     }
+    .uma_header {
+        display: flex;
+        align-items: center;
+        height: 200px;
+        width: 600px;
+        img{
+            margin-bottom: 20px;
+            vertical-align:middle;
+        }
+        .uma_header_name{
+            font-size: 28px;
+            font-weight: bold;
+            color: #8a5417;
+            div{
+                display: flex;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+        }
+    }
     .uma_status{
         
         // 数值
@@ -50,9 +70,6 @@
             }
         }
     } 
-    
-    
-    
     
     .uma_info{
         text-align: left;

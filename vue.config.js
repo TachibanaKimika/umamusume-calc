@@ -1,3 +1,7 @@
+/*
+ * @Author: Akarichan
+ * @LastEditors: Akarichan
+ */
 module.exports = {
     lintOnSave:false,
     pluginOptions: {
@@ -5,9 +9,12 @@ module.exports = {
         nodeIntegration: true, // 启用fs
         builderOptions: {
           win:{
-            target:'nsis',
+            target:[
+              "nsis"
+            ],
+            icon: './icons/icon.ico'
           }
         },  
       }
     }
-  }
+  } 
