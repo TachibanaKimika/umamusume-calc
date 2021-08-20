@@ -94,8 +94,8 @@
                 </el-col>
             </el-row>
         </div>
-        <el-table stripe :data="result" style="width: 100%">
-            <el-table-column prop="name" label="锻炼类型" width="180">
+        <el-table stripe :data="result" style="width: 60%;margin:auto;">
+            <el-table-column prop="label" label="锻炼类型" width="180">
             </el-table-column>
             <el-table-column prop="result[0]" label="スビート" width="180">
             </el-table-column>
@@ -124,10 +124,10 @@
             <el-table-column prop="up" label="上升值" width="180">
             </el-table-column>
         </el-table>
-        <div id="BoxChart" class="echarts" style="width: 80vw; height: 50vw"></div>
+        <div id="BoxChart" class="echarts" style="width: 80vw; height: 50vw;margin:auto;"></div>
 
         <el-dialog title="选择支援卡" :visible.sync="dialogVisible">
-            <SelectWindowOfRegistedCard :cards="card_item" v-on:getCardFromChild='reciveCardItem' />
+            <SelectWindowOfRegistedCard  v-on:getCardFromChild='reciveCardItem' />
         </el-dialog>
     </div>
 </template>
@@ -218,22 +218,27 @@
                 recivedresult: [],
                 result: [{
                     name: 'speed',
+                    label: 'スビート',
                     result: [0, 0, 0, 0, 0, 0],
                     up: 0
                 }, {
                     name: 'stamina',
+                    label: 'スタミナ',
                     result: [0, 0, 0, 0, 0, 0],
                     up: 0
                 }, {
                     name: 'power',
+                    label: 'パワー',
                     result: [0, 0, 0, 0, 0, 0],
                     up: 0
                 }, {
                     name: 'konnjyo',
+                    label: '根性',
                     result: [0, 0, 0, 0, 0, 0],
                     up: 0
                 }, {
                     name: 'kashikosa',
+                    label: '賢さ',
                     result: [0, 0, 0, 0, 0, 0],
                     up: 0
                 }],
@@ -292,8 +297,10 @@
             },
             up2sumulationTimes() {
                 //初始化
-                this.totalResult = [{
+                this.totalResult = [
+                    {
                         name: 'speed',
+                        // 下面应该为应该为{[speed: 20, power: 10], [...]}
                         num: []
                     },
                     {
@@ -313,7 +320,7 @@
                         num: []
                     },
                 ];
-                var times = this.simulationtime * 100;
+                var times = this.simulationtime * 10;
                 if (this.checkUpdata(this.selected_card_item)) {
                     for (var i in this.card_kizuna) {
                         this.selected_card_item[i].spc_kizuna = this.card_kizuna[i]
@@ -321,15 +328,23 @@
                     for (var i in this.recivedresult) {
                         this.result[i].result = [0, 0, 0, 0, 0, 0]
                     }
-
                     //相加多次
                     for (let j = 0; j < times; j++) {
                         this.recivedresult = simulation(this.selected_card_item, this.options)
                         for (var i in this.recivedresult) {
                             //两个数组相加
-                            this.totalResult[i].num.push(this.recivedresult[i].result[i])
-                            this.result[i].result = this.result[i].result.map((v, ii) => v + this.recivedresult[i]
-                                .result[ii] / times)
+                            // this.totalResult[i].num.push(this.recivedresult[i].result[i])
+
+                            // 多个练习
+                            let obj2push = {}
+                            let atbarr = ['speed', 'stamina', 'power', 'konnjyo', 'kashikosa', 'skill']
+                            this.recivedresult[i].result.forEach((ele, index)=>{
+                                ele>0?obj2push[atbarr[index]]=ele:true
+                            })
+                            this.totalResult[i].num.push(obj2push)
+                            console.log(this.totalResult)
+
+                            this.result[i].result = this.result[i].result.map((v, ii) => v + this.recivedresult[i].result[ii] / times)
                         }
                     }
                     for (let i in this.result) {
@@ -337,20 +352,15 @@
                             this.result[i].result[j] = Math.round(this.result[i].result[j])
                         }
                     }
-
-
                     for (let i in this.result) {
                         this.result[i].up = this.result[i].result[i] / this.stdtore[i].lv[this.options.torelv[i] - 1][i] / 
                         this.options.yaruki / ((this.options.uma[i] + 100) / 100)
                     }
-                    // console.log(this.totalResult)
-
+                    // console.log(this.result)
                     let boxChart = this.$echarts.init(document.getElementById('BoxChart'))
                     var options = initChartsOption_boxplot(this.totalResult)
-                    //console.log(options)
                     boxChart.setOption(options)
                 }
-
             },
             showMsg(msg, type) {
                 this.$message({

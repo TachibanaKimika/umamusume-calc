@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-08-07 00:55:21
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-20 19:39:31
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\jsfile\api\insertUma.js
  */

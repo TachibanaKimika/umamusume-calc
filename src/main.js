@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-07-31 17:29:19
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-17 19:11:35
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\main.js
  */

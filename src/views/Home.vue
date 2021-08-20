@@ -1,15 +1,15 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-06-29 18:47:03
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-20 20:53:15
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\views\Home.vue
 -->
 <template>
   <div class="home">
-
-    <!-- 弹窗 -->
+<!-- 
+    <!-- 弹窗
     <el-dialog :visible.sync="dialogPlay">
       <youtube :video-id="videoId" ref="youtube"></youtube>
     </el-dialog>
@@ -17,12 +17,6 @@
 
     <div class="headblock" style="margin:30px">
       <div class="carousel">
-      <!-- <span class="demonstration">默认 Hover 指示器触发</span>
-      <el-carousel height="150px">
-        <el-carousel-item v-for="item in 4" :key="item">
-          <h3 class="small">{{ item }}</h3>
-        </el-carousel-item>
-      </el-carousel> -->
       </div>
     </div>
 
@@ -54,45 +48,45 @@
     </div>
     <div>
       <CharShow />
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import WOW from 'wowjs'
-import CharShow from '@/components/child/CharShow.vue'
+// import WOW from 'wowjs'
+// import CharShow from '@/components/child/CharShow.vue'
 
-export default {
-  name: 'Home',
-  components: {
-    CharShow
-  },
-  computed: {
-    player() {
-      return this.$refs.youtube.player
-    }
-  },
-  data(){
-    return {
-      videoId: 'TkedWm8XvCc',
-      dialogPlay: false
-    }
-  },
-  mounted(){
-    new WOW.WOW().init()
-  },
-  methods: {
-    playVideo() {
-      this.dialogPlay = true;
-    }
-  }
-}
+// export default {
+//   name: 'Home',
+//   components: {
+//     CharShow
+//   },
+//   computed: {
+//     player() {
+//       return this.$refs.youtube.player
+//     }
+//   },
+//   data(){
+//     return {
+//       videoId: 'TkedWm8XvCc',
+//       dialogPlay: false
+//     }
+//   },
+//   mounted(){
+//     new WOW.WOW().init()
+//   },
+//   methods: {
+//     playVideo() {
+//       this.dialogPlay = true;
+//     }
+//   }
+// }
 </script>
 
 <style scoped>
 
-
+/* 
 body {
   margin: 0;
 }
@@ -217,6 +211,6 @@ body {
 }
 
 
-
+ */
 
 </style>

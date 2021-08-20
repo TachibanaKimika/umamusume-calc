@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 14:49:48
- * @LastEditTime: 2021-08-15 17:43:21
+ * @LastEditTime: 2021-08-17 18:59:14
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\GetAllMyUma.vue
@@ -69,12 +69,12 @@
         id="umapage">
         <div class="uma_dia">
             <div class="uma_header">
-                <span><img :src="singleUma.uma_icon" alt=""></span>
-                <span class="uma_header_name">
-                    <div>
-                        <span>[{{singleUma.name_2}}]<br>{{singleUma.name_1}}</span>
-                    </div>
-                </span>
+                <div class="uma_header_block">
+                    <span><img :src="singleUma.uma_icon" alt=""></span>
+                    <span class="uma_header_name">
+                        [{{singleUma.name_2}}]<br>{{singleUma.name_1}}
+                    </span>
+                </div>
             </div>
             <div class="uma_status">
             <table class="umainfo_table">

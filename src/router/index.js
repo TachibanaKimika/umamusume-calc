@@ -1,14 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-07-26 20:07:37
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-20 20:53:43
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\router\index.js
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+// import Home from '../views/Home.vue'
 
 
 Vue.use(VueRouter)
@@ -16,7 +16,8 @@ Vue.use(VueRouter)
 const routes = [{
     path: '/',
     name: 'Home',
-    component: Home
+    // component: Home
+    component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
     path: '/about',
