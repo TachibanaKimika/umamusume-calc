@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-06-28 18:11:49
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-21 13:55:57
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\views\About.vue
 -->
@@ -25,12 +25,14 @@ export default {
   },
   data(){
     return{
-      text:''
+      text:'',
+      filePath: process.env.BASE_URL + 'public/',
     }
   },
   mounted(){
     console.log(this.text)
-    fs.readFile('./README.md', 'utf8' , (err, data) => {
+    // let path = require('../assets/wiki.md')
+    fs.readFile(`${this.filePath}assets/wiki.md`, 'utf8' , (err, data) => {
       if (err) {
         console.error(err)
         return

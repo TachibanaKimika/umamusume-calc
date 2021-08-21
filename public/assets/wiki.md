@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-10 17:45:07
- * @LastEditTime: 2021-07-10 18:04:13
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-21 14:34:43
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\assets\wiki.md
 -->
@@ -14,7 +14,7 @@
 
 |Column1  |Column2  |
 |---------|---------|
-|能力ボーナス     |     1    |
+|能力ボーナス(+)     |     1    |
 |友情ボーナス(*)     |    10%     |
 |やる気ボーナス(+)   |    15%     |
 |トレーニング効果(+) |    5%     |

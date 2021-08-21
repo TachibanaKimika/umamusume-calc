@@ -1,14 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-08-20 20:53:43
+ * @LastEditTime: 2021-08-21 13:57:22
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\router\index.js
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
 
 
 Vue.use(VueRouter)
@@ -16,16 +15,12 @@ Vue.use(VueRouter)
 const routes = [{
     path: '/',
     name: 'Home',
-    // component: Home
-    component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import( /* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import('../views/About.vue')
   },
   {
     path: '/InsertCardData',

@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:46
- * @LastEditTime: 2021-08-08 23:11:37
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-21 14:08:18
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\README.md
 -->
@@ -80,10 +80,11 @@ npm run electron:build
     }
     ```
 
-- [ ]  在成品🐎中增加技能
+- [x]  在成品🐎中增加技能
 
     格式 db: json, js: Array, 第一个技能默认为固有,使用属性`id`为技能id, `level`为技能等级
     - [x] 添加了除固有外的技能模块
     ```json
     [{"id":"1", "level":"3"},"4",...]
     ```
+    - [x] 添加了固有, 没有加等级

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 14:49:48
- * @LastEditTime: 2021-08-17 18:59:14
+ * @LastEditTime: 2021-08-21 15:16:32
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\GetAllMyUma.vue
@@ -64,10 +64,11 @@
 
         <!-- TODO:显示🐎的详细信息 -->
         <el-dialog
-        :title="singleUma.uma_name"
+        
         :visible.sync="moreinfoVisible"
         id="umapage">
         <div class="uma_dia">
+            <div class="uma_dia_header_bg"></div>
             <div class="uma_header">
                 <div class="uma_header_block">
                     <span><img :src="singleUma.uma_icon" alt=""></span>
@@ -115,7 +116,15 @@
                     <span class="uma_config_item"><span class="uma_config_item_label">追込</span><span class="uma_config_item_img"><img :src="getConfigImg(this.singleUma.others.kyakushitu.oikomi)" alt=""></span></span>
                 </div>
             </div>
+            <div class="uma_info_select">
+                <div class="uma_info_selector_group" v-model="routerTab">
+                    <button label="上海" value=1>スキル</button>
+                    <button label="北京" value=2>因子</button>
+                </div>
+            </div>
+            <div class="uma_moreinfo">
             <div class="uma_skill">
+                
                 <div class="skillTotal">
                     <div :key="tag.id" v-for="tag in singleUma.skill" :disable-transitions="false" :class="'skill '+ renderSkill(tag)">
                         <el-popover
@@ -132,6 +141,7 @@
                 </div>
                 <!-- 占位用 -->
                 <div class="skillTotal_position"></div>
+            </div>
             </div>
         </div>
         </el-dialog>
@@ -156,6 +166,7 @@ export default {
                 id:0,
                 others:{"baba": {"dato": "E", "shiba": "S"}, "kyori": {"mairu": "A", "juukyori": "A", "tankyori": "F", "cyoukyori": "C"}, "kyakushitu": {"nige": "A", "sashi": "D", "oikomi": "G", "senkou": "B"}}
             },
+            routerTab:1
         }
     },
     mounted(){
