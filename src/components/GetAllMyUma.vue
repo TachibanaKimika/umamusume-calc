@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 14:49:48
- * @LastEditTime: 2021-08-21 15:16:32
+ * @LastEditTime: 2021-08-25 01:28:46
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\GetAllMyUma.vue
@@ -52,6 +52,11 @@
                 prop="ranknum"
                 label="スコア"
                 width="80">
+            </el-table-column>
+            <el-table-column
+                prop="user_name"
+                label="用户名"
+                width="100">
             </el-table-column>
             <el-table-column
                 label="moreinfo"
@@ -115,11 +120,15 @@
                     <span class="uma_config_item"><span class="uma_config_item_label">差し</span><span class="uma_config_item_img"><img :src="getConfigImg(this.singleUma.others.kyakushitu.sashi)" alt=""></span></span>
                     <span class="uma_config_item"><span class="uma_config_item_label">追込</span><span class="uma_config_item_img"><img :src="getConfigImg(this.singleUma.others.kyakushitu.oikomi)" alt=""></span></span>
                 </div>
+                <div class="uma_sup_img">
+                    <span v-for="i in singleUma.spcimg"><img :src="i" alt=""></span>
+                </div>
             </div>
+            
             <div class="uma_info_select">
                 <div class="uma_info_selector_group" v-model="routerTab">
-                    <button label="上海" value=1>スキル</button>
-                    <button label="北京" value=2>因子</button>
+                    <button value=1>スキル</button>
+                    <button value=2>因子(没做)</button>
                 </div>
             </div>
             <div class="uma_moreinfo">
@@ -174,21 +183,24 @@ export default {
                     SELECT umasingle.id 'id', 
                     CONCAT(uma.uma_secname,'-',uma.uma_name) uma_name, uma.uma_icon, uma.uma_secname name_2, uma.uma_name name_1, 
                     uma_speed speed, uma_stamina sutamina, uma_power 'power', uma_grit grit, uma_intelligence intelligence, uma_total total, uma_ranknum ranknum, uma_rank 'rank',uma_wheninsert 'time',
-                    uma_skill skill, uma_user_id userid, uma_others others,
-                    CONCAT('[',uma_scl1,']-',spc1.spc_secname,'-',spc1.spc_name) spc1 , 
-                    CONCAT('[',uma_scl2,']-',spc2.spc_secname,'-',spc2.spc_name) spc2 , 
-                    CONCAT('[',uma_scl3,']-',spc3.spc_secname,'-',spc3.spc_name) spc3 , 
-                    CONCAT('[',uma_scl4,']-',spc4.spc_secname,'-',spc4.spc_name) spc4 , 
-                    CONCAT('[',uma_scl5,']-',spc5.spc_secname,'-',spc5.spc_name) spc5 , 
-                    CONCAT('[',uma_scl6,']-',spc6.spc_secname,'-',spc6.spc_name) spc6 
+                    uma_skill skill, uma_user.user_name user_name, uma_others others,
+                    CONCAT('[',uma_scl1,']-',spc1.spc_secname,'-',spc1.spc_name) spc1 , spc1.spc_img spc1_img ,
+                    CONCAT('[',uma_scl2,']-',spc2.spc_secname,'-',spc2.spc_name) spc2 , spc2.spc_img spc2_img ,
+                    CONCAT('[',uma_scl3,']-',spc3.spc_secname,'-',spc3.spc_name) spc3 , spc3.spc_img spc3_img ,
+                    CONCAT('[',uma_scl4,']-',spc4.spc_secname,'-',spc4.spc_name) spc4 , spc4.spc_img spc4_img ,
+                    CONCAT('[',uma_scl5,']-',spc5.spc_secname,'-',spc5.spc_name) spc5 , spc5.spc_img spc5_img ,
+                    CONCAT('[',uma_scl6,']-',spc6.spc_secname,'-',spc6.spc_name) spc6 , spc6.spc_img spc6_img ,
+                    CONCAT('["',spc1.spc_icon,'","',spc2.spc_icon,'","',spc3.spc_icon,'","',spc4.spc_icon,'","',spc5.spc_icon,'","',spc6.spc_icon,'"]') spcimg
                     FROM umasingle
                     LEFT JOIN uma ON umasingle.uma_name = uma.id
+                    LEFT JOIN \`user\` AS uma_user ON uma_user_id = uma_user.user_uuid
                     LEFT JOIN supportcard AS spc1 ON uma_sc1=spc1.id
                     LEFT JOIN supportcard AS spc2 ON uma_sc2=spc2.id
                     LEFT JOIN supportcard AS spc3 ON uma_sc3=spc3.id
                     LEFT JOIN supportcard AS spc4 ON uma_sc4=spc4.id
                     LEFT JOIN supportcard AS spc5 ON uma_sc5=spc5.id
                     LEFT JOIN supportcard AS spc6 ON uma_sc6=spc6.id
+                    ORDER BY uma_wheninsert DESC
                     `
         qurSql(this.sqlcon, query,res=>{
             this.uma = res;
@@ -315,6 +327,9 @@ export default {
                     this.singleUma.skill=JSON.parse(this.singleUma.skill)
                 }else if(this.singleUma.skill==null){
                     this.skill=JSON.parse(`[{"id": 3, "skill_pt": 170, "skill_dsc": "ラストスパートで速度が上がる", "skill_long": 0, "skill_name": "全身全霊", "skill_rare": 0, "skill_type": 0, "skill_sakusen": 0}, {"id": 20, "skill_pt": 170, "skill_dsc": "レース中盤に追い抜くと速度が上がる", "skill_long": 0, "skill_name": "アガッてきた！", "skill_rare": 0, "skill_type": 0, "skill_sakusen": 0}, {"id": 26, "skill_pt": 180, "skill_dsc": "華麗なコーナーワークで加速力が上がる", "skill_long": 0, "skill_name": "曲線のソムリエ", "skill_rare": 0, "skill_type": 0, "skill_sakusen": 0}, {"id": 44, "skill_pt": 170, "skill_dsc": "下り坂で疲れにくくなる", "skill_long": 0, "skill_name": "下校後のスペシャリスト", "skill_rare": 0, "skill_type": 1, "skill_sakusen": 1}, {"id": 2, "skill_pt": 160, "skill_dsc": "レース中盤に前の方だと好位置を取りやすくなる", "skill_long": 3, "skill_name": "キラーチューン", "skill_rare": 0, "skill_type": 0, "skill_sakusen": 0}, {"id": 12, "skill_pt": 160, "skill_dsc": "レース序盤に先頭だと差を広げやすくなる", "skill_long": 2, "skill_name": "マイルの支配者", "skill_rare": 0, "skill_type": 0, "skill_sakusen": 0}]`)
+                }
+                if(typeof this.singleUma.spcimg=='string'){
+                    this.singleUma.spcimg = JSON.parse(this.singleUma.spcimg)
                 }
             }
         }

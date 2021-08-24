@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-26 00:39:37
- * @LastEditTime: 2021-08-15 13:47:13
+ * @LastEditTime: 2021-08-25 00:23:45
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\InsertSkill.vue
@@ -165,7 +165,7 @@
             },
 
             getMySkill() {
-                let query = `select * from skill`
+                let query = `SELECT * FROM skill ORDER BY skill_rare ASC,  skill_type ASC, skill_name  DESC`
                 qurSql(this.sqlcon, query, res => {
                     this.mySkill = res
                 })

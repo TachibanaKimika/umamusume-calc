@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-07 18:18:24
- * @LastEditTime: 2021-08-15 01:54:21
+ * @LastEditTime: 2021-08-25 00:30:25
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \.gitf:\My Repo\umamusume-calc\src\components\child\SelectSkill.vue
@@ -143,7 +143,7 @@ export default {
                 this.selectedSkill.splice(this.selectedSkill.findIndex({id:skill.id}), 1);
             }
             // console.log(this.selectedSkill)
-            submitSkill()
+            // this.$emit('getSkillFromChild', this.selectedSkill)
         },
 
 
@@ -172,7 +172,7 @@ export default {
         }
     },
     mounted() {
-        let query = `select * from skill`
+        let query = `SELECT * FROM skill ORDER BY skill_rare ASC,  skill_type ASC, skill_name  DESC`
         qurSql(this.sqlcon, query, res => {
             this.mySkill = res
         })
