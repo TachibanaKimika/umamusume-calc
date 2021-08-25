@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-08-06 20:45:34
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-25 11:22:46
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\store\index.js
  */
@@ -56,26 +56,29 @@ export default new Vuex.Store({
     dataInit(state){
 
       //先是没有数值的卡
-      qurSql(undefined, `SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT('【',spc_secname,'】　－　',spc_name) AS \`name\` FROM supportcard`, res => {
+      qurSql(undefined, 
+        `SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT('【',spc_secname,'】　－　',spc_name) AS 'name', spc_img imgurl FROM supportcard`
+        
+        , res => {
           state.cards = res;
       })
 
-
-      qurSql(undefined, `SELECT id, CONCAT('【',uma_secname,'】－',uma_name) AS 'name' FROM uma`, res=>{
+      qurSql(undefined, `SELECT id, CONCAT('【',uma_secname,'】－',uma_name) AS 'name', uma_icon imgurl FROM uma`, res=>{
         state.uma = res
       })
 
       //更新有数值的卡 
-      qurSql(undefined, 'SELECT \
-      supportcard_stu.`id`, supportcard_stu.`spc_id`,supportcard.`spc_attribute`,supportcard.`spc_rare`,\
-      supportcard_stu.`spc_lv`,supportcard_stu.`spc_youujo`,supportcard_stu.`spc_yaruki`,supportcard_stu.`spc_tore`,\
-      supportcard_stu.`spc_bonasu_pt`,supportcard_stu.`spc_tokuitu`,supportcard_stu.`spc_kizuna`,\
-      supportcard_stu.`spc_init_stu`,supportcard_stu.`spc_race`,supportcard_stu.`spc_fan`,supportcard_stu.`spc_hit_lv`,\
-      supportcard_stu.`spc_hit_ritu`,supportcard_stu.`spc_reduce_suta`,supportcard_stu.`spc_reduce_shipai`,\
-      CONCAT(\'【\',supportcard_stu.`spc_lv`,\'】 ‐ 【\',supportcard.`spc_secname`,\'】　-　\',supportcard.`spc_name`) spc_name\
-      FROM supportcard_stu\
-      LEFT JOIN supportcard ON supportcard.`id` = supportcard_stu.`spc_id`\
-      ORDER BY spc_name DESC', res => {
+      qurSql(undefined, `SELECT 
+      supportcard_stu.id, supportcard_stu.spc_id,supportcard.spc_attribute,supportcard.spc_rare,
+      supportcard_stu.spc_lv,supportcard_stu.spc_youujo,supportcard_stu.spc_yaruki,supportcard_stu.spc_tore,
+      supportcard_stu.spc_bonasu_pt,supportcard_stu.spc_tokuitu,supportcard_stu.spc_kizuna,
+      supportcard_stu.spc_init_stu,supportcard_stu.spc_race,supportcard_stu.spc_fan,supportcard_stu.spc_hit_lv,
+      supportcard_stu.spc_hit_ritu,supportcard_stu.spc_reduce_suta,supportcard_stu.spc_reduce_shipai,
+      supportcard.spc_img imgurl,
+      CONCAT('【',supportcard_stu.spc_lv,'】 ‐ 【',supportcard.spc_secname,'】　-　',supportcard.spc_name) spc_name
+      FROM supportcard_stu
+      LEFT JOIN supportcard ON supportcard.id = supportcard_stu.spc_id
+      ORDER BY spc_name DESC`, res => {
           state.myCardDb = res;
       })
 
@@ -87,6 +90,7 @@ export default new Vuex.Store({
         spc_bonasu_pt, spc_tokuitu, spc_kizuna,
         spc_init_stu, spc_race, spc_fan, spc_hit_lv,
         spc_hit_ritu, spc_reduce_suta, spc_reduce_shipai,
+        supportcard.spc_img imgurl,
         CONCAT('【', spc_lv,'】 ‐ 【', spc_secname,'】　-　', spc_name) spc_name
         FROM supportcard_stu_user
         LEFT JOIN supportcard ON supportcard.id = supportcard_stu_user.spc_id
@@ -95,9 +99,6 @@ export default new Vuex.Store({
           state.myCardDbUser = res
         })
       }
-
-
-
     }
   },
 })

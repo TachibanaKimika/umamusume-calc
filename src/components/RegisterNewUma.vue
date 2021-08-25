@@ -83,6 +83,7 @@
                 <el-col :span="8">
                     <el-select v-model="myUmaItem" placeholder="🐎名" filterable style="width: 60%">
                         <el-option v-for="item in umaItem" :key="item.id" :value="item.id" :label="item.name">
+                            <img :src="item.imgurl" style="width:35px;vertical-align:middle;" alt=""><span style="vertical-align:middle">{{item.name}}</span>
                         </el-option>
                     </el-select>
                 </el-col>
@@ -194,11 +195,10 @@
                 :value="item">
                 </el-option>
             </el-select>
-
         </el-dialog>
         
 
-        <el-dialog title="选择支援卡" :visible.sync="dialogVisibleSpc">
+        <el-dialog title="选择支援卡" :visible.sync="dialogVisibleSpc" width="80%">
             <SelectWindow  v-on:getCardFromChild='reciveCardItem' />
         </el-dialog>
 
@@ -209,9 +209,9 @@
 </template>
 
 <script>
-    import {
-        qurSql
-    } from "../jsfile/api/con2sql.js"
+    // import {
+    //     qurSql
+    // } from "../jsfile/api/con2sql.js"
     import {
         updatenewuma
     } from "../jsfile/api/insertUma.js"
@@ -237,7 +237,7 @@
                 dialogVisibleSpc: false,
                 dialogVisibleSkill:false,
                 potionSelector: '0',
-                umaItem: [],
+                // umaItem: [],
                 myUmaItem: '', //🐎-提交
                 myUmaStaus: [0, 0, 0, 0, 0, 0], //数值-提交
 
@@ -266,11 +266,11 @@
             }
         },
         mounted() {
-            let query_uma = 'SELECT id, CONCAT(\'【\',uma_secname,\'】－\',uma_name) AS `name` FROM uma'
-            qurSql(this.sqlcon, query_uma, res => {
-                this.umaItem = res
-                console.log(res)
-            })
+            // let query_uma = 'SELECT id, CONCAT(\'【\',uma_secname,\'】－\',uma_name) AS `name` FROM uma'
+            // qurSql(this.sqlcon, query_uma, res => {
+            //     this.umaItem = res
+            //     console.log(res)
+            // })
         },
         methods: {
             reciveCardItem(data) {
@@ -317,7 +317,6 @@
                     })
 
                 }
-                
                 if(!flag){
                     return
                 }
@@ -325,6 +324,11 @@
                 this.$message("提交成功")
             }
         },
+        computed:{
+            umaItem(){
+                return this.$store.state.uma
+            }
+        }
     }
 </script>
 

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-07 18:18:24
- * @LastEditTime: 2021-08-25 00:30:25
+ * @LastEditTime: 2021-08-25 11:06:36
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \.gitf:\My Repo\umamusume-calc\src\components\child\SelectSkill.vue
@@ -135,15 +135,11 @@ export default {
 
             //添加或删除技能
         addSkill(skill){
-            // console.log(this.selectedSkill.findIndex({id:skill.id}))
             if(this.selectedSkill.find({id:skill.id})==undefined){
                 this.selectedSkill.push(skill)
             }else{
-                // this.selectedSkill.findIndex({id:skill.id})
                 this.selectedSkill.splice(this.selectedSkill.findIndex({id:skill.id}), 1);
             }
-            // console.log(this.selectedSkill)
-            // this.$emit('getSkillFromChild', this.selectedSkill)
         },
 
 
@@ -151,15 +147,12 @@ export default {
             this.$emit('getSkillFromChild', this.selectedSkill)
         },
         fliterSkill(skill){
-            // console.log(this.fliter.skill_long)
             if(this.fliter.skill_long!=0&&this.fliter.skill_long!=skill.skill_long){
                 return false
             }
-
             if(this.fliter.skill_sakusen!=0&&this.fliter.skill_sakusen!=skill.skill_sakusen){
                 return false
             }
-
 
             if(this.fliter.searchtext!=''){
                 let reg = eval(`/${this.fliter.searchtext}/g`)

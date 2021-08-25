@@ -90,7 +90,14 @@
                     <p>调子</p>
                 </el-col>
                 <el-col :span="4">
-                    <el-input v-model="options.yaruki" style="width:80%; padding: 10px 10px;" />
+                    <!-- <el-input v-model="options.yaruki" style="width:80%; padding: 10px 10px;" /> -->
+                    <el-select v-model="options.yaruki" placeholder="やる気">
+                    <el-option　:key="1.2"　label="絶好調"　:value="1.2"></el-option>
+                    <el-option　:key="1.1"　label="好調"　:value="1.1"></el-option>
+                    <el-option　:key="1.0"　label="普通"　:value="1"></el-option>
+                    <el-option　:key="0.9"　label="不調"　:value="0.9"></el-option>
+                    <el-option　:key="0.8"　label="絶不調"　:value="0.8"></el-option>
+                </el-select>
                 </el-col>
             </el-row>
         </div>
@@ -126,7 +133,7 @@
         </el-table>
         <div id="BoxChart" class="echarts" style="width: 80vw; height: 50vw;margin:auto;"></div>
 
-        <el-dialog title="选择支援卡" :visible.sync="dialogVisible">
+        <el-dialog title="选择支援卡" :visible.sync="dialogVisible" width="85%">
             <SelectWindowOfRegistedCard  v-on:getCardFromChild='reciveCardItem' />
         </el-dialog>
     </div>

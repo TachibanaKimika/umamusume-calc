@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-08-06 04:12:15
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-25 13:26:25
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\child\SelectWindowOfRegistedCard.vue
 -->
@@ -40,11 +40,14 @@
             </el-col>
         </el-row>
 
-        <el-radio-group v-model="checkedItem">
+        <el-radio-group class="card_selector_group" v-model="checkedItem">
             <el-radio v-for="item in cards" v-if="hasType(item)" :label="item" border style="margin-top: 20px">
-                {{item.spc_name}}
+                <img class="card_selector_img" :src="item.imgurl"><span>{{item.spc_name}}</span>
             </el-radio>
-            <el-radio v-for="item in mycardInVuex" v-if="hasType(item)" :label="item" border style="margin-top: 20px; background-color: #87ff7d">
+            <el-radio v-for="item in cardsUser" v-if="hasType(item)" :label="item" border style="margin-top: 20px; background-color: #e0bbff">
+                <img class="card_selector_img" :src="item.imgurl"><span>{{item.spc_name}}</span>
+            </el-radio>
+            <el-radio v-for="item in mycardInVuex" v-if="hasType(item)" :label="item" border style="margin-top: 20px; background-color: #bcffb7">
                 {{'['+item.spc_lv+']-'+item.spc_name}}
             </el-radio>
         </el-radio-group>
@@ -68,21 +71,6 @@
                 // cards:[]
             }
         },
-        mounted() {
-            // let querystr = 'SELECT \
-            //                 supportcard_stu.`id`, supportcard_stu.`spc_id`,supportcard.`spc_attribute`,supportcard.`spc_rare`,\
-            //                 supportcard_stu.`spc_lv`,supportcard_stu.`spc_youujo`,supportcard_stu.`spc_yaruki`,supportcard_stu.`spc_tore`,\
-            //                 supportcard_stu.`spc_bonasu_pt`,supportcard_stu.`spc_tokuitu`,supportcard_stu.`spc_kizuna`,\
-            //                 supportcard_stu.`spc_init_stu`,supportcard_stu.`spc_race`,supportcard_stu.`spc_fan`,supportcard_stu.`spc_hit_lv`,\
-            //                 supportcard_stu.`spc_hit_ritu`,supportcard_stu.`spc_reduce_suta`,supportcard_stu.`spc_reduce_shipai`,\
-            //                 CONCAT(\'【\',supportcard_stu.`spc_lv`,\'】 ‐ 【\',supportcard.`spc_secname`,\'】　-　\',supportcard.`spc_name`) spc_name\
-            //                 FROM supportcard_stu\
-            //                 LEFT JOIN supportcard ON supportcard.`id` = supportcard_stu.`spc_id`\
-            //                 ORDER BY spc_name DESC'
-            // qurSql(undefined, querystr, res => {
-            //     this.cards = res;
-            // })
-        },
         methods: {
             hasType(item) {
                 if (item.spc_attribute == this.checkListType) {
@@ -93,8 +81,6 @@
                         }
                     }
                 }
-                // console.log("FALSE");
-                // console.log(`this.checkListRare=>${this.checkListRare}?=${item.spc_rare}<=item.spc_rare`)
                 return false;
             },
             submitCard() {
@@ -116,7 +102,30 @@
             },
             cards(){
                 return this.$store.state.myCardDb
+            },
+            cardsUser(){
+                return this.$store.state.myCardDbUser
             }
         }
     }
 </script>
+
+
+<style lang="scss">
+.card_selector_group{
+    .el-radio{
+        vertical-align:middle;
+        height:80px;
+        .card_selector_img{
+            vertical-align:middle;
+            width:40px;
+        }
+        span{
+            vertical-align:middle;
+        }
+    }
+}
+
+
+
+</style>

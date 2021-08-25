@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-08-08 21:40:23
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-25 11:35:08
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\child\SelectWindow.vue
 -->
@@ -29,23 +29,20 @@
                 <el-button @click="submitCard" type="success">选择</el-button>
             </el-col>
         </el-row>
-        <el-radio-group v-model="checkedItem">
+        <el-radio-group class="card_selector_group" v-model="checkedItem">
             <el-radio v-for="item in cards" v-if="hasType(item)" :label="item" border style="margin-top: 20px">
-                {{item.name}}</el-radio>
-        </el-radio-group>
+                <img class="card_selector_img" :src="item.imgurl"><span>{{item.name}}</span>
+            </el-radio>
+            </el-radio-group>
     </div>
 </template>
 
 <script>
-    import {qurSql} from "../../jsfile/api/con2sql.js"
+    // import {qurSql} from "../../jsfile/api/con2sql.js"
     export default {
         name: 'SelectWindow',
-        // props: {
-        //     cards: Array
-        // },
         data() {
             return {
-                cards:[],
                 checkListType: '1',
                 checkListRare: '3',
                 checkedItem: {
@@ -70,17 +67,29 @@
                 }
             }
         },
-        mounted() {
-            let query_spc = 'SELECT id, spc_attribute AS atb, spc_rare AS rare ,CONCAT(\'【\',spc_secname,\'】　－　\',spc_name) AS `name` FROM supportcard'
-            qurSql(undefined, query_spc, res => {
-                this.cards = res;                                                                           
-            })
-        },
         computed:{
-            mcards(){
+            cards(){
                 return this.$store.state.cards
             }
         }
 
     }
 </script>
+
+
+<style lang="scss">
+.card_selector_group{
+    .el-radio{
+        vertical-align:middle;
+        height:80px;
+        .card_selector_img{
+            vertical-align:middle;
+            width:40px;
+        }
+        span{
+            vertical-align:middle;
+        }
+    }
+}
+
+</style>

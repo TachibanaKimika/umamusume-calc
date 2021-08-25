@@ -1,21 +1,22 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:44:03
- * @LastEditTime: 2021-08-01 01:13:01
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-25 13:15:03
+ * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\jsfile\api\con2sql.js
  */
 var mysql = require('mysql');
-var sqlurl = require('../../../package.json').config.sqldomain;
+var sqlconfig = require('../../../config.json');
 //链接数据库-需要密码
-var qurSql = async function (sqlcon = {
-    username: 'Guest',
-    userpasswd: 'password#123',
-    database: 'umamusume-pbl',
-}, myquery, callback) {
+var qurSql = async function (sqlcon, myquery, callback) {
+    sqlcon = {
+        username: sqlconfig.database_account.username,
+        userpasswd: sqlconfig.database_account.password,
+        database: sqlconfig.sqlcon.database,
+    }
     const pool = mysql.createPool({
-        host: sqlurl,
+        host: sqlconfig.sqlcon.sqldomain,
         user: sqlcon.username,
         password: sqlcon.userpasswd,
         database: sqlcon.database,
@@ -28,13 +29,14 @@ var qurSql = async function (sqlcon = {
     })
 }
 
-var qurSqlPromise = function (sqlcon= {
-    username: 'Guest',
-    userpasswd: 'password#123',
-    database: 'umamusume-pbl',
-}, myquery) {
+var qurSqlPromise = function (sqlcon, myquery) {
+    sqlcon = {
+        username: sqlconfig.database_account.username,
+        userpasswd: sqlconfig.database_account.password,
+        database: sqlconfig.sqlcon.database,
+    }
     const pool = mysql.createPool({
-        host: sqlurl,
+        host: sqlconfig.sqlcon.sqldomain,
         user: sqlcon.username,
         password: sqlcon.userpasswd,
         database: sqlcon.database,

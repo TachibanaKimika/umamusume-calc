@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:46
- * @LastEditTime: 2021-08-25 00:43:28
+ * @LastEditTime: 2021-08-25 13:07:06
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
 -->
@@ -10,6 +10,9 @@
 # 使用文档
 
 ## 使用说明
+
+若有图片显示不出, 可以按<kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>I</kbd>打开控制台查看相关错误信息.
+由于图片使用的基本是gamewith上现成的, 多多少少会有点问题, 一般挂个梯子就好了
 
 ### **练习模拟**
 

@@ -178,11 +178,11 @@
             </el-row>
         </el-form>
 
-        <el-dialog title="选择支援卡" :visible.sync="dialogVisible">
+        <el-dialog title="选择支援卡" :visible.sync="dialogVisible" width="80%">
             <SelectWindow v-on:getCardFromChild='reciveCardItem' />
         </el-dialog>
 
-        <el-dialog title="选择支援卡" :visible.sync="dialogVisible_registered">
+        <el-dialog title="选择支援卡" :visible.sync="dialogVisible_registered" width="80%">
             <SelectWindowOfRegistedCard v-on:getCardFromChild='reciveCardItem2' />
         </el-dialog>
     </div>
@@ -321,6 +321,7 @@
                             console.log(res)
                             let msg = `修改成功, 影响行数:  + ${res.affectedRows}, msg=${res.message}`
                             this.callOutMsg('success', msg)
+                            this.$store.commit('dataInit')
                         })
                     }).catch((err) => {
                         console.log(err)
@@ -343,6 +344,7 @@
                     console.log(res)
                     let msg = "插入成功, 影响行数: " + res.affectedRows + "; insertId:" + res.insertId;
                     this.callOutMsg('success', msg);
+                    this.$store.commit('dataInit')
                 })
             },
 

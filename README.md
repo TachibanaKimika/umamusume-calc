@@ -1,12 +1,15 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:46
- * @LastEditTime: 2021-08-21 14:08:18
+ * @LastEditTime: 2021-08-25 12:07:19
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\README.md
 -->
 # umamusume-calc
+
+主要用于赛🐎娘的练习模拟计算, 也支持其他的一些小功能, 具体请看下面的使用说明
+
 
 # 使用文档
 
