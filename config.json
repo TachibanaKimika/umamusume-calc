@@ -1,16 +1,11 @@
 {
     "sqlcon":{
-        "sqldomain":"数据库域名(默认3306端口)"
+        "sqldomain":"数据库域名(3306端口)",
+        "database":"数据库"
     },
 
     "database_account":{
-        "admin":{
-            "username":"高权限账户(insert, select, update)",
-            "password":"密码"
-        },
-        "user":{
-            "username":"低权限账户(select), 可与上面账户重复",
-            "password":"密码"
-        }
+        "username":"数据库用户名",
+        "password":"数据库密码"
     }
 }
