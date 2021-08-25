@@ -1,0 +1,16 @@
+{
+    "sqlcon":{
+        "sqldomain":"你的数据库域名"
+    },
+
+    "database_account":{
+        "admin":{
+            "username":"数据库高权限账号",
+            "password":"密码"
+        },
+        "user":{
+            "username":"数据库低权限账号(可以和'admin'填同一个)",
+            "password":"密码"
+        }
+    }
+}
