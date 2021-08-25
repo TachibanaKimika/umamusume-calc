@@ -1,14 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-15 17:31:46
- * @LastEditTime: 2021-08-25 13:37:18
+ * @LastEditTime: 2021-08-25 13:39:14
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\README.md
 -->
 # umamusume-calc
 
-dev分支不一定能用, master可以直接打包使用
+本分支供开发新功能使用, 若想直接自己打包可使用master分支的
 
 主要用于赛🐎娘的练习模拟计算, 也支持其他的一些小功能, 具体请看下面的使用说明
 
