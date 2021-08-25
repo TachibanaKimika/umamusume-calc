@@ -1,16 +1,16 @@
 {
     "sqlcon":{
-        "sqldomain":"rm-bp1id4y905ysrz6pvjo.mysql.rds.aliyuncs.com"
+        "sqldomain":"你的数据库域名"
     },
 
     "database_account":{
         "admin":{
-            "username":"akarichan",
-            "password":"akariChan@0721"
+            "username":"数据库高权限账号",
+            "password":"密码"
         },
         "user":{
-            "username":"guest",
-            "password":"password#123"
+            "username":"数据库低权限账号(可以和'admin'填同一个)",
+            "password":"密码"
         }
     }
 }

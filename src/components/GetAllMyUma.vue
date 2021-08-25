@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 14:49:48
- * @LastEditTime: 2021-08-25 01:28:46
+ * @LastEditTime: 2021-08-25 10:21:58
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\GetAllMyUma.vue
@@ -55,6 +55,7 @@
             </el-table-column>
             <el-table-column
                 prop="user_name"
+                empty-text="匿名"
                 label="用户名"
                 width="100">
             </el-table-column>

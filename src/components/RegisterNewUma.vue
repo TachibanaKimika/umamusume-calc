@@ -92,7 +92,8 @@
                     <el-button　@click="dialogVisibleSkill=true">スキル</el-button>
                 </el-col>
                 <el-col :span="8">
-                    <el-button @click="insertUma2Sql" style="width:40%" type="success"><span>提交</span></el-button>
+                    <el-checkbox v-model="notshowUser">匿名提交</el-checkbox>
+                    <el-button @click="insertUma2Sql" style="width:30%;margin-left:20px;" type="success"><span>提交</span></el-button>
                 </el-col>
             </el-row>
         </div>
@@ -261,6 +262,7 @@
                 },
                 rankOption:['S','A', 'B', 'C', 'D', 'E','F','G'],
                 myUmaSkill:[],
+                notshowUser:false
             }
         },
         mounted() {
@@ -280,7 +282,8 @@
                 this.dialogVisibleSkill = false
             },
             async insertUma2Sql() {
-                if(this.$store.state.user.uuid==null){
+                // console.log(this.notshowUser)
+                if(!(this.notshowUser || !this.$store.state.user.uuid==null)){
                     this.$message.error('请先登录')
                     return
                 }
@@ -291,14 +294,37 @@
                     cardItemLV: this.myCardItemLV,
                     moreinfo: this.myUmaConfig,
                     skill: this.myUmaSkill,
-                    userUUID: this.$store.state.user.uuid,
+                    userUUID: this.showUser?this.$store.state.user.uuid:null,
+                }
+                let flag = true;
+                if(this.myUmaItem == '' ){
+                    this.$message.error('马没选')
+                    flag=false
+                }
+                if(this.myUmaSkill.length == 0){
+                    this.$message.error('技能没选')
+                    flag=false
+                }
+                if(this.myCardItem.length !=6){
+                    this.$message.error('支援卡没选全')
+                    flag=false
+                }else{
+                    this.myCardItem.forEach((el)=>{
+                        if(el==null){
+                            flag=false
+                            this.$message.error('支援卡没选全')
+                        }
+                    })
+
+                }
+                
+                if(!flag){
+                    return
                 }
                 await updatenewuma(umaInsert)
                 this.$message("提交成功")
             }
         },
-        
-
     }
 </script>
 
