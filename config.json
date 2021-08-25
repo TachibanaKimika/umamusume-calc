@@ -10,7 +10,7 @@
         },
         "user":{
             "username":"数据库低权限账号(可以和'admin'填同一个)",
-            "password":"密码"
+            "password":"密码" 
         }
     }
 }
