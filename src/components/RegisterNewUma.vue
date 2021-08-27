@@ -283,7 +283,7 @@
             },
             async insertUma2Sql() {
                 // console.log(this.notshowUser)
-                if(!(this.notshowUser || !this.$store.state.user.uuid==null)){
+                if(!this.notshowUser && this.$store.state.user.uuid==null){
                     this.$message.error('请先登录')
                     return
                 }
