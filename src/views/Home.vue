@@ -25,6 +25,8 @@ export default {
 
 # 使用文档
 
+部分数据来源: [wrrwrr111/pretty-derby](https://github.com/wrrwrr111/pretty-derby)
+
 ## 使用说明
 
 若有图片显示不出, 可以按<kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>I</kbd>打开控制台查看相关错误信息.

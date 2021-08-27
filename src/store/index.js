@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-08-25 11:22:46
+ * @LastEditTime: 2021-08-27 14:27:11
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\store\index.js
@@ -63,7 +63,7 @@ export default new Vuex.Store({
           state.cards = res;
       })
 
-      qurSql(undefined, `SELECT id, CONCAT('【',uma_secname,'】－',uma_name) AS 'name', uma_icon imgurl FROM uma`, res=>{
+      qurSql(undefined, `SELECT id, CONCAT('【',uma_secname,'】－',uma_name) AS 'name', uma_icon imgurl, uma_config FROM uma`, res=>{
         state.uma = res
       })
 

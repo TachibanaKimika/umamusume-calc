@@ -81,7 +81,7 @@
             </el-row>
             <el-row>
                 <el-col :span="8">
-                    <el-select v-model="myUmaItem" placeholder="🐎名" filterable style="width: 60%">
+                    <el-select v-model="myUmaItem" placeholder="🐎名" filterable style="width: 60%" @change="selectUma">
                         <el-option v-for="item in umaItem" :key="item.id" :value="item.id" :label="item.name">
                             <img :src="item.imgurl" style="width:35px;vertical-align:middle;" alt=""><span style="vertical-align:middle">{{item.name}}</span>
                         </el-option>
@@ -322,6 +322,12 @@
                 }
                 await updatenewuma(umaInsert)
                 this.$message("提交成功")
+            },
+            selectUma(itemid){
+                console.log(itemid)
+                let item = this.umaItem.find({id:itemid})
+                console.log(item)
+                this.myUmaConfig = JSON.parse(item.uma_config)
             }
         },
         computed:{

@@ -76,7 +76,7 @@ var simulation = function (cards_item,options) {
         }
         //mytore[calc_card_position(cards_item[i].spc_attribute,cards_item[i].spc_tokuitu)].card.push(cards_item[i])
     }
-
+    console.warn(cards_item)
     //开始模拟
     for(let i in mytore){
         //let result = [0,0,0,0,0,0];
@@ -125,7 +125,7 @@ var simulation = function (cards_item,options) {
         }
         mytore[i].result = result;
     }
-    //console.log(mytore);
+    console.log(mytore[0]);
     return mytore;
 }
 

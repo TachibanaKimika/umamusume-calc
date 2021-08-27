@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-26 20:07:01
- * @LastEditTime: 2021-08-13 00:55:51
+ * @LastEditTime: 2021-08-27 19:07:20
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\components\InsertData2DB.vue
@@ -88,10 +88,10 @@
                 <div class="pictrue">
                     <img style="width:300px;margin:20px"
                         :src="card.imgurl==''?'https://home.akarichan.us:10034/images/2021/02/10/sekai2-24.jpg':card.imgurl"
-                        alt="">
+                        alt="Loading">
                     <img style="width:300px;margin:20px"
                         :src="card.iconurl==''?'https://home.akarichan.us:10034/images/2021/02/10/sekai2-24.jpg':card.iconurl"
-                        alt="">
+                        alt="Loading">
                 </div>
             </el-form>
             <div slot="footer" class="dialog-footer">

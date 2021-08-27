@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-08-25 13:26:25
+ * @LastEditTime: 2021-08-27 18:25:45
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\child\SelectWindowOfRegistedCard.vue
@@ -88,8 +88,10 @@
                 // console.log(this.checkedItem)
                 var ret = $.extend(true, {}, this.checkedItem)
                 if (ret.id != 0) {
-                    ret.spc_bonasu_pt = ret.spc_bonasu_pt.split(',').map(Number)
-                    ret.spc_init_stu = ret.spc_init_stu.split(',').map(Number)
+                    // ret.spc_bonasu_pt = ret.spc_bonasu_pt.split(',').map(Number)
+                    // ret.spc_init_stu = ret.spc_init_stu.split(',').map(Number)
+                    ret.spc_init_stu = JSON.parse(ret.spc_init_stu)
+                    ret.spc_bonasu_pt = JSON.parse(ret.spc_bonasu_pt)
                     this.$emit('getCardFromChild', ret)
                 } else {
                     this.$message("请选择一张卡")

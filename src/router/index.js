@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-15 17:31:37
- * @LastEditTime: 2021-08-21 13:57:22
+ * @LastEditTime: 2021-08-27 14:16:51
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\router\index.js
@@ -55,7 +55,7 @@ const routes = [{
   {
     path: '/Test',
     name: 'Test',
-    component: () => import('../components/Test.vue')
+    component: () => import('../components/QueryInit.vue')
   },
   {
     path: '/SinlgeCardAnalysis',

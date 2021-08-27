@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-08 14:49:48
- * @LastEditTime: 2021-08-25 10:21:58
+ * @LastEditTime: 2021-08-27 19:44:49
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\GetAllMyUma.vue
@@ -74,7 +74,7 @@
         :visible.sync="moreinfoVisible"
         id="umapage">
         <div class="uma_dia">
-            <div class="uma_dia_header_bg"></div>
+            <div class="uma_dia_header_bg" :style="`background-image: url(`+require(`../assets/img/bg/CG82a-L.png`)+`)`"></div>
             <div class="uma_header">
                 <div class="uma_header_block">
                     <span><img :src="singleUma.uma_icon" alt=""></span>
@@ -128,8 +128,8 @@
             
             <div class="uma_info_select">
                 <div class="uma_info_selector_group" v-model="routerTab">
-                    <button value=1>スキル</button>
-                    <button value=2>因子(没做)</button>
+                    <button value=1 class="active">スキル</button>
+                    <button value=2>因子(TODO)</button>
                 </div>
             </div>
             <div class="uma_moreinfo">

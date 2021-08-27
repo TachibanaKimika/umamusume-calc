@@ -19,7 +19,7 @@
         height: 290px;
         width: 800px;
         z-index: -1;
-        background-image: url("/assets/img/bg/CG82a-L.png");
+        // background-image: url("/assets/img/bg/CG82a-L.png");
     }
     .uma_header {
         height: 250px;
@@ -144,7 +144,10 @@
                 margin-left: 10px;
                 margin-right: 10px;
                 img{
+                    border-radius: 5px;
                     width:90px;
+                    -webkit-filter: drop-shadow(2.2px 2.2px 5px #222);
+                    filter: drop-shadow(2.2px 2.2px 5px #222);
                 }
             }
     
@@ -154,13 +157,20 @@
     .uma_info_select {
         height:50px;
         .uma_info_selector_group{
+            .active{
+                background-color: rgb(72, 255, 72);
+                color: #ffffff;
+                border: 2px solid rgb(72, 255, 72);
+            }
             button{
                 width:200px;
                 height:30px;
-                background-color: rgb(72, 255, 72);
                 font-size: 15px;
                 font-weight: bold;
-                color: #ffffff;
+                box-shadow: 2px 2px 2px #696969;
+                border: 2px solid rgb(226, 226, 226);
+                background-color: rgb(226, 226, 226);
+                color: #8a5417;
                 // text-shadow: 0 1.2px white, 1.2px 0 white, -1.2px 0 white, 0 -1.2px white;
             }
             :nth-child(1){
@@ -171,6 +181,7 @@
                 border-top-right-radius: 50px; 
                 border-bottom-right-radius: 50px;
             }
+            
         }
     }
 
