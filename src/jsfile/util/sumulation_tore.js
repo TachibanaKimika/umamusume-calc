@@ -64,9 +64,10 @@ var simulation = function (cards_item,options) {
             result:[0,0,0,0,0,0],
         }
     ];
-    for(var i in options.torelv){
+    for(let i in options.torelv){
         mytore[i].level = options.torelv[i];
     }
+    
     //计算卡在各个训练中出现的概率并加入到其中
     for(let i in cards_item){
         //tmpnum = calc_card_position(cards_item[i].spc_attribute,cards_item[i].spc_tokuitu);
@@ -79,16 +80,20 @@ var simulation = function (cards_item,options) {
     console.warn(cards_item)
     //开始模拟
     for(let i in mytore){
+        
         //let result = [0,0,0,0,0,0];
         //获得基础值
-        var result = stdtore[i].lv[mytore[i].level-1];
+        let result = stdtore[i].lv[mytore[i].level-1];
+        for(let ii in options.uma){
+            result[ii]*=(1+options.uma[ii]/100)
+        }
         let youujoUP = 1;
         let yarukiUP = 0;
         let toreUP = 1;
         for(var j in mytore[i].card){
             //友情ボーナス補正
             if((mytore[i].card[j].spc_attribute-1)==i&&mytore[i].card[j].spc_kizuna>80){
-                //console.log("youujo")
+                console.log("youujo")
                 youujoUP = youujoUP*(100+mytore[i].card[j].spc_youujo)/100;
             }
             //やる気効果補正
@@ -154,9 +159,7 @@ var calc_card_position = function(spc_attribute,card_tokuritu,mode){
             rituArr[i] = noawareritu;
         }
     }
-    // console.log(rituArr);
-    // console.log(calcArrSum(rituArr,4));
-    // console.log(calcArrSum(rituArr,6));
+
     let ranNUM = Math.random();
     //console.log(ranNUM);
     switch(true){
@@ -177,7 +180,7 @@ var calc_card_position = function(spc_attribute,card_tokuritu,mode){
 }
 
 //计算数组前n项和
-var calcArrSum = function( arr, index){
+var calcArrSum = function(arr, index){
     let sum = 0;
     for(var i=0; i<index; i++){
         sum+=arr[i];
@@ -189,7 +192,7 @@ var calcArrSum = function( arr, index){
 var calcSingleCard = function(cards_item,basenum,yaruki){
     //not youjyo
     let commonTore = basenum;
-    let youjyoTore = [];
+    // let youjyoTore = [];
     for(var i in commonTore){
         basenum[i] *= yaruki;// =1.x
         commonTore[i]+=cards_item.spc_bonasu_pt[i];

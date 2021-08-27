@@ -19,7 +19,7 @@
         data() {
             return {
                 
-                umaList: require('../assets/db/db.json').players,
+                // umaList: require('../assets/db/db.json').players,
                 QueryStr: ''
             }
         },

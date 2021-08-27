@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-26 00:39:37
- * @LastEditTime: 2021-08-25 00:23:45
+ * @LastEditTime: 2021-08-27 20:43:30
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \umamusume-databaseh:\Electron\electron-vue\umamusume-calc\src\components\InsertSkill.vue
@@ -10,7 +10,7 @@
     <div class="InsertSkill">
         <el-radio-group v-model="skillOptions.rare">
             <el-radio-button label="0">金スキル</el-radio-button>
-            <el-radio-button label="1">非金スキル</el-radio-button>
+            <el-radio-button label="1">ノーマルスキル</el-radio-button>
             <el-radio-button label="2">固有</el-radio-button>
         </el-radio-group>
         <el-radio-group v-model="skillOptions.long">

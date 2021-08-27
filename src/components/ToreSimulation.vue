@@ -8,46 +8,46 @@
                         <span v-if="selected_card_item[0]">{{selected_card_item[0].spc_name}}</span><span
                             v-else>请选择支援卡1</span>
                     </el-button>
-                    <el-switch v-model="card_kizuna[0]" active-color="#13ce66" inactive-color="#ff4949" active-value=100
-                        inactive-value=0>
+                    <el-switch v-model="card_kizuna[0]" active-color="#13ce66" inactive-color="#ff4949" :active-value="100"
+                        :inactive-value="0">
                     </el-switch>
                     <el-button v-model="selected_card_item[1]" placeholder="支援卡2"
                         @click="dialogVisible = true;potionSelector=1" style="width:27%" class="line-limit-length">
                         <span v-if="selected_card_item[1]">{{selected_card_item[1].spc_name}}</span><span
                             v-else>请选择支援卡2</span>
                     </el-button>
-                    <el-switch v-model="card_kizuna[1]" active-color="#13ce66" inactive-color="#ff4949" active-value=100
-                        inactive-value=0>
+                    <el-switch v-model="card_kizuna[1]" active-color="#13ce66" inactive-color="#ff4949" :active-value="100"
+                        :inactive-value="0">
                     </el-switch>
                     <el-button v-model="selected_card_item[2]" placeholder="支援卡3"
                         @click="dialogVisible = true;potionSelector=2" style="width:27%" class="line-limit-length">
                         <span v-if="selected_card_item[2]">{{selected_card_item[2].spc_name}}</span><span
                             v-else>请选择支援卡3</span>
                     </el-button>
-                    <el-switch v-model="card_kizuna[2]" active-color="#13ce66" inactive-color="#ff4949" active-value=100
-                        inactive-value=0>
+                    <el-switch v-model="card_kizuna[2]" active-color="#13ce66" inactive-color="#ff4949" active-value="100"
+                        :inactive-value="0">
                     </el-switch>
                 </el-col>
                 <el-button v-model="selected_card_item[3]" placeholder="支援卡4"
                     @click="dialogVisible = true;potionSelector=3" style="width:27%" class="line-limit-length">
                     <span v-if="selected_card_item[3]">{{selected_card_item[3].spc_name}}</span><span v-else>请选择支援卡4</span>
                 </el-button>
-                <el-switch v-model="card_kizuna[3]" active-color="#13ce66" inactive-color="#ff4949" active-value=100
-                    inactive-value=0>
+                <el-switch v-model="card_kizuna[3]" active-color="#13ce66" inactive-color="#ff4949" :active-value="100"
+                    :inactive-value="0">
                 </el-switch>
                 <el-button v-model="selected_card_item[4]" placeholder="支援卡5"
                     @click="dialogVisible = true;potionSelector=4" style="width:27%" class="line-limit-length">
                     <span v-if="selected_card_item[4]">{{selected_card_item[4].spc_name}}</span><span v-else>请选择支援卡5</span>
                 </el-button>
-                <el-switch v-model="card_kizuna[4]" active-color="#13ce66" inactive-color="#ff4949" active-value=100
-                    inactive-value=0>
+                <el-switch v-model="card_kizuna[4]" active-color="#13ce66" inactive-color="#ff4949" :active-value="100"
+                    :inactive-value="0">
                 </el-switch>
                 <el-button v-model="selected_card_item[5]" placeholder="支援卡6"
                     @click="dialogVisible = true;potionSelector=5" style="width:27%" class="line-limit-length">
                     <span v-if="selected_card_item[5]">{{selected_card_item[5].spc_name}}</span><span v-else>请选择支援卡6</span>
                 </el-button>
-                <el-switch v-model="card_kizuna[5]" active-color="#13ce66" inactive-color="#ff4949" active-value=100
-                    inactive-value=0>
+                <el-switch v-model="card_kizuna[5]" active-color="#13ce66" inactive-color="#ff4949" :active-value="100"
+                    :inactive-value="0">
                 </el-switch>
             </el-row>
         </div>
@@ -282,12 +282,11 @@
         },
         methods: {
             up2sumulation() {
-                console.log(this.options.uma)
                 if (this.checkUpdata(this.selected_card_item)) {
                     for (let i in this.card_kizuna) {
                         this.selected_card_item[i].spc_kizuna = this.card_kizuna[i]
                     }
-                    console.log(this.selected_card_item)
+                    
                     this.recivedresult = simulation(this.selected_card_item, this.options)
                     for (let i in this.recivedresult) {
                         this.result[i].result = this.recivedresult[i].result;

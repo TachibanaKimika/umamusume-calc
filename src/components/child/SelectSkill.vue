@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-07 18:18:24
- * @LastEditTime: 2021-08-25 11:06:36
+ * @LastEditTime: 2021-08-27 20:47:58
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \.gitf:\My Repo\umamusume-calc\src\components\child\SelectSkill.vue
@@ -40,14 +40,28 @@
                         <el-radio-button label="3">中距離</el-radio-button>
                         <el-radio-button label="4">長距離</el-radio-button>
                         <el-radio-button label="5">ダート</el-radio-button>
-                        <el-radio-button label="0">全て</el-radio-button>
+                        <el-radio-button label="-1">全て</el-radio-button>
                     </el-radio-group>
                     <el-radio-group v-model="fliter.skill_sakusen" size="mini">
                         <el-radio-button label="1">追込</el-radio-button>
                         <el-radio-button label="2">差し</el-radio-button>
                         <el-radio-button label="3">先行</el-radio-button>
                         <el-radio-button label="4">逃げ</el-radio-button>
-                        <el-radio-button label="0">全て</el-radio-button>
+                        <el-radio-button label="-1">全て</el-radio-button>
+                    </el-radio-group>
+                    <el-radio-group v-model="fliter.skill_rare" size="mini">
+                        <el-radio-button label="0">金スキル</el-radio-button>
+                        <el-radio-button label="1">ノーマル</el-radio-button>
+                        <el-radio-button label="2">固有</el-radio-button>
+                        <el-radio-button label="-1">全て</el-radio-button>
+                    </el-radio-group>
+                    <el-radio-group v-model="fliter.skill_type" size="mini">
+                        <el-radio-button label="0">橙スキル</el-radio-button>
+                        <el-radio-button label="1">青スキル</el-radio-button>
+                        <el-radio-button label="2">緑スキル</el-radio-button>
+                        <el-radio-button label="3">固有スキル</el-radio-button>
+                        <el-radio-button label="4">赤スキル</el-radio-button>
+                        <el-radio-button label="-1">全て</el-radio-button>
                     </el-radio-group>
                     <el-input v-model="fliter.searchtext" placeholder="关键词搜索(支持正则)" clearable style="display:inline-block;width:15vw"></el-input>
                 </div>
@@ -89,8 +103,10 @@ export default {
             mySkill:[],
             selectedSkill:[],
             fliter:{
-                skill_long:'0',
-                skill_sakusen:'0',
+                skill_long:'-1',
+                skill_sakusen:'-1',
+                skill_rare:'-1',
+                skill_type:'-1',
                 searchtext:''
             }
         }
@@ -147,13 +163,18 @@ export default {
             this.$emit('getSkillFromChild', this.selectedSkill)
         },
         fliterSkill(skill){
-            if(this.fliter.skill_long!=0&&this.fliter.skill_long!=skill.skill_long){
+            if(this.fliter.skill_long!=-1&&this.fliter.skill_long!=skill.skill_long){
                 return false
             }
-            if(this.fliter.skill_sakusen!=0&&this.fliter.skill_sakusen!=skill.skill_sakusen){
+            if(this.fliter.skill_sakusen!=-1&&this.fliter.skill_sakusen!=skill.skill_sakusen){
                 return false
             }
-
+            if(this.fliter.skill_rare!=-1&&this.fliter.skill_rare!=skill.skill_rare){
+                return false
+            }
+            if(this.fliter.skill_type!=-1&&this.fliter.skill_type!=skill.skill_type){
+                return false
+            }
             if(this.fliter.searchtext!=''){
                 let reg = eval(`/${this.fliter.searchtext}/g`)
                 if(!skill.skill_name.match(reg)){

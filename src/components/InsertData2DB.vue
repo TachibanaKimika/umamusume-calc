@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-26 20:07:01
- * @LastEditTime: 2021-08-27 19:07:20
+ * @LastEditTime: 2021-08-27 20:41:00
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\components\InsertData2DB.vue
@@ -164,6 +164,7 @@
                 <el-form-item label="ICONURL" :label-width="formLabelWidth">
                     <el-input v-model="uma.icon" placeholder="头像链接(gamewith)">
                     </el-input>
+                    <el-button　@click="dialogVisibleTekisei=true">適性</el-button>
                 </el-form-item>
                 <div class="pictrue">
                     <img style="width:300px;margin:20px"
@@ -209,6 +210,105 @@
                 <el-button type="primary" @click="updateUma();dialogFormVisible_Uma_U = false">确 定</el-button>
             </div>
         </el-dialog>
+
+        <el-dialog title="适性选择" width="60%" class="umaconfig"  :visible.sync="dialogVisibleTekisei">
+            <span>馬場適性</span>  
+            <el-tag>芝</el-tag>
+            <el-select v-model="uma.UmaConfig.baba.shiba" size="mini">
+                <el-option
+                v-for="item in rankOption"
+                :key="item"
+                :value="item">
+                </el-option>
+            </el-select>
+
+            <el-tag>ダート</el-tag>
+            <el-select v-model="uma.UmaConfig.baba.dato" size="mini">
+                <el-option
+                v-for="item in rankOption"
+                :key="item"
+                :value="item">
+                </el-option>
+            </el-select>
+
+            <br>
+
+            <span>距離適性</span>  
+            <el-tag>短距離</el-tag>
+            <el-select v-model="uma.UmaConfig.kyori.tankyori" size="mini">
+                <el-option
+                v-for="item in rankOption"
+                :key="item"
+                :value="item">
+                </el-option>
+            </el-select>
+
+            <el-tag>マイル</el-tag>
+            <el-select v-model="uma.UmaConfig.kyori.mairu" size="mini">
+                <el-option
+                v-for="item in rankOption"
+                :key="item"
+                :value="item">
+                </el-option>
+            </el-select>
+
+            <el-tag>中距離</el-tag>
+            <el-select v-model="uma.UmaConfig.kyori.juukyori" size="mini">
+                <el-option
+                v-for="item in rankOption"
+                :key="item"
+                :value="item">
+                </el-option>
+            </el-select>
+
+            <el-tag>長距離</el-tag>
+            <el-select v-model="uma.UmaConfig.kyori.cyoukyori" size="mini">
+                <el-option
+                v-for="item in rankOption"
+                :key="item"
+                :value="item">
+                </el-option>
+            </el-select>
+
+            <br>
+
+            <span>脚質</span>  
+            <el-tag>逃げ</el-tag>
+            <el-select v-model="uma.UmaConfig.kyakushitu.nige" size="mini">
+                <el-option
+                v-for="item in rankOption"
+                :key="item"
+                :value="item">
+                </el-option>
+            </el-select>
+
+            <el-tag>先行</el-tag>
+            <el-select v-model="uma.UmaConfig.kyakushitu.senkou" size="mini">
+                <el-option
+                v-for="item in rankOption"
+                :key="item"
+                :value="item">
+                </el-option>
+            </el-select>
+
+            <el-tag>差し</el-tag>
+            <el-select v-model="uma.UmaConfig.kyakushitu.sashi" size="mini">
+                <el-option
+                v-for="item in rankOption"
+                :key="item"
+                :value="item">
+                </el-option>
+            </el-select>
+
+            <el-tag>追込</el-tag>
+            <el-select v-model="uma.UmaConfig.kyakushitu.oikomi" size="mini">
+                <el-option
+                v-for="item in rankOption"
+                :key="item"
+                :value="item">
+                </el-option>
+            </el-select>
+        </el-dialog>
     </div>
 </template>
 
@@ -226,6 +326,7 @@
                 dialogFormVisible_Spc_U: false,
                 dialogFormVisible_Uma: false,
                 dialogFormVisible_Uma_U: false,
+                dialogVisibleTekisei: false,
                 card: {
                     name: '',
                     secname: '',
@@ -239,6 +340,24 @@
                     secname: '',
                     img: '',
                     icon: '',
+                    UmaConfig: {
+                        baba:{
+                            shiba:"A",
+                            dato:"A"
+                        },
+                        kyori:{
+                            tankyori:"A",
+                            mairu:"A",
+                            juukyori:"A",
+                            cyoukyori:"A",
+                        },
+                        kyakushitu:{
+                            nige:"A",
+                            senkou:"A",
+                            sashi:"A",
+                            oikomi:"A"
+                        }
+                    }
                 },
                 sqlcon: {
                     username: 'akarichan',
@@ -254,7 +373,7 @@
         methods: {
             insertUma() {
                 let query =
-                    `INSERT INTO uma (uma_name, uma_secname, uma_img, uma_icon) VALUES ('${this.uma.name}', '${this.uma.secname}', '${this.uma.img}', '${this.uma.icon}')`
+                    `INSERT INTO uma (uma_name, uma_secname, uma_img, uma_icon, uma_config) VALUES ('${this.uma.name}', '${this.uma.secname}', '${this.uma.img}', '${this.uma.icon}', '${JSON.stringify(this.uma.UmaConfig)}')`
                 qurSql(this.sqlcon, query, res => {
                     console.log(res)
                     let msg = `插入成功, 影响行数:  + ${res.affectedRows}, msg=${res.message}`
