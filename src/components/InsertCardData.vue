@@ -312,8 +312,8 @@
                         type: 'warning'
                     }).then(() => {
                         let query = `UPDATE ${this.$store.state.user.group == 'admin'?'supportcard_stu':'supportcard_stu_user'}
-                        SET spc_youujo=${this.spcSubmit.youujo}, spc_yaruki=${this.spcSubmit.yaruki}, spc_tore=${this.spcSubmit.tore}, spc_bonasu_pt='${this.spcSubmit.bonasu_pt.toString()}', spc_tokuitu=${this.spcSubmit.tokuitu},
-                        spc_kizuna=${this.spcSubmit.kizuna}, spc_init_stu='${this.spcSubmit.init_stu.toString()}', spc_race=${this.spcSubmit.race}, 
+                        SET spc_youujo=${this.spcSubmit.youujo}, spc_yaruki=${this.spcSubmit.yaruki}, spc_tore=${this.spcSubmit.tore}, spc_bonasu_pt='${JSON.stringify(this.spcSubmit.bonasu_pt)}', spc_tokuitu=${this.spcSubmit.tokuitu},
+                        spc_kizuna=${this.spcSubmit.kizuna}, spc_init_stu='${JSON.stringify(this.spcSubmit.init_stu)}', spc_race=${this.spcSubmit.race}, 
                         spc_fan=${this.spcSubmit.fan}, spc_hit_lv=${this.spcSubmit.hitlv}, spc_hit_ritu=${this.spcSubmit.hit_ritu}, spc_reduce_suta=${this.spcSubmit.reduce_suta}, spc_reduce_shipai=${this.spcSubmit.reduce_shipai}
                         WHERE spc_id = ${this.spcSubmit.id} AND spc_lv = ${this.spcSubmit.level} ${this.$store.state.user.group == 'admin'?'':'AND spc_uuid='+this.$store.state.user.uuid}`
                         console.log(query)
@@ -336,7 +336,7 @@
                                 spc_fan, spc_hit_lv, spc_hit_ritu, spc_reduce_suta, spc_reduce_shipai
                                 ${this.$store.state.user.group == 'admin'?'':', spc_uuid'}) VALUES
                                 (${this.spcSubmit.id}, ${this.spcSubmit.level}, ${this.spcSubmit.youujo}, ${this.spcSubmit.yaruki}, 
-                                ${this.spcSubmit.tore}, '${this.spcSubmit.bonasu_pt.toString()}', ${this.spcSubmit.tokuitu}, ${this.spcSubmit.kizuna}, '${this.spcSubmit.init_stu.toString()}',${this.spcSubmit.race},
+                                ${this.spcSubmit.tore}, '${JSON.stringify(this.spcSubmit.bonasu_pt)}', ${this.spcSubmit.tokuitu}, ${this.spcSubmit.kizuna}, '${JSON.stringify(this.spcSubmit.init_stu)}',${this.spcSubmit.race},
                                 ${this.spcSubmit.fan}, ${this.spcSubmit.hitlv}, ${this.spcSubmit.hit_ritu}, ${this.spcSubmit.reduce_suta}, ${this.spcSubmit.reduce_shipai}
                                 ${this.$store.state.user.group == 'admin'?'':', '+this.$store.state.user.uuid})`
                 console.log(querystr)
@@ -431,12 +431,12 @@
                 //let {atb, name, rare} = this.spcard.find({id:rowcard.id})
                 return {
                     id: rowcard.id * rowcard.id + Math.floor(Math.random() * (1000)) + 1000,
-                    spc_bonasu_pt: rowcard.bonasu_pt.toString(),
+                    spc_bonasu_pt: JSON.stringify(rowcard.bonasu_pt),
                     spc_fan: rowcard.fan,
                     spc_hit_lv: rowcard.hitlv,
                     spc_hit_ritu: rowcard.hit_ritu,
                     spc_id: rowcard.id,
-                    spc_init_stu: rowcard.init_stu.toString(),
+                    spc_init_stu: JSON.stringify(rowcard.init_stu),
                     spc_kizuna: parseInt(rowcard.kizuna),
                     spc_lv: rowcard.level,
                     spc_race: rowcard.race,
