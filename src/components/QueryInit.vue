@@ -99,19 +99,19 @@
                     if((3<=ability.type&&ability.type<=7)||(9<=ability.type&&ability.type<=13)||ability.type==30||(20<ability.type&&ability.type<24)){
                         if(ability.type==30){
                             let arr = JSON.parse(config.find({type:3}).value)
-                            arr[5] = this.setValue(ability, level)
+                            arr[5] += this.setValue(ability, level)
                             config.find({type:3}).value = JSON.stringify(arr)
                         }else if(ability.type<=7){
                             let arr = JSON.parse(config.find({type:3}).value)
-                            arr[ability.type-3] = this.setValue(ability, level)
+                            arr[ability.type-3] += this.setValue(ability, level)
                             config.find({type:3}).value = JSON.stringify(arr)
                         }else if(ability.type<=13){
                             let arr = JSON.parse(config.find({type:9}).value)
-                            arr[ability.type-9] = this.setValue(ability, level)
+                            arr[ability.type-9] += this.setValue(ability, level)
                             config.find({type:9}).value = JSON.stringify(arr)
                         }else if(ability.type<24){
                             let arr = JSON.parse(config.find({type:20}).value)
-                            arr[ability.type-20] = this.setValue(ability, level)
+                            arr[ability.type-20] += this.setValue(ability, level)
                             config.find({type:20}).value = JSON.stringify(arr)
                         }
                     }else{
@@ -132,19 +132,19 @@
                             case (3<=type&&type<=7)||(9<=type&&type<=13)||type==30||(20<type&&type<24):
                                 if(ability.type==30){
                                     let arr = JSON.parse(config.find({type:3}).value)
-                                    arr[5] = this.setValue(ability, level)
+                                    arr[5] += this.setValue(ability, level)
                                     config.find({type:3}).value = JSON.stringify(arr)
                                 }else if(ability.type<=7){
                                     let arr = JSON.parse(config.find({type:3}).value)
-                                    arr[ability.type-3] = this.setValue(ability, level)
+                                    arr[ability.type-3] += this.setValue(ability, level)
                                     config.find({type:3}).value = JSON.stringify(arr)
                                 }else if(ability.type<=13){
                                     let arr = JSON.parse(config.find({type:9}).value)
-                                    arr[ability.type-9] = this.setValue(ability, level)
+                                    arr[ability.type-9] += this.setValue(ability, level)
                                     config.find({type:9}).value = JSON.stringify(arr)
                                 }else if(ability.type<24){
                                     let arr = JSON.parse(config.find({type:20}).value)
-                                    arr[ability.type-20] = this.setValue(ability, level)
+                                    arr[ability.type-20] += this.setValue(ability, level)
                                     config.find({type:20}).value = JSON.stringify(arr)
                                 }
                                 break;
