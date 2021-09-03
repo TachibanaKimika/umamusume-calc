@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-08 13:29:38
- * @LastEditTime: 2021-08-27 14:27:11
+ * @LastEditTime: 2021-09-01 00:49:05
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \MyNotef:\My Repo\umamusume-calc\src\store\index.js
@@ -73,7 +73,8 @@ export default new Vuex.Store({
       supportcard_stu.spc_lv,supportcard_stu.spc_youujo,supportcard_stu.spc_yaruki,supportcard_stu.spc_tore,
       supportcard_stu.spc_bonasu_pt,supportcard_stu.spc_tokuitu,supportcard_stu.spc_kizuna,
       supportcard_stu.spc_init_stu,supportcard_stu.spc_race,supportcard_stu.spc_fan,supportcard_stu.spc_hit_lv,
-      supportcard_stu.spc_hit_ritu,supportcard_stu.spc_reduce_suta,supportcard_stu.spc_reduce_shipai,
+      supportcard_stu.spc_hit_ritu,supportcard_stu.spc_reduce_suta,supportcard_stu.spc_reduce_shipai, 
+      spc_limit_up, spc_kashi_kaifuku, spc_jiken_up, spc_jiken_kaifuku_up, spc_game_up,
       supportcard.spc_img imgurl,
       CONCAT('【',supportcard_stu.spc_lv,'】 ‐ 【',supportcard.spc_secname,'】　-　',supportcard.spc_name) spc_name
       FROM supportcard_stu
@@ -90,6 +91,7 @@ export default new Vuex.Store({
         spc_bonasu_pt, spc_tokuitu, spc_kizuna,
         spc_init_stu, spc_race, spc_fan, spc_hit_lv,
         spc_hit_ritu, spc_reduce_suta, spc_reduce_shipai,
+        spc_limit_up, spc_kashi_kaifuku, spc_jiken_up, spc_jiken_kaifuku_up, spc_game_up,
         supportcard.spc_img imgurl,
         CONCAT('【', spc_lv,'】 ‐ 【', spc_secname,'】　-　', spc_name) spc_name
         FROM supportcard_stu_user

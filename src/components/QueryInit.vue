@@ -5,8 +5,11 @@
 <template>
     <div class="QueryInit">
         <div class=QueryInit_btn>
-            <button @click="testNet">start!</button>
-            {{QueryStr}}
+            <button @click="printCardDataJson">打印卡的详细数据</button>
+            <button @click="initQuery">更新数据库</button>
+            <button @click="printCardsJson">打印单卡</button>
+            <button @click="refresh">刷新数据</button>
+            <!-- <button @click="printCardJson">打印单卡的数据</button> -->
         </div>
     </div>
 </template>
@@ -18,34 +21,53 @@
     export default {
         data() {
             return {
-                
                 // umaList: require('../assets/db/db.json').players,
                 QueryStr: ''
             }
         },
         methods:{
-            async testNet(){
+            printCardDataJson(){
+                console.log(JSON.stringify(this.cardTotal))
+            },
+
+            printCardsJson(){
+                console.log(JSON.stringify(this.cards))
+            },
+
+            async initQuery(){
                 // this.allCards = await 
                 let res = await axios.get('https://raw.githubusercontent.com/wrrwrr111/pretty-derby/master/src/assert/db.json')
                 console.log(res.data)
                 let query = ``
                 res.data.supports.forEach(item=>{
                     query += this.initCardQuery(item)
+                    // console.log(this.initCardQuery(item))
                 })
                 // let str = this.initCardQuery(res.data.supports[0])
                 console.log(query)
                 // 下面是加成属性值和type的对照表
-// {友情:1, yaruki:2,xx点:[3,4,5,6,7], 练习效果:8, 初始速度:9, suta:10, powa:11, konnj:12, kashikosa:13, 初始羁绊:14, 比赛:15, 粉丝数:16, hit等级:17, hit率:18 得意率:19, [20,21,22,23,24]:xx极限值提升 事件回复量:25, 事件效果:26, 失败率下降:27, 体力消耗下降:28, 小游戏效果?提升:29, 技能点加成:30, 友情回复量:31}
+// {友情:1, yaruki:2,xx点:[3,4,5,6,7], 练习效果:8, 初始速度:9, suta:10, 
+// powa:11, konnj:12, kashikosa:13, 初始羁绊:14, 比赛:15, 粉丝数:16, hit等级:17, hit率:18 
+// 得意率:19, [20,21,22,23,24]:xx极限值提升 事件回复量:25, 事件效果:26, 失败率下降:27, 体力消耗下降:28, 小游戏效果?提升:29, 技能点加成:30, 友情回复量:31}
             },
 
 
             // 单卡执行的sql语句, 返回一串字符串数组, 由sql语句组成?
             initCardQuery(card){
-                // TODO: getspcID
-                if(this.cardTotal.find({name:`【${card.name}】　－　${card.charaName}`})==undefined){
-                    return ''
+                // console.log(this.cards.find({name:`【${card.name}】　－　${card.charaName}`}))
+                // console.log(card)
+                // console.log(card)
+                let id = -1
+                if(this.cards.find({name:`【${card.name}】　－　${card.charaName}`})!==undefined){
+                    id = this.cards.find({name:`【${card.name}】　－　${card.charaName}`}).id
+                }else if(this.cards.find({name:`【${card.baseAbility.name}】　－　${card.baseAbility.charaName}`})!==undefined){
+                    id = this.cards.find({name:`【${card.baseAbility.name}】　－　${card.baseAbility.charaName}`}).id
+                }else{
+                    if(card.rare!='R'){
+                        console.warn(card)
+                    }
+                    return
                 }
-                let id = this.cardTotal.find({name:`【${card.name}】　－　${card.charaName}`}).id
                 let sqlArr = ''
                 let config = [
                     {label: 'spc_id', value: id, type:-1},
@@ -85,13 +107,11 @@
                 let card = JSON.parse(cardString)
                 let config = JSON.parse(configString)
                 let unique_effect = card.unique_effect
-
                 config.find({label:"spc_lv"}).value = level
                 // 先初始化了config
                 if(card.effects==undefined){
                     return ''
                 }
-
                 // 能力值计算
                 card.effects.forEach(ability=>{
                     // 先找到对应的能力
@@ -119,32 +139,39 @@
                         config.find({type: ability.type}).value = this.setValue(ability, level)
                     }
                 })
-
+                // console.log(card)
                 // 固有计算
-                if(unique_effect.lv<=level){
-                    for(i in 1){
+                if(card.unique_effect.lv<=level){
+                    for(let i = 0; i<=1; i++){
                         let type = unique_effect[`type_${i}`]
                         let value = unique_effect[`value_${i}`]
                         switch(true){
                             case type==1||type==19:
-                                config.find({type:type}).value = Number(((config.find({type:type}).value+100)*(value+100)/10000).toFixed())
+                                if(config.find({type:type}).value>50){
+                                    // console.log(config.find({type:type}).value)
+                                    // console.log(value)
+                                    // console.log((Number(((config.find({type:type}).value/100+1)*(value+100)/100)-1)*100).toFixed(0))
+                                    // console.log(Number(((config.find({type:type}).value+100)*(value+100)/100)-100).toFixed(0))
+                                }
+                                config.find({type:type}).value = (Number(((config.find({type:type}).value/100+1)*(value+100)/100)-1)*100).toFixed(0)
+
                                 break
                             case (3<=type&&type<=7)||(9<=type&&type<=13)||type==30||(20<type&&type<24):
-                                if(ability.type==30){
+                                if(type==30){
                                     let arr = JSON.parse(config.find({type:3}).value)
-                                    arr[5] += this.setValue(ability, level)
+                                    arr[5] += value
                                     config.find({type:3}).value = JSON.stringify(arr)
-                                }else if(ability.type<=7){
+                                }else if(type<=7){
                                     let arr = JSON.parse(config.find({type:3}).value)
-                                    arr[ability.type-3] += this.setValue(ability, level)
+                                    arr[type-3] += value
                                     config.find({type:3}).value = JSON.stringify(arr)
-                                }else if(ability.type<=13){
+                                }else if(type<=13){
                                     let arr = JSON.parse(config.find({type:9}).value)
-                                    arr[ability.type-9] += this.setValue(ability, level)
+                                    arr[type-9] += value
                                     config.find({type:9}).value = JSON.stringify(arr)
                                 }else if(ability.type<24){
                                     let arr = JSON.parse(config.find({type:20}).value)
-                                    arr[ability.type-20] += this.setValue(ability, level)
+                                    arr[type-20] += value
                                     config.find({type:20}).value = JSON.stringify(arr)
                                 }
                                 break;
@@ -154,11 +181,6 @@
                         }
                     }
                 }
-
-
-
-
-
                 let str1 = ``, str2 = ``
                 config.forEach((item,index)=>{
                     str1 += `${item.label}`
@@ -168,25 +190,38 @@
                         str2+=','
                     }
                 })
-                let Query = `insert into supportcard_stu (${str1}) values (${str2});\n`
-                return Query
+                //let Query = `insert into supportcard_stu (${str1}) values (${str2}) WHERE NOT EXISTS (SELECT * FROM supportcard_stu WHERE spc_id=${config.find({label:'spc_id'}).value} AND spc_lv=${config.find({label:'spc_lv'}).value};\n`
+                let query = `
+                INSERT INTO supportcard_stu (${str1}) 
+                SELECT ${str2} FROM DUAL
+                WHERE NOT EXISTS (SELECT spc_id, spc_lv FROM supportcard_stu WHERE spc_id=${config.find({label:'spc_id'}).value} AND spc_lv=${config.find({label:'spc_lv'}).value});
+                `
+                
+                return query
             },
             // 辅助方法
             setValue(ability, level){
                 // 过程
-                if(ability[`limit_lv${level}`]!=-1){
-                    return ability[`limit_lv${level}`]
-                }
+
+                // 初始的能力点
+
+
+
+                // test DATA  lv30: 10, lv50: 20 ==> lv40==?
                 ability[`limit_lv0`] = ability.init
-                // let flag = true
                 let level_start = 0
+
+                // 开始有数值的等级 == 35
                 let start_point = 0
+
                 while(level_start<level){
                     if(ability[`limit_lv${level_start}`]!=-1){
                         start_point=level_start
                     }
                     level_start+=5
                 }
+
+                // 最近有数值的等级
                 let level_end = level;
                 let end_point = undefined;
                 while(level_end<=50){
@@ -196,10 +231,25 @@
                     }
                     level_end+=5
                 }
+                if(ability.type===25){
+                    console.log(`start_point=${start_point}, end_point=${end_point}, lv=${level}`)
+                }
+                if(ability[`limit_lv${level}`]!=-1){
+                    if(ability.type===25){
+                        console.log(ability[`limit_lv${level}`])
+                    }
+                    return ability[`limit_lv${level}`]
+                }
                 // 能力值不会再加了, 返回起始点的数值, 或者为一直都没有能力值
-                if(end_point===undefined||ability[`limit_lv${level_start}`]<=0){
+                if(end_point===undefined||ability[`limit_lv${start_point}`]<=0){
+                    if(ability.type===25){
+                        console.log(ability[`limit_lv${start_point}`]<=0?0:ability[`limit_lv${start_point}`])
+                    }
                     return ability[`limit_lv${start_point}`]<=0?0:ability[`limit_lv${start_point}`]
                 }else{
+                    if(ability.type===25){
+                        console.log(Number((ability[`limit_lv${start_point}`]+(ability[`limit_lv${end_point}`]-ability[`limit_lv${start_point}`])*((level-start_point)/(end_point-start_point))).toFixed(0)))
+                    }
                     // if startpoint = 20, num = 10, endpoint = 50, num = 20, lv= 30 => 10 + (20-10)*((30-20)/(50-20))
                     return Number((ability[`limit_lv${start_point}`]+(ability[`limit_lv${end_point}`]-ability[`limit_lv${start_point}`])*((level-start_point)/(end_point-start_point))).toFixed(0))
                 }
@@ -230,10 +280,16 @@
                 })
                 console.log(uma_str)
                 this.QueryStr = uma_str
+            },
+            refresh(){
+                this.$store.commit('dataInit')
             }
         },
         computed: {
             cardTotal(){
+                return this.$store.state.myCardDb
+            },
+            cards(){
                 return this.$store.state.cards
             }
         }

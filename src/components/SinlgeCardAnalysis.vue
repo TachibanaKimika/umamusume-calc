@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-07-10 03:08:08
- * @LastEditTime: 2021-08-25 13:01:09
+ * @LastEditTime: 2021-08-30 17:23:06
  * @LastEditors: Akarichan
  * @Description: In User Settings Edit
  * @FilePath: \fake-hpf:\My Repo\umamusume-calc\src\components\SinlgeCardAnalysis.vue
@@ -56,15 +56,24 @@
         </div>
 
         <div class="cardbox" v-for="i in 4">
-            <el-button v-model="selected_card[i-1]" @click="dialogVisible = true;potionSelector = i-1;"><span
-                    class="selectedCardItem" v-if="selected_card[i-1]">{{selected_card[i-1].spc_name}}</span><span
-                    v-else>サポートカード{{i}}</span></el-button>
+            <el-button v-model="selected_card[i-1]" @click="dialogVisible = true;potionSelector = i-1" style="width:90%" class="line_limit_length">
+                <span
+                    class="selectedCardItem" v-if="selected_card[i-1]">
+                    <img class="selected_card[i-1]" :src="selected_card[i-1].imgurl">
+                    <br>
+                    {{selected_card[i-1].spc_name}}</span>
+                <span v-else>サポートカード{{i}}</span>
+                
+            </el-button>
             <div class="table">
-                <table v-if="selected_card[i-1]">
+                <table class="content-table" v-if="selected_card[i-1]">
+                    <thead>
                     <tr>
-                        <th>name</th>
-                        <th>num</th>
+                        <th>属性名</th>
+                        <th>数值</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <tr>
                         <td>カテゴリー</td>
                         <td v-if="selected_card[i-1]">{{getAttribute(selected_card[i-1].spc_attribute)}}</td>
@@ -118,7 +127,6 @@
                         <td>{{getAttribute(j,'bonasu')}}ボーナス</td>
                         <td>{{selected_card[i-1].spc_bonasu_pt[j-1]}}</td>
                     </tr>
-
                     <tr>
                         <td>练习性能</td>
                         <td v-if="selected_card[i-1]">{{selected_card[i-1].spc_result.common}}</td>
@@ -131,6 +139,7 @@
                         <td>得意练习出现率</td>
                         <td v-if="selected_card[i-1]">{{selected_card[i-1].spc_result.awareritu}}</td>
                     </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -276,6 +285,7 @@
             calcCard(card) { //传一张卡
                 var my_calc_options = $.extend(true, {}, this.calc_options);
                 let mytore = [];
+
                 //基础值
                 for (let i in my_calc_options.torelv) {
                     mytore[i] = my_calc_options.stdtore[i].lv[my_calc_options.torelv[i] - 1]
@@ -305,7 +315,11 @@
                 //练习性能 resultCommon
                 // console.log(mytore)
                 let atb = card.spc_attribute - 1
-                let resultCommon = mytore[atb][atb] / stdtore[atb][atb]
+                let resultCommon = 0
+                if(atb!==5){
+                    resultCommon = mytore[atb][atb] / stdtore[atb][atb]
+                }
+                
                 // console.log(`atb= ${atb}, and mytore[atb][atb] = ${mytore[atb][atb]}, stdtore[atb][atb] = ${stdtore[atb][atb]}`)
 
 
@@ -317,7 +331,10 @@
                         return num.toFixed(2)
                     })
                 }
-                let resultCommon_y = mytore_y[atb][atb] / stdtore[atb][atb]
+                let resultCommon_y = 0
+                if(atb!==5){
+                    resultCommon_y = mytore_y[atb][atb] / stdtore[atb][atb]
+                }
 
 
                 // 得意练习出现率
@@ -365,10 +382,14 @@
                     this.$message('请选择至少一张卡')
                     return
                 }
+                if(this.my_options.attribute == '') {
+                    this.$message('请选择练习的类型')
+                    return
+                }
                 let card2Submit = []
                 console.log(this.selected_card)
                 for (let i in this.selected_card) {
-                    if (this.selected_card[i].id) {
+                    if (this.selected_card[i].id && this.selected_card[i].attribute!=6) {
                         card2Submit.push(this.selected_card[i])
                     }
                 }
@@ -388,11 +409,20 @@
         width: 22vw;
         margin: 0.5vw;
     }
-
-    .selectedCardItem {
-        font-size: 0.8vw;
-        letter-spacing: 0;
+    .cardbox span img{
+        width: 15vw;
+        margin-top: 1vw;
+        margin-bottom: 0.5vw;
     }
+    
+    .line_limit_length {
+        margin: 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+
 
     .setOptions {
         margin: 2vw
@@ -405,38 +435,47 @@
 
 
     /* Border styles */
-    table thead,
-    table tr {
-        border-top-width: 1px;
-        border-top-style: solid;
-        border-top-color: rgb(230, 189, 189);
+    * {
+    font-family: sans-serif; /* Change your font family */
     }
 
-    table {
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        border-bottom-color: rgb(230, 189, 189);
+    .content-table {
+        /* margin:auto; */
+        border-collapse: collapse;
+        margin: 25px auto;
+        font-size: 0.9em;
+        min-width: 250px;
+        border-radius: 5px 5px 0 0;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     }
 
-    /* Padding and font style */
-    table td,
-    table th {
-        padding: 5px 10px;
-        font-size: 12px;
-        font-family: Verdana;
-        color: rgb(188, 19, 255);
+    .content-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    /* text-align: left; */
+    font-weight: bold;
     }
 
-    /* Alternating background colors */
-    table tr:nth-child(even) {
-        background: rgba(231, 113, 255, 0.555)
+    .content-table th,
+    .content-table td {
+    padding: 8px 12px;
     }
 
-    table tr:nth-child(odd) {
-        background: #FFF
+    .content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
     }
 
-    table {
-        margin: 1vw auto;
+    .content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+    }
+
+    .content-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+    }
+
+    .content-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
     }
 </style>

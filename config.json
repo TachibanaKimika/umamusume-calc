@@ -1,11 +1,11 @@
 {
     "sqlcon":{
-        "sqldomain":"数据库域名",
-        "database":"数据库名"
+        "sqldomain":"rm-bp1id4y905ysrz6pvjo.mysql.rds.aliyuncs.com",
+        "database":"umamusume-pbl-beta"
     },
 
     "database_account":{
-        "username":"用户名",
-        "password":"密码"
+        "username":"akarichan",
+        "password":"akariChan@0721"
     }
 }
