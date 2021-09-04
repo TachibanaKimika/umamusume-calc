@@ -8,6 +8,8 @@
 -->
 # umamusume-calc
 
+网页版: [umamusume-calc-web](https://umamusume.akarichan.us/#/)
+
 本分支供开发新功能使用, 若想直接自己打包可使用master分支的
 
 主要用于赛🐎娘的练习模拟计算, 也支持其他的一些小功能, 具体请看下面的使用说明
